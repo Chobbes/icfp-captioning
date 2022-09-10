@@ -1,33 +1,89 @@
 Term,Pronunciation,Context / Example Usage,Notes,Tags
-A Simple and Efficient Implementation of Strong Call by Need by an Abstract Machine,,Title,,title
-Malgorzata Biernacka,,Author,,Author
-Witold Charatonik,,Author,,Author
-Tomasz Drab,,Author,,Author
-University of Wroclaw,,,,Institution
-call-by-need,,,,Common-term
-evaluator,,,,Common-term
-memothunks,,,,evaluation
-laziness,,,,Common-term evaluation
+Małgorzata Biernacka,Mawgojata /ˌmawɡɔˈʒata/ Biernacka,,,author
+Witold Charatonik,Vitold /ˈvʲitɔlt/ Haratonik,,,author
+Tomasz Drab,Tomash /ˈtɔ̃maʃ/ Drab /drap/,,,author
+Beniamino Accattoli,Beniamino Akkattoli,,,researcher
+Mads Sig Ager,,,,researcher
+Thibaut Balabonski,,,,researcher
+Pablo Barenbaum,,,,researcher
+Dariusz Biernacki,Dariush /ˈdarʲjuʃ/ Biernacki,,,researcher
+Eduardo Bonelli,,,,researcher
+Maciej Buszka,Maciey /ˈmaʨ̑ɛ̇j/ Bushka,,,researcher
+Alonzo Church,,,,researcher
+Pierre Crégut,,,,researcher
+Olivier Danvy,,,,researcher
+Álvaro García-Pérez,,,,researcher
+Giulio Guerrieri,,,,researcher
+Delia Kesner,,,,researcher
+Damiano Mazza,,,,researcher
+Jan Midtgaard,,,,researcher
+Johan Munk,,,,researcher
+Pablo Nogueira,,,,researcher
+John Reynolds,,,,researcher
+University of Wrocław,University of Vrotzwav /ˈvrɔʦ̑waf/,,,institution
+α-conversion,alpha conversion,,,
+α-renaming,alpha renaming,,,
+Agda,,,,
+β-conversion,bee-ta /ˈbiːtə/ conversion,,,
+β-normalizable,bee-ta /ˈbiːtə/ normalizable,,,
+β-reduction,bee-ta /ˈbiːtə/ reduction,,,
+β-step,bee-ta /ˈbiːtə/ step,,,
+binder,like in bind,,,
+bypass,,,,
+call by name,,,call-by-name as adjective,
+call by need,,,call-by-need as adjective,
+call by value,,,call-by-value as adjective,
+closure,,,,
+conclusion,,,,
+conservative extension,,,,
+context,,,,
+contrex,,,,
+continuation,con-tea-new-a-tion,,,
+continuation-passing style,,,,
+Coq,Pronounced like “cock”,,,
+CPS,C.P.S.,abbreviation for continuation-passing style ,,
+Church arithmetic,church arithmetic,,,
+defunctionalization,,,,
+denotational semantics,,,,
+direct style,,,,
+dump,,,,
+evaluator,,,,
+functional correspondence,,,,
+ghost machine,,,,
+Haskell,,,,
+implicit sharing,,,,
+inert term,,,,
+instruction,,,,
+KL,K.L.,KL abstract machine,,
+KN,K.N.,KN abstract machine,,
 Krivine machine,,,,
-beta-reduction,,,,Common-term evaluation
-denotational semantics,,,,Common-term
-Call-by-Value (CbV),,,,Common-term evaluation
-lambda-calculus,,,,Common-term
-call-by-name (CbN),,,,Common-term evaluation
-Call-by-need (CbNd),,,,Common-term evaluation
-beta-normalizable,,,,Common-term evaluation
-collapsible,,,,
-Coq,Pronounced like “cock”,,,Common-term tool programming-language theorem-prover
-Agda,,,,Common-term tool programming-language theorem-prover
-Haskell,,,,Common-term tool programming-language
-STG machine,,,,
-SCAM,,,,
-Strong CbNd,Strong call-by-need,,,
-RKNL,,,,
-KNL,,,,
-Useful MAM,,,,
-NbE (normalization by evaluation),,,,
-Racket,,,,Common-term tool programming-language
-beta-step,,A step of beta-reduction,,Common-term evaluation
-reduction semantics,,,,
+lambda,lam-duh,Used to refer to anonymous functions “we have a lambda function here”,,
+lambda calculus,lam-duh calculus,,,
+laziness,,,,
+memoization,,,,
+memothunk,,,,
+NbE,N.B.E.,normalization by evaluation,,
+normalization by evaluation,,,,
+OCaml,,OCaml programming language,,
+optional,,,,
+pattern matching,,,,
+potential function,,,,
+premiss,,,,
+Racket,racket,Racket programming language,,
 reachable configuration,,,,
+reasonability,,,,
+redex,,,,
+reduction semantics,,,,
+refocusing,,,,
+rigid term,,,,
+RKNV,"R.K.N.V., or arcane V.",RKNV abstract machine,,
+RKNL,"R.K.N.L., or arcane L.",RKNL abstract machine,,
+SCAM,scam,SCAM (abstract machine),,
+shape invariant,,,,
+stack,,,,
+STG machine,S.T.G. machine,,,
+strong reduction,,,,
+stuck term,,,,
+uniform strategy,,,,
+Useful MAM,useful mam,Useful MAM (abstract machine),,
+weak reduction,,,,
