@@ -1,26 +1,53 @@
 Term,Pronunciation,Context / Example Usage,Notes,Tags
 A Reasonably Gradual Type Theory,,,,Title
-Kenji Maillard,,,,Author
-Meven Lennon-Bertrand,,,,Author
-Nicolas Tabareau,,,,Author
-Éric Tanter,,,,Author
+Kenji Maillard,ken-jee my-yar,,,Author
+Meven Lennon-Bertrand,May-van Lenon Bear-tran,,,Author
+Nicolas Tabareau,nikola tabaro,,,Author
+Éric Tanter,Ayric tan-ter,,,Author
 Gallinette Project-Team,,,,Lab
 Inria,,,,Institution
+Nantes,,,,City
 PLEIAD Lab,,,,Lab
 University of Chile,,,,Institution
-CIC (Calculus of Inductive Constructions),,,,Common-term
-GCIC,,Gradually typed variant of CIC,,
+CIC (Calculus of Inductive Constructions),see-ay-see,,,Common-term
+GCIC,jee-see-ay-see,Gradually typed variant of CIC,,
 gradual types,,,,
-CastCIC,,,,
-GRIP ,,,,
+CastCIC,kast-see-ay-see,cast calculus associated to GCIC,,
+GRIP ,greep,,,
 Agda,,,,Programming-language Common-term
 Coq,“cock”,,,Programming-language Common-term
 formalization,,,,Common-term
 Proof-irrelevant,,,,Common-term
 graduality,,,,
 Dynamic Gradual Guarantee (DGG),,,,
-MLTT,,,,
+error-approximation,,,,
+MLTT,,short for Martin-Lof Type Theory/dependent type,,theory
 propositional,,,,Common-term
 monotone,,,,Common-term
 monotonicity,,,,Common-term
 observational,,,,
+vect,,program data structure,,
+nil,,,,
+cons,kon-ss,,,
+unknown,,Gradual typing,,theory
+consistency,,Gradual typing,,theory
+cast,,Gradual typing,,theory
+precision,,Gradual typing,,theory
+ep-pairs,E-P-pair,short for embedding projection pair,,theory
+lambda,lam-duh,Used to refer to anonymous functions “we have a lambda function here”,theory
+lambda calculus,lam-duh calculus,,,theory
+normalization,,computations,,theory
+normalize,,computations,,theory
+conservative,,,,theory
+internal precision,,,,theory
+universe,,dependent types,,theory
+judgement,,dependent types,,theory
+definitionally,,,,theory
+proof-irrelevant,,,,theory
+extensional,,functions,,theory
+adjoint,,,,theory
+cumulativity,,,,theory
+SProp,S-prop,short for strict propositions,,theory
+partial pre-orders,,,,theory
+GRIP^↑,greep-shift,,,theory
+Pi, pie,dependent types,,theory
