@@ -1,0 +1,888 @@
+>> Welcome you to this session and we're going to start off with a functional pearl by Norman
+Ramsey and the pear is about having a single pass compilation of unstructured control flow into a structured
+one. And we'll see 15 minutes if I'm right.
+>> NORMAN RAMSEY: All right. So I'm going to tell you about some work we've done in a context of
+building a WebAssembly back for GHC. And I hope you'll leave with a little bit of an idea about how a
+compiler looks at control flow, but even more, a warm feeling for our favorite tools functional programming.
+So GC is design the go down to machine code, so it has a low level form, called Cmm that's repped adds a
+control-flow graph that I show on the left and it's going to reflect a representation on the right and all these if
+A, go to, go to, each is designed to compile to single machine instruction.
+But our target doesn't have go to. WebAssembly is set up with a little bit of sin tactic structure and the
+only real control transfer, this is if then, and then there's a continue or exit instruction.
+So the same kind of diamond classic if control flow translates into WebAssembly very directly as an if.
+And in this example I've shown the WebAssembly evaluation stack, but I just want to simplify it for purposes
+of this talk so that we can understand what we're looking at.
+So here's what we need to know about WebAssembly and its structured control flow. It's got if then
+else. It's got a lope construct. That is unweary, because if you reach the end it doesn't go back to the
+beginning automatically, it falls through. So I learned that two weeks ago.
+[
+[Laughter.]
+>> NORMAN RAMSEY: Indeed, it's -- think of it as a label for -- target for backward branch, then
+you'll be okay. And then we've got a block form that exists only to be exited from. And then here's our
+control flow that says, reach at word, Ktimes to whatever you're nested in and if you're reaching out to a loop,
+go to the beginning, anything else, go past the end.
+So that's what we need to -- need to target. So it works for nice simple if-then forms. Here's a sort of
+classic, this is kind of simplest loop I could write. We're going to enter Aprime, B prime could go back to A
+prime and then eventually, we'll go and exit the loop.
+And here's what the WebAssembly looks like. If, you know, B prime wants to go back, it's going to use
+this BR instruction, which here acts like a continue and then there's really no need for a break or exit
+instruction, just reaching the end exits the loop.
+So this is all very nice, but not all control flow is very nice. So here's something that looks like it's got
+some if diamond things and they're all mix together and things join back together and Simon is here and he's
+probably going to pester me about job points and -- we can find something like this -- I know.
+[Laughter.]
+>> NORMAN RAMSEY: So we're starting with a nice little if then, but B and D get okay. If we get to B
+and then C else D, he want to put E in here, it has to be reachable on this other path out of A. We certainly
+don't want to duplicate it. So this is a problem we set out to solve. Only I solved it by going to the library,
+because I remembered in the late 60s and early 70s, people -- the structured programming thing was new
+and people were very obsessed with what it could do and there was this very deep technical paper by Peter
+son, Kasami and Tokura that has a whole bunch of results about and of control flow can you translate and
+what do they do and in the process, they solve this plasm and it's this rather elaborate sequence 6 steps that
+start with a rusable control-flow graph. That's just one where you don't jump into the middle of loops, jumping
+out okay. And then we have a whole sequence of things that eventually arrives at -- at -- so the structured
+flow that we want.
+But this was not something I was keen to add directly to GHC because the pros and cons. Pros,
+absolute guarantee the algorithm is going to work, it's going to terminate and no code is duplicated, so in the
+translation, the translated program running exactly the same set of tests and actions as the original and
+there's no static duplication, either, so very, very nice, but it's not a lovely algorithm. It's got three passes,
+intermediate states, the control flow is messy, it works by emitting code as a side effect. Simon, I wouldn't
+want to propose to Simon that I put such a thick into GHC, so how can we could better. This was state of the
+add in 1973. This is nicely indented for publication, but it's just a set of commands. There's no actual syntax
+structure here.
+And here's the algorithm. Try not to get too, uh, distracted by the details. It is the -- if you've read the
+art of computer programming, this is the style of the time and so it's actually -- this has got three cases and if
+X is the terminal node. T, then emit stop and terminate or write go to Y as a side effect and -- there's a nice
+little hint right at the beginning.
+The algorithm requires the use of a left in stack. Everyone knows what that means, there must be a
+recur I have function somewhere, so that was my job, to find the recursive function and to see if I could have
+our desired output syntax directly instead of having to treat it as side effects, can we just define a recursive
+function that returns the syntax that we want and the answer to that question is yes.
+And these are really the only two functional programming techniques here. Algebraic types, every
+function for the computation.
+And then there is a couple of key compiler ideas that are bog standard, one is to number the nodes in
+the graph with a reverse post ordered numbering. This is just adept for search and the other is to use a
+dominator tree which ilexplain to you.
+But I want to start with the graph properties because the graph properties tell us what shape of code to
+emit when we're translating a control-flow graph node.
+So if the node is entered by back edge from higher number to lower numbered like the loop I showed,
+then the translation is going to be wrapped in a loop. And that's -- that's literally all you do. You say, if there's
+a thing, wrap it in a loop.
+If the node has two out edges, then its translation needs to end in if and that's more complicated for
+computer go tos that I won't trouble so that's going to tell us what to translate and then where to put it. How
+do we arrange everything so everything works.
+And that's determined by a dominance relation and a dominance relation is a way of talking about how
+can you get to a place, so A here dominates B, C, and D. A come United States B. If every path from the
+entry point that includes B also includes A. So to get to B, you have to go through A. And the immediate
+dominator is the -- the one of all those, I'm just going to be informal, that's closest to B. So there could be a
+long chain of things that you have to get through to get to B. All the otherses also have to get through to get
+to A. But A is the closest to B, it's the immediate one. A is also the immediate dominator of C, and it's the
+immediate dominator of D. Bcan only go to D, about you it doesn't dominate D because there's another way
+to get there.
+So the dominance structure is different from the control flow structure and it's simpler.
+What we're going to do is the placement -- in my recursive function, at some point I'm going to be
+given A. And I'm going to translate A and everything that Dominates. Other things are going to follow A. So
+that's how my reecursi#0SHGS n is goings to work. How do I know what goes inside and what follows?
+What follows are the merge nodes. This is anything that's reached in two different ways by forward edges.
+And then the other ones, there's only one way to get to B or C, those are going to go on the inside.
+Same thing works for loop. So as I see the back edge I'm going to wrap the whole -- woops, sorry --
+going to wrap the whole translation in loop and then B is going to have this backward branch to go back to
+the loop header and this is the translation that you saw before.
+So let me walk -- oh. Sorry. I couldn't -- this is tolly irrelevant, but it's ICFP and I wanted to say the
+dominance relation has a beautiful set of equations. The set of nodes that dominates, so you can read all
+these algorithms build how to compute this, but the concept is simple. It's really very nice.
+So when we look at the immediate dominators, they form a tree. C is immediately dominated by B,
+which is immediately dominated by A and then all these other nodes, A is really the only thing they have in
+common. A is the immediate dominator of all of them.
+And I've highlighted here the two merge nodes which were exactly the ones that 'cause trouble earlier
+in the talk. And now I'm going to sort of walk through my recursive function. This is when I translate A and
+everything that it dominates. I'm just given this node A in the dominator tree and in the code I actually
+materialize the dominator tree using the -- I've never materialized a dominator tree before, with you for this it
+was perfect.
+So I'm going to get into A and in the dominator tree, it's -- everything you know is like who is your
+parent. There's no ordering on the children. So this is where I'm going to go back to my department first
+reversal and my reverse post order numbering. I'm going to do the merge nodes first as I execute and what
+I'm going to do is place the last merge node at the end and I go to pull a block in front of it so I can reach that
+merge node by exiting block.
+And -- woops -- so here's the highlighting the one -- when I get down I translate F. I say here's a
+translation of F, and then stick a block in front of it and now make a recursive call to generate what's inside
+that block. You'll do the same thing for E. And now A can handle its children that aren't merge nodes, I'm
+going to generate this Fif-then. I'm going to go ahead and translate B, it's going to have an if then else, and
+I'm going to lay down C, which has to get to F. And I'm not going to lay down the translation of E at all,
+because E isn't dominated by B. I only translate the things that are immediately dominated by the node I've
+given, the sub tree of the dominator tree. So how am I going to get to E for the if? I'm going to admit this BR
+instruction and how do I know what BR instruction to emit, the other argument to the recursive function,
+besides the dominator tree is the sin tactic context. So if you've ever played with an operational semantics
+that keeps track of the context of where things are evaluated, this is just the context in terms of its control
+flow.
+And I -- you know, I get to see it needs to go to F. I just look out of the context, what's there -- this is
+an if, this is an if, this is the block that precedes E, this is the block that precedes F, ah-ha. That is the one I
+want so that's the BR instruction I'm going to emit.
+That's whole thing, but it would be nice to understand why it works. And that's something I can't
+squeeze into a short talk. But the key property is whenever I get to a node, that has as its successor in the
+control-flow graph something that it doesn't dominate, a merge node somewhere, it's always gonna look in
+the context and it's guaranteed always to be in the context and that's quite subtle, but the -- the key
+properties, the reverse post order numbering that comes from the depth for search, that if I need to get from
+one place to another, if I'm going forward, things are in the right place. If I'm going backward, I'm going
+backward to loop header. What if I'm going backward to something that isn't a loop header, well in that case,
+the control-flow graph wasn't reducible and we know the algorithm doesn't work. If necessary, we first have
+to convert an irreducible control-flow graph to something that's reducible. So the argument in the paper is a
+little bit depressing because there are a lot of cases, but it was the best I could do.
+So it's really fun to combine functional programming and compiler stuff. This is, you know, sort of
+classical functional programming, we're going to build an an subtract syntax tree, do it from the outside in
+and then suddenly this advanced compiler -- how many people teach an undergraduate compiler course?
+How many people talk about the dominator tree? Steve.
+I didn't -- I hadn't even heard the word dominator in my undergraduate compiler course, but anyway,
+ordering the dominator tree is going to order the children. We're going to use the post reverse order
+numbering to order them and a little idea from operational semantics to figure out where the branches go.
+So I would wrap up just by saying that if you pick up a compiler textbook or a compiler paper and are a
+bit intimidated by what you find there, don't be afraid to think recursively. It works really well. Thank you.
+[Applause.] .
+>> Do we have any questions? There's over there.
+>> How does this relate to the original Relooper algorithm.
+>> NORMAN RAMSEY: So Relooper for those not in the know, that was an algorithm published in
+2011 in the context of -- I'm blanking on the name, Emscripten, compiler to JavaScript. Relooper is a
+algorithm that breaks the -- breaks the control-flow graph into pieces that serve as original nodes and just
+kind of glutinates them and if it gets into trouble it spawns a variable that says where did you come from and
+puts a conditional on that.
+So Relooper is complicated and it doesn't provide any guarantees. I haven't seen anything in the
+refereed literature, but if you poke around the web, you'll find people who have found some -- the
+weaknesses in Relooper that -- places where it introduces extra code where it need not do so and I think I've
+cited the most useful one of those in the paper. I put Relooper in the title of the paper, because I want
+people who know only about Relooper to find something better.
+[
+[Laughter.]
+>> NORMAN RAMSEY: I see hands but I don't know where the mic is.
+>> I have a Mick mic. So Norman, I think I noticed that you ended up with a branch to the next line.
+>> NORMAN RAMSEY: Yes.
+>> Is that something that you would say, well it's opt Ms. Ization or is there a small wrinkle that would
+avoid putting those in.
+>> NORMAN RAMSEY: I didn't pay him. There's a small wring ankle that Mr. Eliminate those very
+easily. The recursive function that walks through the merge nodes, the context, I've just shown the tin tactic
+context. That context can be extended with one word that says if I fall through at this point, where do I go.
+And so when I get ready to emit the branch instruction, I look at the -- I look at the fall-through context and if
+that's where I'm trying to go, I don't emit it and that's how I discovered that I misunderstood the semantics of
+loop because I tried to fall through the loop to go back to the beginning and that's not the way WebAssembly
+works.
+>> So, um, you mentioned just near the end, you got -- there's two parts here. If it's not reducible,
+you've got to make it reducible.
+>> NORMAN RAMSEY: There's really three passes.
+>> Which is a critique you made of the original.
+>>.
+>> NORMAN RAMSEY: The original has all those passes plus the three. So they need the
+dominance relation, they don't use a tree but they use a dominance relation and then they use a finer grain
+relation about reachability by paths between nodes, which you don't need that granularity.
+>> [Muffled.]
+>> NORMAN RAMSEY: So outside the scope of this work is is the flow graph reducible, if not, one
+makes it so, that one's preceded by the dominator analysis because it's an easy way to discover in the graph
+is reducible. So dominator analysis, flow graph reversibility, reverse post order numbering and then this bit.
+>> I don't current imagine, sometimes when you have these instructions you think now I can see how
+to do it and you can see how to fuse two bits together. I'm wondering whether this reducibility thing could be
+squeezed into your reversal so you don't have to do a whole -- you might not see it in your way, but.
+>> NORMAN RAMSEY: So it would certainly be possible but it would be lousy software engineering
+because the way to do it is to get down and find, oh, I tried to make a branch but it isn't in the context. Now
+I've done all this work but what I need to do throw the graph away and build a new one.
+>> That would not be good.
+>> NORMAN RAMSEY: It's easier just to take the results of the dominator analysis and do it. I should
+add, I lucked out. Both the dominator analysis and the post order numbering were already in GHC so they
+were free, which Simon has taught me that means already paid for.
+>> So we have time for one more short questions.
+>> So very short questions. Why don't you consider, like, putting the Haskell liner with overview of the
+algorithm just to show how much we've progressed over the 50 years of doing things.
+>> NORMAN RAMSEY: Um, the real -- if not a one liner, it's probably, um, I don't know, 30, 40 lines.
+It's -- the real answer is I didn't think of it. And also, 15 minutes kind of a short -- if I show you Haskell code,
+we'd all get very distracted and the nice session chair would say sorry, time's up.
+>> And with that, sorry, time's up.
+[Applause.] .
+So next wear's going to have James talking about how to automatically derive control cravings from
+operational semantics.
+>> JAMES KOPPEL: Hello, everyone I'm Jimmy Koppel. Been working on this quite a while.
+Automatically -- the joint work with my visor Armando and former student Jackson. So, so control-flow
+graphs might sound pretty boring. Maybe we wouldn't have said at that before the last talk, but they're an
+important part of compilers and this work is part of a much larger vision, which is when you're writing new
+language, you need all these little -- [muffled] -- simple table generators, code generators, stack analyzers
+and I don't like having to kind of reimplement the same algorithm for same languages, it should be
+theoretically possible to derive all these given the syntax of a language.
+But for some of these tools, like they're pretty far from what we see in the syntax and semantics.
+Sometimes it's easier to see edge. Like the small executor kind of looks like it's running so in fact the K
+framework people have already managed to derive these, but today I'm talking about something where it's
+much harder to see how it has any resemblance to the Greek letters.
+I will be present be Mandate. It takes its input, the -- [muffled] -- language and it gives you very
+readable code, quite -- actually quite similar to with a we actually hired a person to write control-flow graph
+the same language and indeed they're quite similar, except C was low paid and got lots of -- [muffled] -- and
+then you get control-flow graph. And we were able to do this not for big languages like I can't have, we did
+this for tiger and MITScript. So now I'm going to try to -- in a few minutes -- took a long time for reviewer --
+[muffled] -- what does a control-flow graph look like. So the standard answer, common answer, like take an
+undergrad just given a course is likely to give you one of these. It's a basic block control-flow graph, it has
+few nodes and small memory footprint, so it's very fast, you can code it really fast. It's also -- [muffled] -- to
+squashing together like this. So the previous talk reviews this kind, the statement level, where you have one
+node for statements and just don't squash together straight line code, but there's more options.
+So what I like a lot is the suppression level of a control-flow graph because the analyzer, not to grab
+the code, but on a syntax tree, it's really nice to be able to say what exactly is true about your program and --
+[muffled] -- before and after every single inner suppression, so now -- [muffled] -- which use this kind. More
+ex 0 tick and less implemented is this kind, probably none of you thought of it before, spots I'm going to take
+a analyzer and take this code and prove all these outputs balance parenthesis. It's kind specific.
+But this is very easy to do if you've already -- if you have in your states, like, which path it's going
+down, what -- 'cause then, with this statement, it's -- [muffled] -- do it twice, you remember what you did, it's
+great line code and it's trivial to prove that it's print out balances parenthesis.
+[Muffled] -- because their very application specific but why not. Maybe we had a control-flow graph
+generator we could do this so really we need all of them. Like if you're doing different stack analyzers, each
+could use its own control-flow graph which partitions the state exactly the right way to the second analyzer
+and if we want to take 20 of these analyzers and run them at the same time and then I need something that
+partitions the program state in ways that's good for all of them. So it's like that's why we want the control-flow
+graph from generator to generator.
+Sorry to do this, you might -- Richard fine man gives a great algorithm for solving problems which is to
+write down the problem, think really hard and write down the solution and inspired by him, we're going to
+solve this by defining control-flow graph and implementing the definition because it turns out that after 60
+years, no one's really defined control-flow graph for us. Like here's so many Greek, here's semantics, do you
+see the control-flow graph nodes in that? Like I -- I could -- [muffled] -- this stuff a lot.
+So it's really -- it's not -- [muffled] -- go from this to control-flow graphs, what do these things even
+mean in terms of semantics. Easy answer is a control-flow graph node is just a subsequent program, but if
+you did that, every timed world -- the word prince appears in your program, would would be the same node.
+Which is not the case.
+At first I thought a control-flow graph node is a continuation, it's the stuff that happens after, but then
+there are also things that, where the -- the same thing happens after to two vines but somehow don't
+American them. As a little spoiler, it's built.
+So there's a couple big ideas that are going to be used to go from the Greek letters into this more
+control-flow graph and this first one is actually the -- the operational semantics is not the right way -- it's kind
+of too far. First we want the machine stead.
+This is a quick primer on abstract machines. It has the current you're focusing on and a continuation,
+sometimes you have more stuff in there, but these are the two basic things and when you step, well, for this
+one we're going to descend into Bone and then after we're done evaluating E1 we plug it into hole plus E2 so
+we're going down the stack.
+So some machine rules for addition and these actually already have a notion of program point in
+them. It's already closer to control-flow graph so the first step is to convert it into machine and it turns out
+that the times that we can't do this, when there is no graph machine, actually correspond to the languages
+where control flow jumps around too much and the control flow really isn't modeled as a traditional system.
+There is no control-flow graph. This is great, all we need to do is go to the literature, look up how to do this
+conversion and then we're halfway there, except that I tried that and surprisingly, there was not already an
+algorithm for this, so I had to build one and this is like -- it's like crazy because you're doing all this work,
+mostly by -- [muffled] -- and his students about how to take different formalisms and semantics and convert
+them and it's like he hasn't done this?
+Even like invited paper from this conference about 15 years ago, where it sounded like he did that, but he
+only did that in a example. So when I I visited him in Singapore, I asked him, he told me some things,
+including some advice including how to put the title page of this. But he also told me he didn't personally care
+for algorithms -- [muffled] -- I actually want a systemic run so I had to do myself.
+So I made -- say a little bit about how we do this. We have a pretty nice approach. That's pretty
+general and some of the things are really hard and the other path are really easy for this. Just say a few
+words about that, which is here we have some SOS rules for addition and the corresponding machine roles
+and we're tempted to think, there's three SOS rules, will machine rules, clearly it's a match.
+Right? And actually, it's -- if you look a little harder, that's not the case because in fact the first Appel
+machine rule, we're just descending, I'm going to do E1 first, that corresponds to the first half of the rule and
+the next rule corresponds to two halves of two different rules. And so on.
+And so this is actually the big idea of the path we take for our conversion algorithm which is we have
+intermediate repetition, where each of these arrows gets its own rule, we take the arrows, fuse them apart
+and put them together another way.
+So the machine is giving us a notion of current program points so the first steps for every language we
+convert the operational semantics into an after machine.
+Then we have a cute idea. So here is an if statement and I'm going to see the control-flow graph. Let's
+just say that E, my control flow is going to depend on what that value of E is, I'm going to say it's star, it's
+something, it's a value. Something. And then I can take verbatim, the machine rules I have and say, well this
+thing could match that. It's going to evaluate to there and then I have a different rules for if it's true or false
+and I don't know which one it is, both of them could match, so let's -- this is our graph.
+And now already getting something that kind of looks like a control-flow graph and I can say these
+abstracted machine nodes are CFG nodes as a definition and these actually kind of correspond to something
+you would see in a handwritten hand made control-flow graph, but first we have the input node, the in node
+of the if statements, down here we have the in nodes of the then else statement, but this thing in the middle,
+which I get from these rules is also corresponds to the in node of an if statement, but of course, I can just
+project, squeeze things together afterwards and so it's a -- kind of merges together and now we have
+beginning of a control-flow graph for this if statement.
+So that's the big idea, but it's so on code, it's going to give me a graph, not like run these rules and like
+an interpreter, give me a graph. I gave you this for a one if statement in one context in one continuation, but
+the work I just did, would look pretty similar for any other if statements in any other context. So there's some
+way to turn things into symbols, which can evaluate what this process would look like for all if statements
+ever and get a control flow and there is, so I just put in symbols.
+So here is a Y loop, where I -- Eand S are the conditions bodies, going to be any condition, any body,
+any continuation, any context. Here I do environment, so any binding of variables to values.
+And now I can run the rules on this so to be sure the Y led to an if, I run the if, but I run the if, so --
+okay. So yes. I'm running the if. Something a is going to evaluate the condition. That's the dashed line. So I
+run the if and either it's going to do the body or go to the end and, and at the end I find myself back at the
+beginning and so furthest back edge, just from following the rules, not from any special knowledge.
+Now, I squeeze these things together and label them and to get the code I just read -- I could just read
+off the code from this graph pattern. Graph pattern describes control flow of all Y loops in this language,
+period.
+And I just write some code that prints out these dashes and bam I'm done.
+Now, I did say earlier we wanted a huge family of control-flow graph generators, not just one, so --
+so -- [muffled] -- well I write a little bit of codetor that, to say that all values become star, that's saying I don't
+care what value it is, it's going to give me an suppression of a control-flow graph. To say all expressions
+become star, means I'm not going to have internal notes on that expression, I just skip over it. It codes a little
+bit more, but not that much. For these two different kind of extractions are giving me different control-flow
+graph generators at different levels of coarseness.
+Then of course, I also can always just take nodes and American them willy-nilly afterwards, so that's
+the second parameter and from these two parameters, the extraction projection, I can get all kind of
+control-flow graph generators period, so that's the system, we take the semantics, get out the machine, take
+out the he could tracks and projection, just a little bit of hassle code, then we get a syntax ready control-flow
+graph, give you the program, it's in the program, bam, there's control-flow graph. So we did this, we
+generated control-flow graph generators of muscle.kinds just to make sure it works. We did have to actually
+use them somehow, put a couple small analyzers on them so prove these are actually good for something.
+I want to say a little bit about one of the things we did, which was the most complicated KVK node
+generator we did. So four loops in tiger language, little complicated. They're like four interval loops, four
+equals C up to Dand these are something that is not exactly big but is a lot of AST nodes and so when you
+actually write this out, it's the control flow -- the graph pattern is about 43 nodes and yet we still manage to
+get very short and readable code out of it.
+So and now I can finally summarize it all into my definition of control-flow graph and for its principles,
+which is just as we all know that mow gnats are -- [muffled] -- so control-flow graph nodes are projection of
+the ex transition graph that's extracted after machine states.
+By the way, an earlier draft of the paper I used the word abstract six times in the same sentence, in
+the abstract of my paper. So we're pretty excited about this technique, this technology.
+-- we think we can do a lot of other things with parsing that semantics into tools and I'm excited about
+if you give me a black box interpreter language can we derive the semantics and run this so go from a black
+box artifact and get the tools.
+I encourage you to reed the paper. There's a lotted more there. I glossed over certain kinds of
+control-flow graph. These are not syntax-directed, but we included some correspondence, there's an
+automated termination proven there, that if one termination ends, so yes, that is the world's first control-flow
+graph generator generator. Thank you.
+[Applause.]
+>> Question? Yes. So we have time for a couple questions, maybe Simon.
+>> I just have a question. In old style redaction semantics, you have option of first evaluating left
+expression or right one, would that be considered control flow construct.
+>> So are you talking about nontermism, or -- so a control-flow graph is a transition program, it's
+necessarily term Novack, but cliff click of java, in his thee sis has a resolution app. Which is for that kind of
+thing is control-flow graph is not best referenced as a CFG but a, net, called sea of nodes.
+.
+>> High I really like this work, but I would like to push upon the boundaries of how far can you go with
+it so I have a's lost track of the number of abstract machines I've seen for executing functional programs or
+backtracking and so forth. No different, so it sounded as if you automatically either do abstract machine from
+certain operational semantics, so if -- how far can you go, if you had a machine with backtracking or
+exceptions or parallelism or lazy evaluation or with a heap, would all this just work or have you got more to
+do.
+>> JAMES KOPPEL: The short answer is no. It would not just work. Some of the reasons are
+fundamental. Some are bared on the limitations of our rewriting machinery, so -- so -- yeah. So -- but also,
+some of them, with like this kind of machine just doesn't exist for some languages, so uh, so one example I
+have is the rock step -- is a lock step parallel machine, which is you have two threads in parallel and each
+thread must take a step, every single step of the program must consist of a step of each of the threads which
+is different from normal parallelism, so here, I think like if -- we could create a custom kind of machine where
+the current program point is a pair of program points and they always have to update in tandem, but, well,
+there is no, like can single sub term of the program, which is the current program point so this style of
+machine does not exist for the example I just gave, which is a very artificial example that I've never seen in
+the literature and I don't know if it's useful, but it's a simple example.
+>> Okay. Thank you.
+[Applause] next, Ben gentleman had I been is going to talk about analyzing variable life times in CPS,
+so.
+>> BENJAMIN QUIRING: Can you hear me? I'll trust that you can hear me. Yes. Hello. I'm
+Benjamin Quiring, along with my coauthors, John Reppy is here in the audience, owe Lynn Shivers couldn't
+make it. So 3CPS is a new optimizing compiler project and we have a slogan, which is that we -- really quick,
+here we go. Perhaps not.
+Well.
+>> You need to turn it on.
+>> BENJAMIN QUIRING: Great. We are the anti Milton. So what do we mean by this? Clearly we're
+being, you know, not completely serious, so Milton for those of you who don't know is a whole program
+compiler that produces extremely high performance executability, it's very good. It first performs a higher
+flow order flow analysis on the program, uses the results of that analysis to perform Monday morph and then
+it's able to apply classic data flow analysis, so to us, Milton sort of stands as the best, you know, very high
+performance and we'd like to qualify that by saying so far. But it's so good that we feel the only way to do
+better is to take a radically different approach to compilation.
+So our approach is to maintain a higher-order poll more if I can IR throughout compilation. So that
+allows separate compilation and Monday more advertisable.
+We would also like to stay perform man while we do this and the way we're going to do this is by echt
+myselfing the functional part of the language, lambda and the environments that are unique to the
+higher-order IR VMENT.
+And the way we do this is to try to understand the dynamic lifetime of environment structure. So what
+is environment structure? Well environment structure is not data structure. There's been heaps of work on
+lists and arrays and all of these things, these are data structures.
+Environment structures is the machinery and rakeses associated with implementing binds, scopes
+and lambdas, the operations that glues together the program.
+And so higher-order languages are all about environments so let's target environments. So let me
+describe sort of a simple example here. I've confined this function named add de, which takes perimeter X. It
+defiance a function and takes perimeter Yand then we're going to assume that closure of add de. So if we
+think about what's going on at run time, when we enter the adder function we're going to push a stack frame,
+we're going to take that variable X and make a binding for X on that stack frame.
+Next we're going to go and create the closure and the first step of creating closure is noting that this
+inner function captures X and sort of default of limitation for compilers is to I can take the binding of X and
+copy into the heap. You know, then we'd finish creating the closure by having the closure point to this record
+that's in the heap.
+So the clear opt Ms. Ization is don't copy the things into the heap. Now the problem comes when we
+change adder a little bit. We're going to make a occur reed version of add. Now the problem is after we
+return that closure we have to pop our stack frame. And so the binding of X is now kind of destroyed and this
+closure is, know what is it referring to. In particular what happens in later on in the computation, the close
+are looked up X, well, clearly not the right thing would happen, so the main problem here is that the lifetime
+of the binding for X is longer than the lifetime of the stack frame itself.
+So this brings us to talking about life times or extents. So the big idea is that we define a taxonomy of
+three extents which is where the three in 3CPS comes from in our project name and these extents are going
+to map naturally on to the machine resources used to implement material binds. So the ideas in the
+compiler, we have some analysis that's going to collect a set of facts about each variable, what extents do
+these variables have and then later on in compilation, we can make a decision based on those facts about
+how to implement the binding.
+So our particular taxonomy of extent is heap, stack and rental center and I hope you can see why
+these clearly map on to machine resources. The heap goes to the heap. The stack goes to the stack and
+register, would go either into rental center -- into the rental center set or if you preallocated sort of a static
+block of memory at the beginning of computation.
+So let me go into these in a little bit more detail. Heap extent describes lifetime of any length. There
+are no constraints it places on life times. So heap extent essentially represents a fall back in terms of
+implementing variable binds, since it's the most heavy weight machine resource, we'd like to move things out
+of the heap.
+So a simple ton tactic approximation for when can you use -- when can you implement something on
+the heap is you can always implement things on the heap, but sometimes you have to. So if we consider that
+binding for X earlier to are matter, that binding has a very long lifetime potentially and so we kind of have to,
+you know, put it in the heap.
+Our second extent is staff extent and this describes a lifetime when the binding's lifetime is shorter
+than the lifetime of the stack frame that closes over it and so in other words that binding should not be
+referenceable after we pop the stack frame so the good sin tactic approximation, which is used by --
+[muffled] -- is if a variable X does not have a free reference to it in any lambda, then you can actually
+implement that on the stack.
+So here's, you know a favorite example of compiler writers, we have factorial. It takes up parameter
+and it's going to do a recursive call at some point. After it does that it needs to come back and do a multiply
+so we're not doing any sort of accumulator sort of tricks.
+And so you know, and here is clearly not closed over by any lambdas so it can definitely put on the
+stack, but sometimes we need to put it on the stack, 'cause if we think about it, we have to have multiple
+instances of an alive at any one time.
+Our final extent is called register extent, which describes a lifetime where the binds for some variable
+X does not exceed the creation time of the next binding for X. So in particular that parameter and in fact
+factorial, does not have registered extent because those life times intersect. When we have N equals ten on
+the stack, we also have to have N I equals nine, both of them need to be alive at the same time. In other
+words, register extent says that at most, one live binding for X can be there at any one time so there's once
+again a sin tactic approximation, which modern -- or compilers to date use, which is that you can't have a
+reference to X from any lambda and you can't have any function calls between the definition of the variable
+and all of the uses and this basically means that you can't hve a recursive call that loops around and binds
+the variable when you still need to use it.
+And so the sort of story of this paper is we can do better than these sin tactic approximations. Well I
+would hope so. And it turns out that we can do a whole lot better. So I'm going to show some numbers here,
+don't be too scared. We have this program, nucleic, it's a standard compiler bench mark. The number of
+variables in this program is 7800, that's including, you know, all naming all of the intermediate temporaries in
+the compiler and if we use the sin tactic approximation, 88 of these would be needed to sort of, you know, be
+left on the heap, so as I said a little bit earlier, what the compiler is requesting to do is run our analysis and
+see how many of those it can move off the heap into the stack round of the rental centers and so it turns out
+that our analysis moves 86 how those 88 off the heap and into the stack, 97.76 them. This isn't just a one
+off thing. We have a bunch more benchmarks where we move high 90s or 80 its percent of variables off the
+stack, which is really quite impressive. There are a few standalone examples, for example the CPS
+conversion, that gets a lower ratio and that's mostly because it creates loss of closures, which force -- which
+live for a long time and that really forces a lot of binds to also live for a long time.
+Something I like to note is that this analysis we have is not exponential time or something. It runs
+quite quickly, even though it's a research implementation, it's very scalable.
+So something that I've presented was we were able it remark variables, but how do we know that the
+dynamic behavior actually matches, you know what I'm telling you and I think it's important to note, because
+we don't have a full compiler implementation yet. This is sort of the first technical result of the project and we
+are avenue getting there.
+However, I can tell you that the dynamic numbers do match because what I've done is I've
+programmed an instrument that interpreter that can basically run a concrete version of the analysis and what
+we find is there is a correlation between us promoting things out of the heap and actually moving binds out of
+the heap itself.
+And it's also holds for the stack. There's something else we can do with this instrumented interpreter,
+which is that we can actually show that the analysis is quite precise, despite being something similar to 0
+CFA. So the idea is that I can run the interpreter on a single execution trace and that will collect some facts
+for me, like that X Haas staff extent, Y has rental center extent and Zhas register extent. I can also give an
+analysis which is a subset of those facts, since it's a sound approximation.
+Then we can think of this as squeezing the ground truth, which is sort of the intersection of these facts
+across all traces. It's squeezed between these numbers and what we find is that the single trace and the
+analysis are super close in practice and so, you know, if you wanted to do one CFA, something a lot more
+clever, more precise, it's actually not going to buy you a whole lot and doing this simple easy quick thing is
+giving you almost all of the benefit.
+So how do we do this? We programmed a new higher-order static analysis based on abstract
+interpretation. It's going to model the stacked behavior of the abstract machine and we need to tell if things
+are live and what it does is it gives this little abstract garbage collection and the idea is as you are's stepping
+the program along, we're going to look for events that say this thing cannot have this extent. So there are
+two types events, one for stack and one for register. For stack we're going to inspect every single pop that
+happens in the abstract machine and so if we have some binding X that's still alive but the frame associated
+with X is being popped that means X could not have stack extent.
+For register extent we're going to inspect every single bind that we have for variables, so if we're
+binding a variable X, if there's still a live occurrence of it out there, then X cannot have register extent.
+So unfortunately due to time constraints, I can't actually, you know, show you a bunch of equations
+and I'm not sure you would want to see them any ways, but that's in the paper if you're interested.
+What I also haven't tubed about is the whole CPS so we have this formalism and something called
+factor CPS, like lists and arrayses and continuation things are their own thing an this was originally
+introduced in the orbit compiler.
+We also have a stack protocol for the CPS, an abstract machine that uses that stack to push and pop
+and we have multiple continuation arguments which means we can have long jump returns so if you're
+raising an exception, just pop, you know, some number of stack frames, we don't care how many and this
+somewhat complicates the analysis is a cool result. This was inspired off of Dimitri CFA 2 work. So we are a
+new compiler project, 3CPS, an environment at all approach to compiling functional languages, the new idea
+is to optimize extent and our extents are happy, stack and register. We have a new analysis which is an
+abstract interpretation that identifies binding extent and this is scalable. It's like 0 CFA, it's executable so one
+of our artifacts is the current compiler and limitation and it's correct. I've also introduced mechanized proofs
+which are part of the artifacts.
+Finally we have some supporting numbers, both static an dynamic. So what we show is a significant
+number of variable binds can be moved out of the heap, both just looking at the syntax and looking at the
+dynamic behavior of the program and that it's hard for this analysis to do better. It's really quite precise
+already.
+That's the end of my talk. Any questions? Thank you.
+[Applause.]
+>> Okay. We have any questions? Yep.
+>> How does this interact with tail call opt Ms. Ization.
+>> Yeah, it's just a part of the stack protocol so what you can do is look at the syntax and if you have a
+call where all the continuation parameters are continuation variables then that's simply a tail call and that
+works perfect lie fine.
+>> Yep? Yes?
+>> Thanks, very nice talk. What's the time complexity of your analysis.
+>> I mean worst case is probably Ncubed is. In practice we find it's roughly linear. The standard
+things that defeat your analysis like loss of FUPGSs, that defeats precision and time complexity and we
+noticed something similar but in practice, you know, it's really quite linear.
+>> So a obvious reaction from another compiler writer is one of envy. So could I steal yours?
+Because what you've done is based on the abstracting abstract machine story, you can presumably just turn
+a little knob and abstract a different abstract machine, perhaps one for later evaluation. It would be kind of
+interesting to know how well this would work for later evaluation. My instinct is it doesn't work very well
+because lifetime is bounded, but I don't know that and maybe it would be quite easy to.
+>> Is it would definitely be an interesting experiment to do and somehow you compiled a lazy model
+perhaps to a strict model, you could funk everything and that would definitely give you a good idea of what's
+going on.
+>> I was thinking before that, could take a different abstract machine am and apply the same.
+>> It's always a good thing if Jones is envying your work.
+>> [Inaudible.
+>> So when we look at what's going on in the back end, often we have something that's -- [muffled] --
+>> Had I'm sorry, it's difficult to hear you.
+>> In the back of the compiler, often we start -- we have variables in register and they get spilled to
+the stack when there is a function call so there is a shining of location.
+>> Yes.
+>> Could you present something like that and would you get any benefits.
+>> This is a much higher level IR where you're not worried about spilling at the moment. The abstract
+machines show that you have an unbounded register set, you can he will late that at run time by using a
+static block of memory. You don't necessarily want to do that and we thought a little bit about when you
+would want to do that, but remember that the compiler -- the analysis is telling you, you know, facts. It tells
+you if a variable has register extent, stack extent or maybe even both, which is actually often the case. So
+typically, it's completely fine to spill variables. That doesn't 'cause any problems or anything. If you would like
+to talk with me in more detail, off line we can definitely do that.
+>> Okay. Thank you.
+[Applause.]
+>> So we have another functional pearl now and antes what kind is going to talk about adding
+additional imperative constructs to the do notation. So.
+>> SEBASTIAN ULLRICH: Thanks. So a functional pearl about imperative programming, geez who
+thought that was a good idea?
+You could claim you've been tenured from the start, because there's some -- [muffled] -- is in context of the
+lain I am proffer and five years ago on this date I stated that the belief in C++ as our implementation
+language, we've actually tried to do much better since then and we've been replacing most of that C++ code
+with a Pfuhl, this lean itself and you won't be surprised to hear that our code quality gets so much better and
+succinct, yeah it's just great, but in a few specific patterns, we felt like the opposite was the case.
+And let me illustrate some of these patterns using an imperative language that I enter but more than
+C++, which is Rust. So this is preview. Basic Rust code, we have some mutable variables, early return,
+conditional updates, after those variables and well as which heard yesterday it's actually quite fusible to turn
+a set for us into pure functional code. And for this very simple example it's not hard at all, so we click, right,
+listening code being used a do block for maybe modeling implicit effects of Rust, so yeah. Instead of the
+early return, viewers's analysis block and we get some indentation in return, the implicit -- the conditional
+update, we can he will late using a bit of shadowing and I mean, yeah. It's definitely possible and it's not too
+bad and yet the Rust code sure is a bit more succinct and arguably readable. And let me just add, so this
+space if you like, Haskell code, the only real difference that in lain we use this let jumpilyly to introduce binds
+in a do block which will become relevant in a minute. Right. So I mean, yeah, maybe there's also some
+completely different way to write this code, but we did stumble over these patterns again and again and it's
+also very similar if you compare like loops, mutating multiple variables with corresponding faults. We also
+see, like, um, um, like pure code, I would call these last two lines. They just don't exist in Rust and I don't
+think they contribute anything to understanding of the program.
+So this is discrepancy between the different paradigms is especially disappointing to me in a way
+because what do notation is kind of trying to he will late imperative control flow. So you can guess where this
+is going. What if we added even more imperative features to the do notation? What if we had mutable
+variables at least mutable inside a do block, let's not overdo it.
+[Laughter.]
+>> and now again we can do the bind syntax without the laps to signify mutable updates. Now we really
+don't have to hide behind Rust any more, right. I think at this point you're intrigued by the idea or maybe
+disgusted.
+[
+[Laughter.]
+>> SEBASTIAN ULLRICH: Or maybe both at the same time so I stop trying to talk about motivation
+and trying to convince you now. Let's start talk about what we're actually doing in the paper about the hidden
+pearl in this sin tactic node pot. It's all about semantics so let's start thinking about how could we even
+implement something like this? The -- [muffled] -- IRs for mutation, that's not very nice. Could try some
+direct functional translation like we saw yesterday from Rust, but we found -- what we found is to probably be
+the most elegant approach is to model each of these extensions, as a separate effect, which we model in
+Lean as mono transformers. So when you declare a mutable barrier in a do block, there can of course be a
+model outing statements for over that type, right? With the scope of the effect being the scope of the
+mutable variable.
+Return likewise could be modeled, can be modeled as an exception that we then handle, catch and
+handle on the top level of the do block.
+And yes, we introduced for in loops as well with, break and continue and those, as well, can be
+modeled as an out rate exit effect surrounding some typeclass generic we use for modeling the actual
+iteration, surrounding an inner exception effect for the continue.
+And the great thing about this approach is that it is very molecular, like these different extensions have
+very few interaction points between then, so we could reasonably add even more extensions, as well. And it's
+completely pure, of course.
+So we use Lean assay -- [muffled] -- in paper an sup am. We show that reasoning about functions
+using all these extensions is not fundamentally harder or different from reasoning about regular pure
+functions.
+All right. So I think you got the informal idea of how we're implements this so let's get formal.
+In the paper we present some sin tactic translation rules to get rid of these extensions. For example
+we have a function arrow that eliminates return statements by turning them into applications of the pro
+function of the exception transformer.
+And on the leaf expressions we simply lift into this transformer and for all the other transaction, we
+simply recurs.
+So to validate these rules, we then archmented them in Lean as a simple reference implementation
+using Lean's very flexible macro system, so at any point in a file we can say something like let's introduce a
+new syntax, which is a new key word return followed by a term and that's now a new kind of do statement we
+can write in a do block.
+And we also have a little framework in the sup am where we can say, return is also something we can
+expand and that now allows us to write our macros that say something like well how do we expand return, by
+doing exactly the same thing that the -- first two rules already told us in the paper.
+And the nice thing about this whole set up with this expander and he could panned bang macro is is
+that all the other rules that just structurely recurs are already handled by this macro in the default case.
+So it's even a little shorter than the formal verse. All right. With this implementation we can actually
+test or formulas in Lean and play with them and do proofs about functions like I mentioned before, but of
+course that's no conclusive proof that they do the right thing beexpect in all cases, like the opposite of the --
+[muffled.]
+So we started thinking, what's is a simple natural specification we could verify these translation rules
+against? And yes we have a few translation rules that are a bit more complex than those two. So how about
+a natural, natural semantics on do statements with an actual mutable state?
+Now, this only really makes sense if we're in the identity moment because we can't really express an
+arbitrary bind in this case, but we'll get back to that in a minute. So in this setting we say something like to
+evaluate a return statement, we take its suppression, the substitute the current mutable state and have that
+evaluate to a value.
+And after that, the return state is kind of stack. Can't really do anything with it and we call that a
+neutral statement and then there's one more interesting rule which was the proof of the sin tactic bind which
+says that if the first statement in the bind evaluates to such a stack statement, could also be continue or
+break, then we skip evaluating the second statement as prime and just return that stuck statement.
+So this is how we can model earlier term if like a bit of a different point of view from moan that had
+transformers and then of course we have a type system to go with that, as well, but I leave the details forever
+that on to the paper 'cause I don't think there's anything too surprising going on there.
+All right. Adds the last step we then of course took all of this and translated it to Lean as well so the
+operational semantics we turned into an -- [muffled] -- type of interpreter, which is a bit more complex. I
+wouldn't want to write about that one in the paper, but it does let us move -- remove the restriction to the
+identity monad. So in the end we have an embedding of type correct do blocks over an arbitrary monad and
+we have a regularly function that takes such an embedding and returns -- evaluates that to a moan that
+haddic value. I should just say this thing over there, that's the lead syntax for type last parameters, and after
+that we took our former translation rules an IMP ammed them again in Lean, this time on top of this
+intrinsically bedding. Even without worrying about the specific types, you can see from the signature that it's
+introducing an exception effect in the code.
+And then we of course have to handle these effects on the top level of the do block again. So yeah.
+That's just one part of the translation and in the end we of course, prove pro that for any LawfulMonad
+translating away the do syntax results in a monadic term that is equivalent to just running it in this interpreter,
+so we've shown that these two different point of views of the semantics indeed coincide.
+All right. I think so much for the theory. To conclude, let me quick low talk about some of real life
+consequences of these extensions and I have ex communication is not one of them.
+[Laughter).
+>> SEBASTIAN ULLRICH: So, you might be thinking what's natural about imperative sin tax if you
+don't have the I am per per active data structures to go with that? Fortunately as we learned on Monday,
+Lean like Coca has destructive updates. As long as no one's around to observe them, as long as the
+reference to the data structure is unique and so we can write down imperative sin ax like that and know it has
+a pure semantics, but also has the run time semantics we would expect from imperative program, but at
+least the run time complexity.
+So this -- all this new syntax actually fits together quite nicely with existing features of Lean and
+combine to what if starting to call a pure imperative programming paradigm.
+So what do people think of -- about this paradigm so far? Well, I'm happy to hear your opinion about
+it. But at least in the Lean community, reception has been very positive so far, so not only is it extensively
+used in the implementation of Lean 4 which again was the original use case, but also in the majority of the
+Lean 4 repositories that have been created so far, it's really young, it's not even -- does not even have a
+stable release yet. You will find at least one of these features being used.
+And actually both us and our users are liking these features so much that we started to use them in
+nonmonadic code, as well, so we -- we check the identity moan that had simply so that a do block is then
+accepted and we can use those features in the do block.
+All right. And why we're talking about users, let me just add that why, we are concerned about
+learnability of all these new features and so we try to could you pleaseter act on that. It could for example in
+supported editors by highlighting the do block, that returns when you hover over the return so that you know
+exactly what do block is exited by the return and as you can see we also are in the process of just adding
+syntax doc strings to basically all the built in syntax so it's easier to like explore these features and learn
+about them from the editor.
+All right. So to conclude, I think there is a few different fields you can have on our work as a user. You
+can just say, oh, this is a nice little paradigm of how I can program now in Lean.
+If you're more of a veer foyer, if you're concerned about verifying code that uses these features, I'd
+say don't worry. And yeah, on a higher level, this is -- you can see the paper as a case study in
+implementation and formalization of a syntax extension. Thank you.
+[Applause.]
+>> Questions? Here? Is and there and there.
+>> So suppose that I have some concrete monad and my program still lives in it and some of my
+functions are higher-order functions and then if I understand right, then I change one of my moan that haddic
+functions by using an early return and suddenly I'm drowning in type errors and saying you're using your
+concrete -- you're expecting your concrete so view and accept -- [muffled] -- how does that work out in
+practice.
+>> SEBASTIAN ULLRICH: So these transformers that we introduce, they should be purely
+implementation detail. You should never see them as a user.
+>> Even if I'm using higher-order.
+>> SEBASTIAN ULLRICH: That's definitely an interesting issue. If you have a higher-order function
+like inside your do block right? And so right now, as I said in the beginning all these effects are local to the
+current do block. So you can't simply can't mutate a variable that you declared outside the higher-order
+function call and so yeah. That's an issue that we thought about as well, but surprisingly, it hasn't really come
+up often enough that we modeled a solution for that so far, but I'd really like to have a solution for that and
+actually, it's mostly like yeah, we're just not about just syntax at first. So yeah. Maybe there is actually a very
+simple solution.
+>> Okay. Have a question over there.
+>> Hi. Over here. Have you had imperative programmers like actually imperative programmers --
+[laughter) -- work with this because eve's have students trying to do this identity do in Haskell and then they
+run into an issue where it's not exactly like python that they're used to and they get very confused.
+>> SEBASTIAN ULLRICH: Great question. So I would say that most users of Lean are advanced
+programmers, often they have a functional background but also an imperative background and I think then
+they can appreciate these features.
+I don't think we have any experience with like pure imperative programmers.
+>> Thanks.
+>> I think there was another question over there?
+>> Thank you. Um, so your building these towers of monadic and I was wondering whether there was
+any -- [muffled] -- cost at one time from all of that abstraction.
+>> SEBASTIAN ULLRICH: You mine at run time?
+>> Yeah.
+>> SEBASTIAN ULLRICH: Yeah, compilation is something I couldn't even get into the talk, but we
+talk about that a bit in the paper and so outside of loops, if you're just in line on the monadic binds you
+basically get the code you would expect exactly.
+Loops are a bit special, so we're, um, before -- we, for example use CPS translation, like a CPS based
+monad for that and it turns out that's a little bit faster, but yeah.
+>> Okay. Thank you.
+>> Thank you. Any further questions? Okay. Then thank you.
+[Applause.]
+>> Now for the final talk of the session, we have a trailer for a soon to be published JFP paper and
+Paul let here is going to tell us why a normal form unexpectedly breaks when dependent types come in and
+how to fix that. So.
+>> PAULETTE KORONKEVICH: Thank you. I'm really excited to present with work with my
+collaborators, Ramon, Amal and William whose fateses are here. Before I start talking about the technical
+details I like to give a larger picture.
+We're interested this exploring how can we compile higher software and insure it's correctness when
+linking with an unverified world.
+To preserve these var I can't want that we impose on this higher trend software and keep these --
+[muffled] -- around until link time so we can check that ease invar I can't want aren't violated. This is all very
+large and vague so of course I'm going to be talking about the smaller picture here which is about preserving
+these invar I can't want through one necessary pass of a functional language compiler.
+So I'm going to decompose the title of my talk to give a little bit of a background and here, the back
+grabbed I'm going to start with what it means for a compiler to preserve dependent types, so the definition of
+dependent types is quite simple, types I can refer to to depend on program terms but the simple segment
+has quite a large implication. In particular, now we can encode highly specific invar I can't want in the types
+and when we type check our program, we are essentially proving our program meets these invar I can't want.
+After spending so much time in our dependently typed language proving these answer encoding them, we
+like that these aren't rye lated by the compiler.
+So this is why type preserving compilation can help. We take our dependent low typed program,
+compile it with a -- [muffled] -- to get some output with types an then when we link some internal code we
+type check to ensure the invar I can't want aren't violated by the he could terrible code.
+In principle when we use type languages, this is how we want to use them. We use libraries all time.
+We don't know the implementation, just want to check the types, so why not do this after camp lace.
+Okay. So continuing with decomposing the title of my talk I'm going to talk about a specific translation,
+the ANF translation as a part of compilation.
+So ANF stands or a normal form and it stimly is infected form for making control flow explicit and the
+essentially, this is done by just unnesting our functional expressions and making them execute more -- my
+statement imperatively like we just saw.
+And so as an example we have functional suppression here in -- [muffled] -- form, this is a second
+projection, some extra computation going on here an then in ANF it would look something like this where we
+first compute one plus one then construct the pair then take the second projection.
+An yes, it is a normal form. If you're interested in learning more, there is a blog post by a crazy
+person -- I mean by William and I definitely recommend checking that out.
+So just to wrap up, my title let's talk about what extensional quality means in dependent types. So
+quality independent type theory is important in general now that we have terms in our types. We have the
+con nonecal dependent vector type used in every dependent type theory talk and we have a bunch of
+different terms for the length of the specter can right? But our types can determine these are all the same
+type by essentially just partially evaluating all these terms. So if the first case, one plus one is two and in the
+second case, N is defined to be two so we can conclude that these are the same type.
+But suppose we have a different example where we don't know the -- [muffled] -- but somehow we've
+gotten the proof that N is two. So our partial evaluation can use this proof of N being two so we need some
+other bay ah way of telling the type system to use this proof.
+The usually way, I call it SUS. It takes two items, the proof and the term of which type you kind of like
+to.sub in or convert.
+And this term itself has the type -- [muffled] -- right. So any time you want to use my least favorite vec,
+you have to pass in the sub stes.
+So suppose we'd like to actually just use these proofs directly in our type of quality judgment. This is
+why we know as extensional quality. So in this case we would directly use the proof number of S2 to reflect
+the type of quality judgment that N is two and we can conclude these are the same type and this is very
+different from definitions before. In definitions we were using partial evaluation, here we're taking the actual
+proof we have and putting it directly to the quality judgment.
+So to summarize, the formal rule looks something like this and Eone is equals one to two, if we have
+some proof, P showing Eone is equal to E2. So I think that's summarizes by background. We have an
+amount NFtranslation that preserves dependent types, provided what we translate to has extensional quality,
+but before I talk about the technical details of our translation I'm going to start with everyone's favorite
+example which is if expressions which have come up a lot during this session. And so here a dependent if
+suppression, you can actually reflect the dynamic control floe information into the type system. We do this
+using a dependent type where the type B can refer to the condition E through the variable #K36789 and as
+you might expect, X is replaced with true in the first place because that's what the condition is, and false in
+the second case.
+So I'm -- I want to talk about a simple refract we can do. Here we have a function that's expecting one
+of #2450ES dependent types so we can freely apply this function onto the -- but expose we want to refactor
+this to unnest these expressions a little bit, maybe make this if suppression behave more like an if statement,
+so we push the function application to the branches. So dynamic colleague, we know these programs should
+behave the same, but when we get around to type checking we find that it false because Eone has this type
+where Xis replaced with true directly. This is extremely frustrating. It turns out this relates to ANF because
+this is a behalf ANF so not observable are we sequential liesing these computations here, but we also want
+to kind of expose these if expressions and make them behave a little bit more like Fstatements, so in order
+to preserve dependent types through a translation like ANF, we need some way for the types to be sensitive
+to these types of catchings, so how do we go about doing that?
+Well in particular when we're type checking each branch we need to know that condition has changed. We
+need to be aware that E is now true in the first case and false in the second case.
+So this leads me to a key observation in our work, which is dependent types are hard to preserve their
+compilation and so our intermediate type systems need some way to express these which have
+equivalences that we rely on in computation. In our case, these are these changes we want to make to
+make control flow a little bit more explicit. The way we do that is to record the definitions so the type of
+quality judgment can use this definition during partial evaluation. This is very standard in dependent type
+theories, about what's a little bit less standard is now when we check each branch of the dependent if
+suppression we need to record the fact that the condition has changed and we do this by recording a proof in
+the context.
+Okay. So now that you have a little bit of background why it's hard to preserve dependent type
+compilation, let's talk about how we did it. So I mentioned this refractor earlier is part of ANF, but really it's
+for more specific of something we want to do more generally. So in particular, we have some context
+surrounding our if expressions, and we want to kind of pull the if expression to the top level by pushing the
+context into the branches. So this leads us to define the ANF translation over source expressions and target
+context.
+So here let's look at the case for dependent if expressions. So as we're translating dependent if
+expressions, we correctly translate each branch as expected but we find that we're kind of missing what we
+need for translation of the condition E. We need to unnest it a little bit further.
+In particular we Mrs. Need to know that it's going to be embedded in this context so we need some
+way of encoding this. The way we do this is by encoding context into a program at the whole. This happens
+to be the left-hand side of a let binding. This is that we always have some concrete value, the variable Y so
+we can build up target terms in ANF as a further example of this translation, so a bit -- for value cases we
+know we can plug those in directly into the context because we're done unnesting expressions and then at
+the top level we start off with the I amity con tech.
+I have the base case here just to -- that's right we'll still working with these context so we need some
+sort of invariance about this target complex. So in order to prove this, we need a lambda that sort of says
+something like this where E is well typed and K is well typed with respect to the translation of E and
+translation of Ewith K, how do we encode more var I can't want, we had more types. So in particular we
+encode target context. The first is a term that's expected to go into the hole. The second is the type of the
+term that's expected. And the final one is the type of the entire full program.
+So now I'm given this type, we can restate this here on the as follows where intuitively what we're
+saying here is the source suppression is well typed, the target is well typed so putting them together should
+give us a well typed target program.
+So now that we have this, I can prove type preservation for you in three easy steps. We have our top
+level theorem here as before, we have the translation of E is defined with the empty context. And we can
+type the empty context as following. It's expecting the final trans lesion of E at its translated type and since
+the empty context doesn't really have anything surrounding it, we get the translation of A type back. And
+then using our new lambda we know that our translation has the translated type an we're done so on this left
+is proving the -- [muffled] -- and a lot of smart people here so I was hoping to get a little help here. Just
+kidding, this follows the induction on source E because we're building up a lot of the program here now in the
+target context and we need to show that this is well typed. I mentioned very early on, extensional quality,
+how does this relate back? Is well in particular, in our key case, when translating dependent if extensions we
+find we need extensional quality so let's talk about that. I've put it back up on the screen. And we find that
+when we're trying to prove the case for dependent if expressions, that the target context we build up is not
+well typed. And this is very similar to why our refactor wasn't well typed originally, so this particular the target
+context is expecting the term which is the translation of the entire if he could precious, but then we translating
+it with the branches so it needs to expect the translation of each branch and if we think back to our proofs of
+equality, how we change the terms here in our types, we really need some way of changing the term inside
+of the type of K. So we need some kind of sub term, right but unfortunately we can't actually determine at
+what point will the target complex be plugged with final value of each branch so we're kind of stuck trying to
+determine where to insert these, essentially and in particular, even if we did find out where to insert these
+casts, we might end up with something that's not an ANF. So the way that we achieve this is we actually just
+have this assumption that the -- in the first case, that the condition is true and so we reflect it to the type
+system using extensional quality an then the proof comes out quite simply from there.
+So I would like to talk a little bit about the benefits of this approach because extensional equal tie has
+some known problems but we talk about that a lot in our paper. In particular we get a very standard ANF
+translation in our paper. One that you would probably find for most models of functional languages and we
+don't -- don't end up generating very large target terms, just to show that they're well typed, which is a great
+benefit for comp lace. Don't want really big programs and we find in our paper that this approach is very
+easily adaptable for the SCOMBROINT point opt Ms. Ization and other things match.
+So to conclude, our type -- intermediate type systems need some way of encoding extra information in
+them. In this case we did this by adding these proofs but we also need to use this extra information
+somehow so we did this using extensional quality and found that in our translation we needed a little bit more
+extra information about everything that was going on, so we included target context typing as well.
+Thank you and I'm very excited for lunch.
+[Applause.]
+>> Okay. Yes, we have a question, Jasper.
+>> Thanks for the great talk. So I was wepting, the use of equality reflection here seems like a bit of a
+sledge hammer in some sense, that it's a very powerful tool and so I was wondering if you want to apply this
+to a language, I think the way you cannot have a quality reflection because back home it would be type for
+example, right? Is there some form of the quality reflection that would be enough to do this or do we need
+the full power.
+>> I'm sorry, can you repeat last part.
+>> Is there some weaker form of quality reflection that would be enough to do this or do you need the
+full power of equality reflection.
+>> That's a good question. I think we tried with some weaker forms and found that it didn't really work
+out in a nice way. I think we got some like weird properties if our language, but I think in particular you could
+figure out where to kind of insert these casts if you really wanted to and not use STNGSnal quality at all. I
+think it's just simpler to think about it either full blown or kind of try and shove it in and in an intentional kind of
+way.
+>> Okay. Thanks.
+>> Now, another one.
+>> Related also to this -- this question, as far as I know, it's not clear how to give an actual operational
+semantics without theory of extensional quality. If you try to reduce things you might do weird substitutions
+like this, in a typically inconsistent context. So like what can you do if it turns, after the translation, like can
+you run them or do you end up with this kind of progress that you have now, in terms that you can't run any
+more because they're in this extensional framework.
+>> That's a great question. I -- so I actually haven't like you know tried run the the program, directly,
+it's all theory, of course. Who -- who would run programs?
+So I think the way that I think about it is we have these well typed decidable source programs so we have all
+the qualities and really we're kind of -- we're staying within that image of good terms in particular with this
+translation. By showing that its well typed. And so the translation is some kind of function between well
+typeness and in particular I guess would go well evaluation, you know? So that's the way that I see it.
+>> Okay.
+>> A few years ago when I was writing a proof, I couldn't find anywhere in the literature. That there
+was -- [muffled] -- I think you would have to have a proof that ANF is semantics -- [muffled] -- in my proof I
+left that step out and said this seems like an open problem. Did you solve that problem? I mean do you
+have something about semantics preservation.
+>> Yeah, I mean so the -- source -- so we define over the source typing judgment which relies on
+these like small step semantics to give type of quality so we do have to prove that the translation is
+preserving these operational semantics, yeah.
+>> That sounds pretty cool.
+>> Yep.
+>> A I have a question that is related to the last question. You know when you have this kind of
+example that you had.
+>> Bring the mic closer.
+>> Sorry. The example you had that worked very nice, that is a trick that you can use to make it work
+by sort of -- [muffled] -- type team F to move the type of F inside B and then it works. My question is, I think
+Adam calls it the -- [muffled] -- or something like -- I don't know a good name for that, have you tried using
+something like that in the translation?
+>> Yeah. I think, uh, god. #345I, it's in our paper, but there's a way to kind of like extend and --
+maybe -- [muffled] -- I don't think actually, yeah, we've looked into that much, but actually maybe we should
+talk off line because I think I need some clarifying questions.
+>> Okay. Thank you again.
+[Applause.]
