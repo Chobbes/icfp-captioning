@@ -1,0 +1,13 @@
+>> Quick questions before the break?
+>> John.
+>> That was very cool to see, can you just go back to the last bug you showed us?
+This one
+>> Yes. And what case like this, let A equal, it's equal.
+I wonder if this is bug in simple lest form, if not, say how much you... the question is how do you imply... the fact he we see chain of... isn't in his is, this is a part of the language. So the example has already been shrunk.
+>> So is the simplest possible form then.
+>> I think so.
+>> Another question?
+>> Could you explain why you switched to property based testing, compared to formization that proveds one thing and forgel.
+Ish infrastructure but it made possible for one of the earlier versions of Silla that evolved since then, to verify properties ... of smart contracts itself.
+So we will never we never dare to go full blown concerts with Silla inside and we property based testing of the language infrastructure to be a viable, and the pay as you go along to the hardcore verification. In.
+>> If you have any further questions, maybe it's a good idea to ask them during the break and thanks Ilya again.
