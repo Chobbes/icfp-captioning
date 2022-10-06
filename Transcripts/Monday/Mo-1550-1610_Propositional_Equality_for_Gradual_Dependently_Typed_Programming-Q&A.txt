@@ -1,0 +1,25 @@
+>> Great. Are there any questions? I see here, this one.
+>> Have you implemented it in a proof assistant, and furthermore, have you formal looized the metatheory in a proof assistant?
+>> So both of those are continuing work. For formalising the metatheory, it's basically we're working on it but the easiest way to do that is with a syntactic model, and so that's the authors of the paper following mine have done a lot of really great work on that, and I'm looking at how to incorporate those approaches with the things that I'm adding on top of that.
+And yeah, with implementing it, I'd like to say check back in a year and I'll have it done, but we all know how these things go.
+>> Thanks.
+>> Hi. So it looks very similar to non-determinism to me, like the dynamic is like a maximally non-deterministic term, and then the -- the composition is some kind of meet between the two. Is that accurate?
+>> Yeah, the composition is exactly a meet. I accept the fact that it's a greatest lower bound is a conjecture, not a proof yet.
+But yeah, in -- ideally it would be a meet and this is -- we've got a lattice where things are getting continually refined. So I -- I hadn't actually thought of it in terms of non-determinism, but especially if we were to incorporate, like, the AGT approach to dependent types where we view gradual -- gradual types review things as sets of static types, it's kind of similar to that idea, where we've got a whole bunch of possibilities that gets continually whittled down as the programme runs.
+>> Thank you.
+>> Yeah, I had a question. So in the end, what we saw with this witness is that kind of at run time the programmer sees that, like, the equality doesn't hold? Is that correct?
+>> Yeah.
+>> Why do we need all of this built on top of -- what additional value does all of this theory give us as opposed to, like, for example, the example that was given, you could also just have some assertions, right?
+Like, and also there's -- at any point do we get, like, an actual proof? Because now it's again like testing. You just have to . . .
+>> Yeah, no, for sure. That's a great question. The answer is what we get is we no longer need to duplicate the specification. We can use the same specification for static and dynamic checking.
+So if you want -- so if you never intend to use dependent types, then no, don't do this. But if your goal is to eventually migrate things towards having everything proven correct, then this gives you a kind of intermediate to that during the process of proving things, but you don't have to write the specification twice. Whereas if you have already written out your dependent types and then you have to go in afterwards and add assert statements, that's a duplication of the specification.
+So what it basically is is it's like assert statements, but we have types as a unified interface for writing these static assertions and these dynamic assertions.
+>> Okay, thanks.
+>> I think we have to move on to the next talk, or is there some question? Oh, okay, go ahead.
+>> So in the --
+>> Last question.
+>> -- example where you end up with two compose with three and then it becomes an error, so that seems like it requires decidable equality. Like, how do you know that two and three can't compose?
+>> Right, so that goes exactly back to the -- like, the way we handle functions, which is that -- so composition is defined differently depending on the types, and so for data types and other kind of first order types, you just look at the constructors and compose based on that.
+And when you have higher order types, like functions, those get -- the composition gets deferred by pushing it under the lambda.
+So what's nice about this is even if you don't have decidable equality for your type, can you still use this composition, but you won't get immediate feedback on things like functions until you give an argument to the function and then you get something first order that you can actually check.
+But you don't need to provide your own decidability predicate for all these different types.
