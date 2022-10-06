@@ -1,0 +1,30 @@
+>> Hi. Over here. I wonder, is there any way to extend this abstraction to -- or is it already a monad? A lot of times when you're doing generation for testing, you have some kind of more interesting things that you -- interesting conditions that you need to make sure your values uphold.
+>> Yes, that's an excellent question. In enumerators and index enumerators they are both monads as well. For algebraic data types you don't need this structure, but for the index families you use you do need this structure. That's in the paper if you are interested in that.
+>> Can you show us the formula for unique again? I was a bit confused. It looked like there was a saying that there's a unique proof that the element at a certain position, and I don't quite understand how that means that there can't be the same element at different positions. Maybe just reading it wrong.
+>> Yeah, so what we do here is we quantify over all possible proofs that X is included in this enumeration at depth, and we say that the enumerator is unique for all these possible proofs, that these proofs are equivalent, or equal.
+>> And that works even if you have -- over a single N?
+>> Sorry?
+>> And that works even though you quantify over only one N? I would expect . . . I can take it offline. Maybe I'm not seeing it.
+>> Yeah, sounds good.
+>> I'm trying to understand exactly how you deal with size pounds on enumerated values. If you think of small check, then small check generates values up to a certain depth, whereas lean check, which I think you refer to, generates terms up to a certain size.
+And that gives you a much finer division of terms. My experience, certainly, is that if you use the generator to find bugs, then the size-based approach that lean check uses is way better at finding bugs than the small check approach, which tends to run into the -- you know, the exponential explosion problem too early.
+>> Yeah, so just to clarify, we used the small check interpretation of size, so this natural number denotes a certain recursive depth, and you are absolutely depth that this leads to an enormous explosion in the number of values, and is certainly something to look at in future work, to use the lean check notion of size.
+>> So just to -- a follow-up question. The other thing that I found is that the lazy small check idea, if you adapt it to make a kind of lazy lean check, that works tremendously much better. Is there any prospect for including that current lazy small check idea in this work?
+>> So you have to correct me on this if I'm wrong, but if I recall correctly, lazy small check uses -- pokes some holes in Haskell's pure interface, perform MYO, for example, and I think it would be challenging to include that in a formisation like this. That's one obstacle that I say that -- yeah, maybe there is a way forward.
+>> For index only, is there any restriction on the type of indices?
+>> Sorry?
+>> Is there any restriction on the type of indices?
+>> No. Unless you want to use this generic memoisation fracture that we have defined, and in that case the index has to be given by (CORRECTION) structure.
+It has to be given by this -- data types because the -- yeah. You need something to match on, essentially.
+>> Okay, thank you.
+>> Umm, so yeah, so you can enumerate the non-index types and the index types. Can you enumerate sigma type?
+>> In short, yes. But sigma is a little bit problematic because -- essentially it works the same as enumerating products.
+>> Right.
+>> That you have to alter things a little bit because it's now dependent, and this alteration includes that you have to rely on the numeraletic structure of enumerators.
+The way we've set it up is that this first element of sigma is essentially a constant, and then you have to rely on some outside knowledge that tells you how to enumerate this constant.
+An alternative way to set it up would be to say the first element of the sigma is a non-index description, and then you can sort of piggyback on to the existing you numeration infrastructure that was already there.
+>> Maybe one more question, yeah.
+>> Thanks for the talk. Can this -- I'm not sure, maybe you already covered it, but can this technique be used to generate sort of enumerate terms of mutually recursive data types? Thanks.
+>> Yes, if you're willing to -- into sort of an indexed data type, because one of the tricks that you can use is just have a sigma where the first element sets in which data type you are, and then the second element is the -- yeah, defines the different families.
+It doesn't work with these index enumerators. For mutual Li recursive index data types. I don't know. Maybe the same encoding would work. Maybe you run into problems. That's something to be tried in the future, I guess.
+>> Okay. Let's thank Cas again.
