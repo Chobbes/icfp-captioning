@@ -1,0 +1,28 @@
+>> Okay, we have time for a couple of questions.
+>> Hi. So the internal precision, it looks a lot like directed equality from, like, a directed type theory. So what -- is there a relationship with that?
+>> So I think -- first I think that there are many directed type theories, so I would need to have a more precise reference, I would say.
+And I don't think I saw any instance of directed type theory that was exactly coinciding with this, in the sense that so I didn't have much time to explain the notion of the model that we are using, but we can actually interpret this whole theory in a model with types that are interpreted as partial pre-orders. So it's not a full pre-order, like some elements are not created to -- are not reflexive of the relation.
+But in that sense, it has some kind of label of directed type theory.
+>> Yeah, and then I guess related to that, you said that the ordering for the function type was extensional.
+>> Yes.
+>> Do you have to add that as an axiom or is that derivable?
+>> I mean validated -- so the source language has it -- part of it -- the reduction role on the precision at function types, and then it's validated through the model, like in the model, the precision at function types is actually extensional.
+>> Thank you.
+>> More questions?
+>> Okay, and then also the -- if you go back, this last one, the composition through upper bounds, is that equivalent to all of the cast being retractions?
+>> All of the cast being retractions. So the thing is that here the important thing is that it allows to talk about cast between types that are not related by precision.
+>> Yes.
+>> Like, it allows us to -- this plus some composition operation allows us to describe the behaviour of cast outside the fragment which is directly related by precision.
+>> Right, this allows us to reduce all of the reasoning about casts to up casts and down casts.
+>> Yeah, mostly.
+>> But what I'm saying is in my experience this kind of property is exactly what we need the retraction property for, from there being embedding projection pairs.
+>> I don't know if it is equivalent, but I'm sure that I am using it in -- like, the fact that I can quantify over all upper bound X is indeed the fact that you have a retraction.
+>> Okay.
+>> One interesting observation around that is that we couldn't do that through an intersection. Like, it wouldn't work with a lower bound.
+>> Yeah.
+>> Okay. I have a quick question myself. So how does this compare with previous talk, and in particular do you support identity types?
+>> So we don't support identity types.
+>> Okay.
+>> We are able to support inductive types with indexes only when we have enough decidability on this, for example, forceable indices or things like that.
+And otherwise, no, I'm -- I don't know how a general identity type would fare in this.
+>> Okay.
