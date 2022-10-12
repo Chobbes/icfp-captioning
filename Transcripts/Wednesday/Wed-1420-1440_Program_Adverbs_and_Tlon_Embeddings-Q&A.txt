@@ -1,0 +1,18 @@
+
+>> Greatings.
+>> Take questions from the audience, do we have any questions in the room?
+So we had one question about the bit of audio that we lost in the talk. This was an explanation of the origin of the terminology of the paper. Can you fill us in on the origin we lost there.
+>> You didn't actually miss much, because the answer in the video was there is an explanation in the paper.
+>> And the PC awarded this paper distinguished paper award, so if you have more questions about it should be very readable compared to our intermittent airmeet issues.
+>> My question is that your refi... are they constructed such that they have the same equalities as the relevant type class rules, predescribed. Or do you accidentally see difference between two applicative structures that are actually semantically the same because of rules.
+>> So maybe can I answer both questions here. Refi... counter I show here,..
+applicativefunctor and not normalized, so normalize, normalize the free applicative functor only the recursive definition, both on normalized form of functor and we do that to keep the tree structure of the original program, and...
+sometimes you may have like, two... you may have associated issue, that don't have the same tree shape and that's the question here.
+And our work, we do not use the Coq quality... we develop theory for equations for some equational theory, in which case two structures are semantically equal.
+And for starting itself, with the associatve role, and explanation how to derive this equation in our paper. And and in parallel. That...
+perilization, but at the moment don't know if there is safe way to derive, the role. Hope that answers the question.
+>> Okay, I see one more question on Airmeet. It says, the description in the talk was fairly abstract, can we see a code example.
+>> Probably not an easy way to show here. But we do have artifact that are available on GitHub and ACM digital library, if you are interested in materials I also recommend reading section 2 of the paper that contains very concrete example and working through different types of embeddings and ad VER Bs and bringing to the table.
+>> All right, thank you.. any other questions?
+Don't see any more in the room, and don't see any more on Airmeet, so let's thank our speaker [APPLAUSE]
+>> Thank you.

@@ -1,0 +1,127 @@
+So a functional pearl about imperative programming, geez who
+thought that was a good idea?
+You could claim you've been tenured from the start, because there's some -- [muffled] -- is in context of the
+lain I am proffer and five years ago on this date I stated that the belief in C++ as our implementation
+language, we've actually tried to do much better since then and we've been replacing most of that C++ code
+with a Pfuhl, this lean itself and you won't be surprised to hear that our code quality gets so much better and
+succinct, yeah it's just great, but in a few specific patterns, we felt like the opposite was the case.
+And let me illustrate some of these patterns using an imperative language that I enter but more than
+C++, which is Rust. So this is preview. Basic Rust code, we have some mutable variables, early return,
+conditional updates, after those variables and well as which heard yesterday it's actually quite fusible to turn
+a set for us into pure functional code. And for this very simple example it's not hard at all, so we click, right,
+listening code being used a do block for maybe modeling implicit effects of Rust, so yeah. Instead of the
+early return, viewers's analysis block and we get some indentation in return, the implicit -- the conditional
+update, we can he will late using a bit of shadowing and I mean, yeah. It's definitely possible and it's not too
+bad and yet the Rust code sure is a bit more succinct and arguably readable. And let me just add, so this
+space if you like, Haskell code, the only real difference that in lain we use this let jumpilyly to introduce binds
+in a do block which will become relevant in a minute. Right. So I mean, yeah, maybe there's also some
+completely different way to write this code, but we did stumble over these patterns again and again and it's
+also very similar if you compare like loops, mutating multiple variables with corresponding faults. We also
+see, like, um, um, like pure code, I would call these last two lines. They just don't exist in Rust and I don't
+think they contribute anything to understanding of the program.
+So this is discrepancy between the different paradigms is especially disappointing to me in a way
+because what do notation is kind of trying to he will late imperative control flow. So you can guess where this
+is going. What if we added even more imperative features to the do notation? What if we had mutable
+variables at least mutable inside a do block, let's not overdo it.
+[Laughter.]
+>> and now again we can do the bind syntax without the laps to signify mutable updates. Now we really
+don't have to hide behind Rust any more, right. I think at this point you're intrigued by the idea or maybe
+disgusted.
+[
+[Laughter.]
+>> SEBASTIAN ULLRICH: Or maybe both at the same time so I stop trying to talk about motivation
+and trying to convince you now. Let's start talk about what we're actually doing in the paper about the hidden
+pearl in this sin tactic node pot. It's all about semantics so let's start thinking about how could we even
+implement something like this? The -- [muffled] -- IRs for mutation, that's not very nice. Could try some
+direct functional translation like we saw yesterday from Rust, but we found -- what we found is to probably be
+the most elegant approach is to model each of these extensions, as a separate effect, which we model in
+Lean as mono transformers. So when you declare a mutable barrier in a do block, there can of course be a
+model outing statements for over that type, right? With the scope of the effect being the scope of the
+mutable variable.
+Return likewise could be modeled, can be modeled as an exception that we then handle, catch and
+handle on the top level of the do block.
+And yes, we introduced for in loops as well with, break and continue and those, as well, can be
+modeled as an out rate exit effect surrounding some typeclass generic we use for modeling the actual
+iteration, surrounding an inner exception effect for the continue.
+And the great thing about this approach is that it is very molecular, like these different extensions have
+very few interaction points between then, so we could reasonably add even more extensions, as well. And it's
+completely pure, of course.
+So we use Lean assay -- [muffled] -- in paper an sup am. We show that reasoning about functions
+using all these extensions is not fundamentally harder or different from reasoning about regular pure
+functions.
+All right. So I think you got the informal idea of how we're implements this so let's get formal.
+In the paper we present some sin tactic translation rules to get rid of these extensions. For example
+we have a function arrow that eliminates return statements by turning them into applications of the pro
+function of the exception transformer.
+And on the leaf expressions we simply lift into this transformer and for all the other transaction, we
+simply recurs.
+So to validate these rules, we then archmented them in Lean as a simple reference implementation
+using Lean's very flexible macro system, so at any point in a file we can say something like let's introduce a
+new syntax, which is a new key word return followed by a term and that's now a new kind of do statement we
+can write in a do block.
+And we also have a little framework in the sup am where we can say, return is also something we can
+expand and that now allows us to write our macros that say something like well how do we expand return, by
+doing exactly the same thing that the -- first two rules already told us in the paper.
+And the nice thing about this whole set up with this expander and he could panned bang macro is is
+that all the other rules that just structurely recurs are already handled by this macro in the default case.
+So it's even a little shorter than the formal verse. All right. With this implementation we can actually
+test or formulas in Lean and play with them and do proofs about functions like I mentioned before, but of
+course that's no conclusive proof that they do the right thing beexpect in all cases, like the opposite of the --
+[muffled.]
+So we started thinking, what's is a simple natural specification we could verify these translation rules
+against? And yes we have a few translation rules that are a bit more complex than those two. So how about
+a natural, natural semantics on do statements with an actual mutable state?
+Now, this only really makes sense if we're in the identity moment because we can't really express an
+arbitrary bind in this case, but we'll get back to that in a minute. So in this setting we say something like to
+evaluate a return statement, we take its suppression, the substitute the current mutable state and have that
+evaluate to a value.
+And after that, the return state is kind of stack. Can't really do anything with it and we call that a
+neutral statement and then there's one more interesting rule which was the proof of the sin tactic bind which
+says that if the first statement in the bind evaluates to such a stack statement, could also be continue or
+break, then we skip evaluating the second statement as prime and just return that stuck statement.
+So this is how we can model earlier term if like a bit of a different point of view from moan that had
+transformers and then of course we have a type system to go with that, as well, but I leave the details forever
+that on to the paper 'cause I don't think there's anything too surprising going on there.
+All right. Adds the last step we then of course took all of this and translated it to Lean as well so the
+operational semantics we turned into an -- [muffled] -- type of interpreter, which is a bit more complex. I
+wouldn't want to write about that one in the paper, but it does let us move -- remove the restriction to the
+identity monad. So in the end we have an embedding of type correct do blocks over an arbitrary monad and
+we have a regularly function that takes such an embedding and returns -- evaluates that to a moan that
+haddic value. I should just say this thing over there, that's the lead syntax for type last parameters, and after
+that we took our former translation rules an IMP ammed them again in Lean, this time on top of this
+intrinsically bedding. Even without worrying about the specific types, you can see from the signature that it's
+introducing an exception effect in the code.
+And then we of course have to handle these effects on the top level of the do block again. So yeah.
+That's just one part of the translation and in the end we of course, prove pro that for any LawfulMonad
+translating away the do syntax results in a monadic term that is equivalent to just running it in this interpreter,
+so we've shown that these two different point of views of the semantics indeed coincide.
+All right. I think so much for the theory. To conclude, let me quick low talk about some of real life
+consequences of these extensions and I have ex communication is not one of them.
+[Laughter).
+>> SEBASTIAN ULLRICH: So, you might be thinking what's natural about imperative sin tax if you
+don't have the I am per per active data structures to go with that? Fortunately as we learned on Monday,
+Lean like Coca has destructive updates. As long as no one's around to observe them, as long as the
+reference to the data structure is unique and so we can write down imperative sin ax like that and know it has
+a pure semantics, but also has the run time semantics we would expect from imperative program, but at
+least the run time complexity.
+So this -- all this new syntax actually fits together quite nicely with existing features of Lean and
+combine to what if starting to call a pure imperative programming paradigm.
+So what do people think of -- about this paradigm so far? Well, I'm happy to hear your opinion about
+it. But at least in the Lean community, reception has been very positive so far, so not only is it extensively
+used in the implementation of Lean 4 which again was the original use case, but also in the majority of the
+Lean 4 repositories that have been created so far, it's really young, it's not even -- does not even have a
+stable release yet. You will find at least one of these features being used.
+And actually both us and our users are liking these features so much that we started to use them in
+nonmonadic code, as well, so we -- we check the identity moan that had simply so that a do block is then
+accepted and we can use those features in the do block.
+All right. And why we're talking about users, let me just add that why, we are concerned about
+learnability of all these new features and so we try to could you pleaseter act on that. It could for example in
+supported editors by highlighting the do block, that returns when you hover over the return so that you know
+exactly what do block is exited by the return and as you can see we also are in the process of just adding
+syntax doc strings to basically all the built in syntax so it's easier to like explore these features and learn
+about them from the editor.
+All right. So to conclude, I think there is a few different fields you can have on our work as a user. You
+can just say, oh, this is a nice little paradigm of how I can program now in Lean.
+If you're more of a veer foyer, if you're concerned about verifying code that uses these features, I'd
+say don't worry. And yeah, on a higher level, this is -- you can see the paper as a case study in
+implementation and formalization of a syntax extension. Thank you.

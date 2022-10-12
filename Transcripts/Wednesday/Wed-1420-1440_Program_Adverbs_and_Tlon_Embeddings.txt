@@ -1,0 +1,67 @@
+>> hello everyone I hope everyone is enjoying ICFP and to those of you who are attending ICFP in person I hope you are also enjoying Ljubljana .
+unfortunately, I cannot attend this year's ICFP in person but i'm notheless happy to be here virtually and present our paper Program Adverbs and Tlön Embeddings my name is Yao Li an assistant professor at Portland State University this is a work that was done while I was a PhD student at the University of Pennsylvania in collaboration with my advisor Stephanie who is attending ICFP in person so let But happy to be here virtually and present our paper, My name is Yao Li an assistant professor at Portland State University this is a work that was done while I was a PhD student at the University of Pennsylvania in collaboration with my advisor Stephanie who is attending ICFP in person so let Us start with the talk. Suppose you want to verify an existing program the original program might be written in C, Haskell Verilog or Makefile etc.
+Which are all mainstream languages that do not support mechanized reasons the first step you need to do is embedding such a programming language that is available to mechanized reasoning such as Isabelle, HOL, Lean, F, or Coq this step is known as semantic embedding or simply embedding it turns out in bagging is with many challenges first we would like our embedding to be simple so both developing the embedding procedures and working with the embedding might be easier for example let's consider the following arithmetic expression one plus two plus three in Haskell let's embeds the expression in Coq.
+We can either do a shadow embedding which would look like the same expression or a deep embedding which would be an abstract syntax tree (AST) of the expression .
+The shallow embedding is simpler and it makes reasoning about certain properties simpler as well .
+For example we can easily show that 1 plus 2 plus 3 equals to 2 plus 3 plus 1 and also equals to 6.
+This is because these expressions are direct computable arithmetic expressions in Coq as well so we get the theories of numbers etc.
+Built in Coq for free on the n the other hand we need either some extra theory for the AST or interpretation from the AST to a shallow embedding to show the same thing for a deep embedding however what is convenient in one situation can become inconvenience in another supposepose we want to reason about properties related to the syntax structures of the original programming step. Such as how many plus operations does an expression contain we would not be able to do so with the shallow embedding . we cannot tell the difference between 1 plus 2 plus 3 and 6 in our shallow embedding.
+Instead we need deep embeddings this is the second challenge of embedding.
+We want our embeddings to be simple but also be suitable for the properties we want to reason about.
+Finally we want our embedding to be modular .
+This is because many programming languages contains similar language constructs, features, or computation patterns.
+Let's consider makefile and FPGA they are very different languages but they share some common characteristics first t First they both enforce a static control flow in a Makefile file dependency are statically fixed and an FPGA is hard wired furthermore due to the nature of this static control flow we can parallelize certain computations in them as seen in "make -j" and in an FPGA furthermore Haxl is a library that automatically runs certain operations in parallel it is written in Haskell, a language more expressive than Makefile and FPGA as it allows dynamical control flows but a particular piece of code in Haskell may only contain static control flows and Haxl makes use of exactly that part to run parallel computation .
+in other words how Haxl also has a subset that shares these characteristics we would like to model these shared characteristics in a modular way so we don't need to repeat ourselves .
+this paper tries to address exactly these challenges but in the context of mechanized reasoning about the effectful languages in other words we aim to find a way that allows us to reason about as many properties as of an effectful program as possible in a modular and simple way.
+Let's start with an example consider a circle that can read from some external devices in this circuit we show on the screen we read from two external devices x and y---or just one device if they point to the same device---and join the values read from them with an end gate this circuit has a static control flow and it runs into parallel.
+In addition we might want to model the reading effects from external devices abstractly external devices abstractly.
+Either because we want to make them modular so it works with multiple different types of external devices or simply because we do not know anything about these external devices note that reading effects reading effects on these external devices might do anything depending on the device.
+For example each reading from our device might change the values on the device or the values change by themselves every second or the value returned are purely random random.
+How do we model such a computation pattern our inspiration comes from many previous works on free or freer monads and their variants such as interaction trees which allows us to embed effects using an uninterpreted data type.
+We have discussed the earlier shallow embeddings and deep embeddings and their trade-offs in terms of properties.
+These two styles of embedding are common choices when we embed the program but they are not the only two.
+In fact as many recent research works show the styles of embedding should be viewed as a spectrum rather than a binary choice.
+Free monads and their variants offer a pretty good mixture for embedding effectful programs in this spectrum.
+The mixture is embedding effects deeply as uninterpreted algebraic data types and embedding pure computation shallowly.
+In this paper we generalize the key idea of free monads and propose a class of mixed imaging that capture general properties of computation patterns.
+we call this class of mixed embeddingsTlön Embeddings.
+More specifically to circuits free monads are too expressive to properly represent them.
+For example monads would allow dynamic control flows .
+So using them would allow us to write exotic terms that can be cannot be expressed in the original language and would get in our way if we would like to reason about properties related to this static nature.
+Now before we move on some of you might be wondering how to pronounce the word Tlön and some of you might be wondering what Tlön even means you can pronounce Tlön however you want as it's a fictional word from a short story of Borges.
+If you want to learn why we use this word to describe this class of embeddings I promise you that there is an answer in our paper Now instead of using free monads in the circuits we derive a structure from a different class of functors namely applicative functors which are Shown here, we derive the new structure by reifying applicative functors first we declare a data type parameterized by an effect data type called e and a return type Called R. And then we take every method from the class and make it a constructor and change the Types accordingly.
+In the end, we add an Embed constructor for embedding effects in it.
+The part that demands special attention here is the LiftA2 constructor which contains two computations that do not rely on each other.
+There is no way to run a different computation or invoke different effects depending on the result of another computation or effects.
+this structure is called a program adverb with this program adverb we can represent circuits shown earlier as follows .
+First we use the lift a2 constructor to represent the join of two reads.
+We use the Boolean and function in Coq to represent the and gate so we're using Embed to well, embed the read effect which is merely represented by uninterpreted constructors this gives us the embedding of the circuit which represents the pure computation shallowly (and deep embedding) and the effects deeply .
+program adverbs are not just data types they also contain some general theories that can be used for reasoning about semantic properties such as some parallel properties of the circuits.
+For the sake of time we do not show adverb theories here but you can find them in our paper.
+I find it useful to understand program adverbs in comparison with effects by effects I mean new operations that provide our program interaction with external environment .
+Like reading from external devices in your circuits, I/O, exceptions, mutable states, mutually exclusive locks, etc.
+if we make an analogy between programming languages and natural languages effects are like verbs in a natural language .
+However verbs themselves do not decide how our action is done because they can also be modified by adverbs.
+It is the same in programming languages we have some computation patterns or general mechanisms that work on the control flow or data flow that would modify how any effect is invoked in a general way.
+This computation pattern includes static or dynamical control flows parallel execution and nondeterminism etc.
+program adverbs are structures that capture exactly this type of computation patterns.
+So how do we find other program adverbs.
+It turns out we can derive many program adverbs by reifying the many classes of functors that are commonly used in Haskell such as functors, applicative functors, which we have shown earlier, selective applicative functions, and monads.
+We give names in adverbial forms for each of them as shown on the screen.
+Okay so far we've been talking about standalone adverbs but what about the modularity concern we were talking about earlier.
+In particular in a Haxl program there is a subset that has static control flows and parallelization and another subset that has dynamic control flows.
+To model programs like Haxl we also need a way to compose different program adverbs .
+This pursuit however would lead us to the expression problem.
+In our paper we overcome this problem by making use of the techniques presented in by Delaware et al.
+In their meta-theory à la carte paper which builds on church encodings.
+By making program adverbs composable we can actually achieve a computation pattern à la carte that allow us to add existing program adverbs as needed.
+Furthermore since program adverbs do not need to be standalone we can find a few more program adverbs that represent repeated computation and nondeterminism that are mostly useful when combined with other computation patterns.
+We discuss composable program adverbs in more detail in our paper along with two case studies using composable program adverbs .
+One case study is based on the key ideas of Haxl and the other one is about a networked server.
+You can also find our Coq source code in the artifact of our paper.
+In conclusion in our paper we present a class of mixed embeddings called Tlön embedding that allow us to embed program using program adverbs.
+Program adverbs are structures that are parameterized by effects and can be interpreted into shallow embeddings.
+They model some common computation patterns and they are composable enabling composing computation patterns as needed according to the original language.
+Program adverbs can be used to reason about syntactic properties as well as semantic properties about the general computation patterns and they can also be used to reason about semantic properties via an interpretation to shallow embeddings.
+You can find more detail about these in our paper .
+That is all for my talk today thanks for listening and I'm happy to take questions.

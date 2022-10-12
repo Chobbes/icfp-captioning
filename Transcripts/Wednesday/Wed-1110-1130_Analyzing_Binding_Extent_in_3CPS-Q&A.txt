@@ -1,0 +1,37 @@
+
+[Applause.]
+>> Okay. We have any questions? Yep.
+>> How does this interact with tail call opt Ms. Ization.
+>> Yeah, it's just a part of the stack protocol so what you can do is look at the syntax and if you have a
+call where all the continuation parameters are continuation variables then that's simply a tail call and that
+works perfect lie fine.
+>> Yep? Yes?
+>> Thanks, very nice talk. What's the time complexity of your analysis.
+>> I mean worst case is probably Ncubed is. In practice we find it's roughly linear. The standard
+things that defeat your analysis like loss of FUPGSs, that defeats precision and time complexity and we
+noticed something similar but in practice, you know, it's really quite linear.
+>> So a obvious reaction from another compiler writer is one of envy. So could I steal yours?
+Because what you've done is based on the abstracting abstract machine story, you can presumably just turn
+a little knob and abstract a different abstract machine, perhaps one for later evaluation. It would be kind of
+interesting to know how well this would work for later evaluation. My instinct is it doesn't work very well
+because lifetime is bounded, but I don't know that and maybe it would be quite easy to.
+>> Is it would definitely be an interesting experiment to do and somehow you compiled a lazy model
+perhaps to a strict model, you could funk everything and that would definitely give you a good idea of what's
+going on.
+>> I was thinking before that, could take a different abstract machine am and apply the same.
+>> It's always a good thing if Jones is envying your work.
+>> [Inaudible.
+>> So when we look at what's going on in the back end, often we have something that's -- [muffled] --
+>> Had I'm sorry, it's difficult to hear you.
+>> In the back of the compiler, often we start -- we have variables in register and they get spilled to
+the stack when there is a function call so there is a shining of location.
+>> Yes.
+>> Could you present something like that and would you get any benefits.
+>> This is a much higher level IR where you're not worried about spilling at the moment. The abstract
+machines show that you have an unbounded register set, you can he will late that at run time by using a
+static block of memory. You don't necessarily want to do that and we thought a little bit about when you
+would want to do that, but remember that the compiler -- the analysis is telling you, you know, facts. It tells
+you if a variable has register extent, stack extent or maybe even both, which is actually often the case. So
+typically, it's completely fine to spill variables. That doesn't 'cause any problems or anything. If you would like
+to talk with me in more detail, off line we can definitely do that.
+>> Okay. Thank you.

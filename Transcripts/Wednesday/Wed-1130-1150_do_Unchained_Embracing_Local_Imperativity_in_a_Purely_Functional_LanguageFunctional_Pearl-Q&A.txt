@@ -1,0 +1,39 @@
+
+[Applause.]
+>> Questions? Here? Is and there and there.
+>> So suppose that I have some concrete monad and my program still lives in it and some of my
+functions are higher-order functions and then if I understand right, then I change one of my moan that haddic
+functions by using an early return and suddenly I'm drowning in type errors and saying you're using your
+concrete -- you're expecting your concrete so view and accept -- [muffled] -- how does that work out in
+practice.
+>> SEBASTIAN ULLRICH: So these transformers that we introduce, they should be purely
+implementation detail. You should never see them as a user.
+>> Even if I'm using higher-order.
+>> SEBASTIAN ULLRICH: That's definitely an interesting issue. If you have a higher-order function
+like inside your do block right? And so right now, as I said in the beginning all these effects are local to the
+current do block. So you can't simply can't mutate a variable that you declared outside the higher-order
+function call and so yeah. That's an issue that we thought about as well, but surprisingly, it hasn't really come
+up often enough that we modeled a solution for that so far, but I'd really like to have a solution for that and
+actually, it's mostly like yeah, we're just not about just syntax at first. So yeah. Maybe there is actually a very
+simple solution.
+>> Okay. Have a question over there.
+>> Hi. Over here. Have you had imperative programmers like actually imperative programmers --
+[laughter) -- work with this because eve's have students trying to do this identity do in Haskell and then they
+run into an issue where it's not exactly like python that they're used to and they get very confused.
+>> SEBASTIAN ULLRICH: Great question. So I would say that most users of Lean are advanced
+programmers, often they have a functional background but also an imperative background and I think then
+they can appreciate these features.
+I don't think we have any experience with like pure imperative programmers.
+>> Thanks.
+>> I think there was another question over there?
+>> Thank you. Um, so your building these towers of monadic and I was wondering whether there was
+any -- [muffled] -- cost at one time from all of that abstraction.
+>> SEBASTIAN ULLRICH: You mine at run time?
+>> Yeah.
+>> SEBASTIAN ULLRICH: Yeah, compilation is something I couldn't even get into the talk, but we
+talk about that a bit in the paper and so outside of loops, if you're just in line on the monadic binds you
+basically get the code you would expect exactly.
+Loops are a bit special, so we're, um, before -- we, for example use CPS translation, like a CPS based
+monad for that and it turns out that's a little bit faster, but yeah.
+>> Okay. Thank you.
+>> Thank you. Any further questions? Okay. Then thank you.

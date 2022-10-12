@@ -1,0 +1,135 @@
+All right. So I'm going to tell you about some work we've done in a context of
+building a WebAssembly back for GHC. And I hope you'll leave with a little bit of an idea about how a
+compiler looks at control flow, but even more, a warm feeling for our favorite tools functional programming.
+So GC is design the go down to machine code, so it has a low level form, called Cmm that's repped adds a
+control-flow graph that I show on the left and it's going to reflect a representation on the right and all these if
+A, go to, go to, each is designed to compile to single machine instruction.
+But our target doesn't have go to. WebAssembly is set up with a little bit of sin tactic structure and the
+only real control transfer, this is if then, and then there's a continue or exit instruction.
+So the same kind of diamond classic if control flow translates into WebAssembly very directly as an if.
+And in this example I've shown the WebAssembly evaluation stack, but I just want to simplify it for purposes
+of this talk so that we can understand what we're looking at.
+So here's what we need to know about WebAssembly and its structured control flow. It's got if then
+else. It's got a lope construct. That is unweary, because if you reach the end it doesn't go back to the
+beginning automatically, it falls through. So I learned that two weeks ago.
+[
+[Laughter.]
+>> NORMAN RAMSEY: Indeed, it's -- think of it as a label for -- target for backward branch, then
+you'll be okay. And then we've got a block form that exists only to be exited from. And then here's our
+control flow that says, reach at word, Ktimes to whatever you're nested in and if you're reaching out to a loop,
+go to the beginning, anything else, go past the end.
+So that's what we need to -- need to target. So it works for nice simple if-then forms. Here's a sort of
+classic, this is kind of simplest loop I could write. We're going to enter Aprime, B prime could go back to A
+prime and then eventually, we'll go and exit the loop.
+And here's what the WebAssembly looks like. If, you know, B prime wants to go back, it's going to use
+this BR instruction, which here acts like a continue and then there's really no need for a break or exit
+instruction, just reaching the end exits the loop.
+So this is all very nice, but not all control flow is very nice. So here's something that looks like it's got
+some if diamond things and they're all mix together and things join back together and Simon is here and he's
+probably going to pester me about job points and -- we can find something like this -- I know.
+[Laughter.]
+>> NORMAN RAMSEY: So we're starting with a nice little if then, but B and D get okay. If we get to B
+and then C else D, he want to put E in here, it has to be reachable on this other path out of A. We certainly
+don't want to duplicate it. So this is a problem we set out to solve. Only I solved it by going to the library,
+because I remembered in the late 60s and early 70s, people -- the structured programming thing was new
+and people were very obsessed with what it could do and there was this very deep technical paper by Peter
+son, Kasami and Tokura that has a whole bunch of results about and of control flow can you translate and
+what do they do and in the process, they solve this plasm and it's this rather elaborate sequence 6 steps that
+start with a rusable control-flow graph. That's just one where you don't jump into the middle of loops, jumping
+out okay. And then we have a whole sequence of things that eventually arrives at -- at -- so the structured
+flow that we want.
+But this was not something I was keen to add directly to GHC because the pros and cons. Pros,
+absolute guarantee the algorithm is going to work, it's going to terminate and no code is duplicated, so in the
+translation, the translated program running exactly the same set of tests and actions as the original and
+there's no static duplication, either, so very, very nice, but it's not a lovely algorithm. It's got three passes,
+intermediate states, the control flow is messy, it works by emitting code as a side effect. Simon, I wouldn't
+want to propose to Simon that I put such a thick into GHC, so how can we could better. This was state of the
+add in 1973. This is nicely indented for publication, but it's just a set of commands. There's no actual syntax
+structure here.
+And here's the algorithm. Try not to get too, uh, distracted by the details. It is the -- if you've read the
+art of computer programming, this is the style of the time and so it's actually -- this has got three cases and if
+X is the terminal node. T, then emit stop and terminate or write go to Y as a side effect and -- there's a nice
+little hint right at the beginning.
+The algorithm requires the use of a left in stack. Everyone knows what that means, there must be a
+recur I have function somewhere, so that was my job, to find the recursive function and to see if I could have
+our desired output syntax directly instead of having to treat it as side effects, can we just define a recursive
+function that returns the syntax that we want and the answer to that question is yes.
+And these are really the only two functional programming techniques here. Algebraic types, every
+function for the computation.
+And then there is a couple of key compiler ideas that are bog standard, one is to number the nodes in
+the graph with a reverse post ordered numbering. This is just adept for search and the other is to use a
+dominator tree which ilexplain to you.
+But I want to start with the graph properties because the graph properties tell us what shape of code to
+emit when we're translating a control-flow graph node.
+So if the node is entered by back edge from higher number to lower numbered like the loop I showed,
+then the translation is going to be wrapped in a loop. And that's -- that's literally all you do. You say, if there's
+a thing, wrap it in a loop.
+If the node has two out edges, then its translation needs to end in if and that's more complicated for
+computer go tos that I won't trouble so that's going to tell us what to translate and then where to put it. How
+do we arrange everything so everything works.
+And that's determined by a dominance relation and a dominance relation is a way of talking about how
+can you get to a place, so A here dominates B, C, and D. A come United States B. If every path from the
+entry point that includes B also includes A. So to get to B, you have to go through A. And the immediate
+dominator is the -- the one of all those, I'm just going to be informal, that's closest to B. So there could be a
+long chain of things that you have to get through to get to B. All the otherses also have to get through to get
+to A. But A is the closest to B, it's the immediate one. A is also the immediate dominator of C, and it's the
+immediate dominator of D. Bcan only go to D, about you it doesn't dominate D because there's another way
+to get there.
+So the dominance structure is different from the control flow structure and it's simpler.
+What we're going to do is the placement -- in my recursive function, at some point I'm going to be
+given A. And I'm going to translate A and everything that Dominates. Other things are going to follow A. So
+that's how my reecursi#0SHGS n is goings to work. How do I know what goes inside and what follows?
+What follows are the merge nodes. This is anything that's reached in two different ways by forward edges.
+And then the other ones, there's only one way to get to B or C, those are going to go on the inside.
+Same thing works for loop. So as I see the back edge I'm going to wrap the whole -- woops, sorry --
+going to wrap the whole translation in loop and then B is going to have this backward branch to go back to
+the loop header and this is the translation that you saw before.
+So let me walk -- oh. Sorry. I couldn't -- this is tolly irrelevant, but it's ICFP and I wanted to say the
+dominance relation has a beautiful set of equations. The set of nodes that dominates, so you can read all
+these algorithms build how to compute this, but the concept is simple. It's really very nice.
+So when we look at the immediate dominators, they form a tree. C is immediately dominated by B,
+which is immediately dominated by A and then all these other nodes, A is really the only thing they have in
+common. A is the immediate dominator of all of them.
+And I've highlighted here the two merge nodes which were exactly the ones that 'cause trouble earlier
+in the talk. And now I'm going to sort of walk through my recursive function. This is when I translate A and
+everything that it dominates. I'm just given this node A in the dominator tree and in the code I actually
+materialize the dominator tree using the -- I've never materialized a dominator tree before, with you for this it
+was perfect.
+So I'm going to get into A and in the dominator tree, it's -- everything you know is like who is your
+parent. There's no ordering on the children. So this is where I'm going to go back to my department first
+reversal and my reverse post order numbering. I'm going to do the merge nodes first as I execute and what
+I'm going to do is place the last merge node at the end and I go to pull a block in front of it so I can reach that
+merge node by exiting block.
+And -- woops -- so here's the highlighting the one -- when I get down I translate F. I say here's a
+translation of F, and then stick a block in front of it and now make a recursive call to generate what's inside
+that block. You'll do the same thing for E. And now A can handle its children that aren't merge nodes, I'm
+going to generate this Fif-then. I'm going to go ahead and translate B, it's going to have an if then else, and
+I'm going to lay down C, which has to get to F. And I'm not going to lay down the translation of E at all,
+because E isn't dominated by B. I only translate the things that are immediately dominated by the node I've
+given, the sub tree of the dominator tree. So how am I going to get to E for the if? I'm going to admit this BR
+instruction and how do I know what BR instruction to emit, the other argument to the recursive function,
+besides the dominator tree is the sin tactic context. So if you've ever played with an operational semantics
+that keeps track of the context of where things are evaluated, this is just the context in terms of its control
+flow.
+And I -- you know, I get to see it needs to go to F. I just look out of the context, what's there -- this is
+an if, this is an if, this is the block that precedes E, this is the block that precedes F, ah-ha. That is the one I
+want so that's the BR instruction I'm going to emit.
+That's whole thing, but it would be nice to understand why it works. And that's something I can't
+squeeze into a short talk. But the key property is whenever I get to a node, that has as its successor in the
+control-flow graph something that it doesn't dominate, a merge node somewhere, it's always gonna look in
+the context and it's guaranteed always to be in the context and that's quite subtle, but the -- the key
+properties, the reverse post order numbering that comes from the depth for search, that if I need to get from
+one place to another, if I'm going forward, things are in the right place. If I'm going backward, I'm going
+backward to loop header. What if I'm going backward to something that isn't a loop header, well in that case,
+the control-flow graph wasn't reducible and we know the algorithm doesn't work. If necessary, we first have
+to convert an irreducible control-flow graph to something that's reducible. So the argument in the paper is a
+little bit depressing because there are a lot of cases, but it was the best I could do.
+So it's really fun to combine functional programming and compiler stuff. This is, you know, sort of
+classical functional programming, we're going to build an an subtract syntax tree, do it from the outside in
+and then suddenly this advanced compiler -- how many people teach an undergraduate compiler course?
+How many people talk about the dominator tree? Steve.
+I didn't -- I hadn't even heard the word dominator in my undergraduate compiler course, but anyway,
+ordering the dominator tree is going to order the children. We're going to use the post reverse order
+numbering to order them and a little idea from operational semantics to figure out where the branches go.
+So I would wrap up just by saying that if you pick up a compiler textbook or a compiler paper and are a
+bit intimidated by what you find there, don't be afraid to think recursively. It works really well. Thank you.

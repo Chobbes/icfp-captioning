@@ -1,0 +1,7 @@
+>> Do we have any questions?
+>> One down here.
+>> Okay, so something basic, maybe you said it and I missed it. In general, when you have a monad the way to lift in relation to values and regulation and is not unique, in your library, for example, do you make one choice per monad or several choices how do you deal with that.
+>> Very good remark, the idea is we have these acclimatized structural rules for your monads but you can really choose your equivalences. So in practice you can define various notions of equality over any monad and in practice we do actually have to use it in our en compiler correctness, because the base free monad in our interaction tree which has a notion of both strong bisimulation, and weak bisimulation, stack of equational theories that are basically different in practice and we use that in our case study. .
+>> Other questions.
+>> Can't get airmeet to load, and don't know if we have questions online.
+>> There are no more questions, so let's thank our speaker again.
