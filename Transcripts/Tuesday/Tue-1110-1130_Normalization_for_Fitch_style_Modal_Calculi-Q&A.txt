@@ -1,0 +1,7 @@
+
+>> Thank you, we have time for questions.
+>> ILYA SERGEY: Okay, Ron has a question.
+>> Thanks for the talk that's really interesting. I guess related to the next step talking about interactions of modalities, do you have any comments about diamond. Any insights about diamond as this was mostly about box.
+>> O we have insights into diamond from the world of intuitionistic modal logic right so what we're really we're taking these are all these are amazing work done on intuitionistic modal logics, and now we have a computational interpretation over this logic so witnesses are lucky, fortunate moment of I think the coming together. So we do not think about the logical interpretation and their semantics in the possible world semantics, there is a computational interpretation is not something I know anything but. >> Thanks.
+>> All right, no more questions, let's thank.
+[APPLAUSE]

@@ -1,0 +1,15 @@
+>> Thank you, we have time for questions.
+>> Thank you. That was a beautiful talk.
+I'm wondering if you have thought about how difficult it would be to embed this semantics in existing programming language, or whether it is something that really requires a standalone language to work?
+Like, could it work as an EDSL with sufficiently expressive type system, and if so what features would you need?
+>> So I think... I think for normal GV that can work.
+But the problem here is that this consistency check that you have here on the fork, I think that's really hard to express in an another type check. I think people have done something like this. But I think to do the most powerful versions I think you would need probably some dependent types here. I mean, I'm sure in Coq, or... you can definitely do this. In Java, very much doubt it.
+>> Questions?
+>> Let me ask one.
+You mentioned that you proved the log freedom and separation logic. CSL doesn't give you...
+separation lodgening, what did you use to prove that result.
+>> Separation logic little bit nonstandard. Separation you do logic argument to prove something about the type system.
+We don't do this, half way between preservation subproof, and traditional proof you do in separation logic.
+So we rely on Iris. But I created a linear version of Iris. Normal Iris is F-separation logic, and here we needed linear version, actually you have to use the whole channel, if you just throw the channel away, the other party will be waiting and that could be dialogue, and had to create our own separation logic for that.
+>> ILYA SERGEY: Thank you. Okay.
+If there are no more questions, let's thank Joe.

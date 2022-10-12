@@ -1,0 +1,11 @@
+>> ILYA SERGEY: Thank you, Simon, we have time for a couple of questions.
+>> Thanks for this interesting talk, there is this paper called the clocks are ticking no more delay. If you enter a later modality, what you get in the context is a tick, which sounds a lot like the later credits you talk about, and so it's not usable as a resource. So wonder if you provide intuition of the semantics of the credit and why they behave like objects.
+>> Yes, this basically goes to how the entire mechanism is proven sound, if you really want to know, find me later and can discuss in more detail. The simple answer we observe in Iris and most step logic relations.
+In the end matters you only look at final execution of length N, and then you only care about the total number of later elimitations, not where exactly in the program they are used.
+And realized this and said, maybe we can use a resource to basically control when... how many, but not exactly where.
+And we developed new modality, and new version of update modalities that allows whenever you have such a credit to spend later credit there and do careful tracking that you didn't exceed the maximum amount of later credits you were allowed to spend.
+>> More questions?
+There is one from Klaus.
+>> So... you talked here about having generation of later credits before you spend them, have you looked at all to the idea of later credits negative, where you spend them, and then generate them afterwards since as you say you only care about the total number not about where they exist. .
+>> That's a very interesting idea. We have not thought that much about it. One thing I would be worried of, I promise I will later provide you with later credit here, and then could easily get into the cycles you say I promise I will later on give you later credit, and promise I'll give you later credit and build another cycle in the proof, but maybe you could do something, interesting direction to explore in future work.
+>> All right, slightly behind the schedule, let's take the rest of the questions offline, and thank Simon again.

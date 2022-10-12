@@ -1,0 +1,14 @@
+>> Okay, we have time for a couple questions from the audience.
+Let's see... here.
+>> Thanks for the great talk, I was wondering usually Liquid Haskell is used in automated manner, here writing manual proofs in Liquid Haskell. So could you compare how much effort was this compared to doing in full prove assistance, or are you still benefitting from the automation built in liquid Haskell.
+>> Certainly do, don't have exactly the same proofs in other group assistant, but I know in general, this ... but the transition I had here hugely facilitated by... liquid Haskell is translated to a very simple sequence of steps, comparing to what you medical have with other purposes. So for example for SDG this requirement of what that data sets differ in exactly one point is proofed very simply.
+>> In the case it's inStacks direct you get a lot of automation. And other cases you have to to...
+>> Directive proof for elation prove. And expect the upgrate audimakings from SMG.
+>> Thanks.
+>> Have time for another quick question, if any.
+>> Thanks for the talk.
+>> So maybe I missed this part. Just wondering in our proof about relational property for bins, it seems on both inputs the control flow of both programs is across the same, so just wondering can you handle cases where the programs take different control flows, and is that covered in SDG.
+>> Our assumptions they only cover cases, one factor of the program is exactly the same on both side, but can be DIVENT --
+the rules only cover those case, but we can use, liquid Haskell to alter the structure of the program. Using the quality and for cases where the relationship proof is desired, but the STRAUR of the program is not quite the same. You can use, and then apply. So with that, the right extension of the system, with synchronous rules, in our library, we keep it to the rules with the same structure.
+PSH .
+>> All right, let's thank our speaker then.

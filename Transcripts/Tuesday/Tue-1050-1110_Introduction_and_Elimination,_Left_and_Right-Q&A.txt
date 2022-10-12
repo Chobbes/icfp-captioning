@@ -1,0 +1,6 @@
+>> Thank you, Klaus. Time for one quick question. Let's go there.
+>> I guess so in your language you have some form of type checking algorithm, and I'm thinking in bidirectal type checking community there is kind of this thing about the fact that you want elimination forms to infer times, and constructor forms to check against the type.
+And I think it's not clearly understood why this is the case and might be other possibilities, and wondering if you have seen these kind of things implementing your type of systems and if you had any intuition on this kind of question.
+>> I think I'm not sufficiently familiar with by-directional type checking. But I would glad to talk to you in detail about this.
+>> Let's talk at break thank you.
+>> So rest ofs questions, and personal demos, let's take them offline and thank Klaus again.
