@@ -1,0 +1,58 @@
+>> Do we have any questions? There's over there.
+>> How does this relate to the original Relooper algorithm.
+>> NORMAN RAMSEY: So Relooper for those not in the know, that was an algorithm published in
+2011 in the context of -- I'm blanking on the name, Emscripten, compiler to JavaScript. Relooper is a
+algorithm that breaks the -- breaks the control-flow graph into pieces that serve as original nodes and just
+kind of glutinates them and if it gets into trouble it spawns a variable that says where did you come from and
+puts a conditional on that.
+So Relooper is complicated and it doesn't provide any guarantees. I haven't seen anything in the
+refereed literature, but if you poke around the web, you'll find people who have found some -- the
+weaknesses in Relooper that -- places where it introduces extra code where it need not do so and I think I've
+cited the most useful one of those in the paper. I put Relooper in the title of the paper, because I want
+people who know only about Relooper to find something better.
+[
+[Laughter.]
+>> NORMAN RAMSEY: I see hands but I don't know where the mic is.
+>> I have a Mick mic. So Norman, I think I noticed that you ended up with a branch to the next line.
+>> NORMAN RAMSEY: Yes.
+>> Is that something that you would say, well it's opt Ms. Ization or is there a small wrinkle that would
+avoid putting those in.
+>> NORMAN RAMSEY: I didn't pay him. There's a small wring ankle that Mr. Eliminate those very
+easily. The recursive function that walks through the merge nodes, the context, I've just shown the tin tactic
+context. That context can be extended with one word that says if I fall through at this point, where do I go.
+And so when I get ready to emit the branch instruction, I look at the -- I look at the fall-through context and if
+that's where I'm trying to go, I don't emit it and that's how I discovered that I misunderstood the semantics of
+loop because I tried to fall through the loop to go back to the beginning and that's not the way WebAssembly
+works.
+>> So, um, you mentioned just near the end, you got -- there's two parts here. If it's not reducible,
+you've got to make it reducible.
+>> NORMAN RAMSEY: There's really three passes.
+>> Which is a critique you made of the original.
+>>.
+>> NORMAN RAMSEY: The original has all those passes plus the three. So they need the
+dominance relation, they don't use a tree but they use a dominance relation and then they use a finer grain
+relation about reachability by paths between nodes, which you don't need that granularity.
+>> [Muffled.]
+>> NORMAN RAMSEY: So outside the scope of this work is is the flow graph reducible, if not, one
+makes it so, that one's preceded by the dominator analysis because it's an easy way to discover in the graph
+is reducible. So dominator analysis, flow graph reversibility, reverse post order numbering and then this bit.
+>> I don't current imagine, sometimes when you have these instructions you think now I can see how
+to do it and you can see how to fuse two bits together. I'm wondering whether this reducibility thing could be
+squeezed into your reversal so you don't have to do a whole -- you might not see it in your way, but.
+>> NORMAN RAMSEY: So it would certainly be possible but it would be lousy software engineering
+because the way to do it is to get down and find, oh, I tried to make a branch but it isn't in the context. Now
+I've done all this work but what I need to do throw the graph away and build a new one.
+>> That would not be good.
+>> NORMAN RAMSEY: It's easier just to take the results of the dominator analysis and do it. I should
+add, I lucked out. Both the dominator analysis and the post order numbering were already in GHC so they
+were free, which Simon has taught me that means already paid for.
+>> So we have time for one more short questions.
+>> So very short questions. Why don't you consider, like, putting the Haskell liner with overview of the
+algorithm just to show how much we've progressed over the 50 years of doing things.
+>> NORMAN RAMSEY: Um, the real -- if not a one liner, it's probably, um, I don't know, 30, 40 lines.
+It's -- the real answer is I didn't think of it. And also, 15 minutes kind of a short -- if I show you Haskell code,
+we'd all get very distracted and the nice session chair would say sorry, time's up.
+>> And with that, sorry, time's up.
+[Applause.] .
+So next wear's going to have James talking about how to automatically derive control cravings from
+operational semantics.
