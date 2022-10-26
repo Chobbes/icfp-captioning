@@ -1,0 +1,26 @@
+
+[APPLAUSE]
+>> We got around 5 minutes for questions.
+>> We have tons of questions.
+Let me start with one from Airmeet very aggressive question. Does GitHub know how to fund academics when it would need their help to put their work in production.
+>> Anyways a great question, and happy to report that GitHub is sponsor of the Haskell foundation, and tapped in the community and very GRAFRL for what it's given us, I hope that in the future, we can continue working with academic community and ask them, What is the most important thing, which is funding. .
+>> All right one question down here.
+>> Hello, thanks for taking my question. I am a blind user of GitHub, so I hope we can take time during the coffee break to discuss accessibility, which is not bad, but could be improved.
+And already reported several problems and it was ignored, so really hope this will change.
+Meanwhile I have a question about diffs. Have you considered trying to compute the diffs in collaboration with the user who submit the changes.
+Because after all they know the semantics behind the changes, or at least they're supposed to.
+So they could enter the changes, or they could verify the changes computed. And see what exactly they wanted to do.
+And then after a while you would have data base of semantic diff and do machine learning on it to improve this. So what do you think about all this.
+>> First off. Thank you for filing bugs of accessibility issues that's important to me as well. For different reasons, but important full stop.
+Regardless, regarding the semantic diffs that is something we considered. To your point it's an interesting problem, if you try to compute the difference between two things, you are developing proxy for what the user actually intended so for example if I delete something and insert the same thing back again, the full diff is null, nothing changed in full. But some cycles were learned. Potentially that they may want to be able to communicate forward. So yeah, That is an excellent idea, it is something that I think we should build. Unfortunately it's not likely be on my plate, at least the next while but I would like to circle up with you at minimum get your email address, so if that changes I can get in touch.
+>> All right. Let's take one more question.
+>> We'll be outside during the coffee break.
+>> So any more questions, hit us up.
+>> So you supported 9 different programming languages. Haskell wasn't one of them.
+[Laughter] >> little bit of shame.
+>> Always get this one.
+>> Maybe there aren't enough Haskell projects to really motivate that. And so you did all this work, and don't get the benefit of the cool stuff.
+>> Show makers children have no shoes. What hold us back from having Haskell as core offering not that there aren't Haskell programmers but the tree sitter grammar for Haskell at that point was not particularly good place. Those who SAR in the GHC Haskell parser for long enough, knows that's a gnarly parser, and it's a gnarly languagelanguage. It's not the world's hardest thing to build Haskell 2010 parser, but when you bring in many GHC umpteen different blocker -- we got into building the Haskell parser, and then we realize, oh, there's that block arguments extension. We have to start over. Now.
+Luckily have been outside developers working on, rees that are Haskell parser and have gotten it into a really fantastic state. They did this by writing a custom lexer using C++ 17 lambdas. And we're hoping to bring house go into our supported operation. And if you'd like to help contribute some code navigation rules with our DSLmeet us during the coffee break we would love that.
+>> All right, I see there are a bunch more questions, but we're already in the coffee break, and let's take the rest of these offline, and thank our speakers once more.
+[APPLAUSE]

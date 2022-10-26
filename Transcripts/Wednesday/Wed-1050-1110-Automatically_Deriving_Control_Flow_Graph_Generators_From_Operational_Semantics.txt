@@ -1,0 +1,136 @@
+Hello, everyone I'm Jimmy Koppel. Been working on this quite a while.
+Automatically -- the joint work with my visor Armando and former student Jackson. So, so control-flow
+graphs might sound pretty boring. Maybe we wouldn't have said at that before the last talk, but they're an
+important part of compilers and this work is part of a much larger vision, which is when you're writing new
+language, you need all these little -- [muffled] -- simple table generators, code generators, stack analyzers
+and I don't like having to kind of reimplement the same algorithm for same languages, it should be
+theoretically possible to derive all these given the syntax of a language.
+But for some of these tools, like they're pretty far from what we see in the syntax and semantics.
+Sometimes it's easier to see edge. Like the small executor kind of looks like it's running so in fact the K
+framework people have already managed to derive these, but today I'm talking about something where it's
+much harder to see how it has any resemblance to the Greek letters.
+I will be present be Mandate. It takes its input, the -- [muffled] -- language and it gives you very
+readable code, quite -- actually quite similar to with a we actually hired a person to write control-flow graph
+the same language and indeed they're quite similar, except C was low paid and got lots of -- [muffled] -- and
+then you get control-flow graph. And we were able to do this not for big languages like I can't have, we did
+this for tiger and MITScript. So now I'm going to try to -- in a few minutes -- took a long time for reviewer --
+[muffled] -- what does a control-flow graph look like. So the standard answer, common answer, like take an
+undergrad just given a course is likely to give you one of these. It's a basic block control-flow graph, it has
+few nodes and small memory footprint, so it's very fast, you can code it really fast. It's also -- [muffled] -- to
+squashing together like this. So the previous talk reviews this kind, the statement level, where you have one
+node for statements and just don't squash together straight line code, but there's more options.
+So what I like a lot is the suppression level of a control-flow graph because the analyzer, not to grab
+the code, but on a syntax tree, it's really nice to be able to say what exactly is true about your program and --
+[muffled] -- before and after every single inner suppression, so now -- [muffled] -- which use this kind. More
+ex 0 tick and less implemented is this kind, probably none of you thought of it before, spots I'm going to take
+a analyzer and take this code and prove all these outputs balance parenthesis. It's kind specific.
+But this is very easy to do if you've already -- if you have in your states, like, which path it's going
+down, what -- 'cause then, with this statement, it's -- [muffled] -- do it twice, you remember what you did, it's
+great line code and it's trivial to prove that it's print out balances parenthesis.
+[Muffled] -- because their very application specific but why not. Maybe we had a control-flow graph
+generator we could do this so really we need all of them. Like if you're doing different stack analyzers, each
+could use its own control-flow graph which partitions the state exactly the right way to the second analyzer
+and if we want to take 20 of these analyzers and run them at the same time and then I need something that
+partitions the program state in ways that's good for all of them. So it's like that's why we want the control-flow
+graph from generator to generator.
+Sorry to do this, you might -- Richard fine man gives a great algorithm for solving problems which is to
+write down the problem, think really hard and write down the solution and inspired by him, we're going to
+solve this by defining control-flow graph and implementing the definition because it turns out that after 60
+years, no one's really defined control-flow graph for us. Like here's so many Greek, here's semantics, do you
+see the control-flow graph nodes in that? Like I -- I could -- [muffled] -- this stuff a lot.
+So it's really -- it's not -- [muffled] -- go from this to control-flow graphs, what do these things even
+mean in terms of semantics. Easy answer is a control-flow graph node is just a subsequent program, but if
+you did that, every timed world -- the word prince appears in your program, would would be the same node.
+Which is not the case.
+At first I thought a control-flow graph node is a continuation, it's the stuff that happens after, but then
+there are also things that, where the -- the same thing happens after to two vines but somehow don't
+American them. As a little spoiler, it's built.
+So there's a couple big ideas that are going to be used to go from the Greek letters into this more
+control-flow graph and this first one is actually the -- the operational semantics is not the right way -- it's kind
+of too far. First we want the machine stead.
+This is a quick primer on abstract machines. It has the current you're focusing on and a continuation,
+sometimes you have more stuff in there, but these are the two basic things and when you step, well, for this
+one we're going to descend into Bone and then after we're done evaluating E1 we plug it into hole plus E2 so
+we're going down the stack.
+So some machine rules for addition and these actually already have a notion of program point in
+them. It's already closer to control-flow graph so the first step is to convert it into machine and it turns out
+that the times that we can't do this, when there is no graph machine, actually correspond to the languages
+where control flow jumps around too much and the control flow really isn't modeled as a traditional system.
+There is no control-flow graph. This is great, all we need to do is go to the literature, look up how to do this
+conversion and then we're halfway there, except that I tried that and surprisingly, there was not already an
+algorithm for this, so I had to build one and this is like -- it's like crazy because you're doing all this work,
+mostly by -- [muffled] -- and his students about how to take different formalisms and semantics and convert
+them and it's like he hasn't done this?
+Even like invited paper from this conference about 15 years ago, where it sounded like he did that, but he
+only did that in a example. So when I I visited him in Singapore, I asked him, he told me some things,
+including some advice including how to put the title page of this. But he also told me he didn't personally care
+for algorithms -- [muffled] -- I actually want a systemic run so I had to do myself.
+So I made -- say a little bit about how we do this. We have a pretty nice approach. That's pretty
+general and some of the things are really hard and the other path are really easy for this. Just say a few
+words about that, which is here we have some SOS rules for addition and the corresponding machine roles
+and we're tempted to think, there's three SOS rules, will machine rules, clearly it's a match.
+Right? And actually, it's -- if you look a little harder, that's not the case because in fact the first Appel
+machine rule, we're just descending, I'm going to do E1 first, that corresponds to the first half of the rule and
+the next rule corresponds to two halves of two different rules. And so on.
+And so this is actually the big idea of the path we take for our conversion algorithm which is we have
+intermediate repetition, where each of these arrows gets its own rule, we take the arrows, fuse them apart
+and put them together another way.
+So the machine is giving us a notion of current program points so the first steps for every language we
+convert the operational semantics into an after machine.
+Then we have a cute idea. So here is an if statement and I'm going to see the control-flow graph. Let's
+just say that E, my control flow is going to depend on what that value of E is, I'm going to say it's star, it's
+something, it's a value. Something. And then I can take verbatim, the machine rules I have and say, well this
+thing could match that. It's going to evaluate to there and then I have a different rules for if it's true or false
+and I don't know which one it is, both of them could match, so let's -- this is our graph.
+And now already getting something that kind of looks like a control-flow graph and I can say these
+abstracted machine nodes are CFG nodes as a definition and these actually kind of correspond to something
+you would see in a handwritten hand made control-flow graph, but first we have the input node, the in node
+of the if statements, down here we have the in nodes of the then else statement, but this thing in the middle,
+which I get from these rules is also corresponds to the in node of an if statement, but of course, I can just
+project, squeeze things together afterwards and so it's a -- kind of merges together and now we have
+beginning of a control-flow graph for this if statement.
+So that's the big idea, but it's so on code, it's going to give me a graph, not like run these rules and like
+an interpreter, give me a graph. I gave you this for a one if statement in one context in one continuation, but
+the work I just did, would look pretty similar for any other if statements in any other context. So there's some
+way to turn things into symbols, which can evaluate what this process would look like for all if statements
+ever and get a control flow and there is, so I just put in symbols.
+So here is a Y loop, where I -- Eand S are the conditions bodies, going to be any condition, any body,
+any continuation, any context. Here I do environment, so any binding of variables to values.
+And now I can run the rules on this so to be sure the Y led to an if, I run the if, but I run the if, so --
+okay. So yes. I'm running the if. Something a is going to evaluate the condition. That's the dashed line. So I
+run the if and either it's going to do the body or go to the end and, and at the end I find myself back at the
+beginning and so furthest back edge, just from following the rules, not from any special knowledge.
+Now, I squeeze these things together and label them and to get the code I just read -- I could just read
+off the code from this graph pattern. Graph pattern describes control flow of all Y loops in this language,
+period.
+And I just write some code that prints out these dashes and bam I'm done.
+Now, I did say earlier we wanted a huge family of control-flow graph generators, not just one, so --
+so -- [muffled] -- well I write a little bit of codetor that, to say that all values become star, that's saying I don't
+care what value it is, it's going to give me an suppression of a control-flow graph. To say all expressions
+become star, means I'm not going to have internal notes on that expression, I just skip over it. It codes a little
+bit more, but not that much. For these two different kind of extractions are giving me different control-flow
+graph generators at different levels of coarseness.
+Then of course, I also can always just take nodes and American them willy-nilly afterwards, so that's
+the second parameter and from these two parameters, the extraction projection, I can get all kind of
+control-flow graph generators period, so that's the system, we take the semantics, get out the machine, take
+out the he could tracks and projection, just a little bit of hassle code, then we get a syntax ready control-flow
+graph, give you the program, it's in the program, bam, there's control-flow graph. So we did this, we
+generated control-flow graph generators of muscle.kinds just to make sure it works. We did have to actually
+use them somehow, put a couple small analyzers on them so prove these are actually good for something.
+I want to say a little bit about one of the things we did, which was the most complicated KVK node
+generator we did. So four loops in tiger language, little complicated. They're like four interval loops, four
+equals C up to Dand these are something that is not exactly big but is a lot of AST nodes and so when you
+actually write this out, it's the control flow -- the graph pattern is about 43 nodes and yet we still manage to
+get very short and readable code out of it.
+So and now I can finally summarize it all into my definition of control-flow graph and for its principles,
+which is just as we all know that mow gnats are -- [muffled] -- so control-flow graph nodes are projection of
+the ex transition graph that's extracted after machine states.
+By the way, an earlier draft of the paper I used the word abstract six times in the same sentence, in
+the abstract of my paper. So we're pretty excited about this technique, this technology.
+-- we think we can do a lot of other things with parsing that semantics into tools and I'm excited about
+if you give me a black box interpreter language can we derive the semantics and run this so go from a black
+box artifact and get the tools.
+I encourage you to reed the paper. There's a lotted more there. I glossed over certain kinds of
+control-flow graph. These are not syntax-directed, but we included some correspondence, there's an
+automated termination proven there, that if one termination ends, so yes, that is the world's first control-flow
+graph generator generator. Thank you.

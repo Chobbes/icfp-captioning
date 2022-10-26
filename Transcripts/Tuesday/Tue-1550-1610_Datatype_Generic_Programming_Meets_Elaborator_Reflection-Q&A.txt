@@ -1,0 +1,13 @@
+I'd like to invite any questions that you might have.
+One over there. There's a question just over there.
+Thank you for that. It is a good talk. Do you support indexed inductives yet and if not, do you have any ideas of how maybe along the way you could have support for things like that?
+Did you say index?
+Indexed inductor families.
+You mean data types with independent cease?
+Yeah, that's is definitely supported. That is why I gave the example because that's indexed, yeah.
+I'm a fan of elaborator and have hated it. It sounds like your programming is a step towards EDSL for expressing these types of elaborator reflection without getting into the nuts and bolts. Do you have plans to extend to general elaborator or just focused on these?
+Focused on? Data types rather than generating general. You have a very precisely find representations of Agda code that doesn't exist in the provided library at the moment and this is screaming for a DSL that supports this in Agda in my opinion. I was wondering whether you were pushing for that.
+You mean something like pushing this type of representation into elaborator reflection?
+Sort of expanding on the set of definitions that you've got in order to provide a complete representation of Agda syntax with this precise typing.
+That is actually a very good question because that touches on the nears. We're trying to represent data types within a type theory and so I think that's still ongoing research and we're basically targeting some more common data types right now, and yeah, of course, if there are some more theoretical advancements, we will be able to make use of that.
+that. I think we should stop there. Thank you very much.

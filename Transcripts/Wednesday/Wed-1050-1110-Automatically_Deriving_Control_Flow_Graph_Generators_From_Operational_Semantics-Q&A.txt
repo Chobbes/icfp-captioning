@@ -1,0 +1,26 @@
+
+[Applause.]
+>> Question? Yes. So we have time for a couple questions, maybe Simon.
+>> I just have a question. In old style redaction semantics, you have option of first evaluating left
+expression or right one, would that be considered control flow construct.
+>> So are you talking about nontermism, or -- so a control-flow graph is a transition program, it's
+necessarily term Novack, but cliff click of java, in his thee sis has a resolution app. Which is for that kind of
+thing is control-flow graph is not best referenced as a CFG but a, net, called sea of nodes.
+.
+>> High I really like this work, but I would like to push upon the boundaries of how far can you go with
+it so I have a's lost track of the number of abstract machines I've seen for executing functional programs or
+backtracking and so forth. No different, so it sounded as if you automatically either do abstract machine from
+certain operational semantics, so if -- how far can you go, if you had a machine with backtracking or
+exceptions or parallelism or lazy evaluation or with a heap, would all this just work or have you got more to
+do.
+>> JAMES KOPPEL: The short answer is no. It would not just work. Some of the reasons are
+fundamental. Some are bared on the limitations of our rewriting machinery, so -- so -- yeah. So -- but also,
+some of them, with like this kind of machine just doesn't exist for some languages, so uh, so one example I
+have is the rock step -- is a lock step parallel machine, which is you have two threads in parallel and each
+thread must take a step, every single step of the program must consist of a step of each of the threads which
+is different from normal parallelism, so here, I think like if -- we could create a custom kind of machine where
+the current program point is a pair of program points and they always have to update in tandem, but, well,
+there is no, like can single sub term of the program, which is the current program point so this style of
+machine does not exist for the example I just gave, which is a very artificial example that I've never seen in
+the literature and I don't know if it's useful, but it's a simple example.
+>> Okay. Thank you.

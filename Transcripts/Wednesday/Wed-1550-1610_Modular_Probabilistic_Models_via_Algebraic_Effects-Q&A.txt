@@ -1,0 +1,14 @@
+>> We have time for questions.
+In the middle here.
+>> Thank you I really liked your presentation, and really liked the example of the epidemic.
+>> Sorry, I'm half Deaf could you speak up a bit. In the epidemic model there is transition from the sue susceptible to infected and to recovered.
+>> Carry on...
+>> I was going to... yeah, so about the order. Yeah, you really want the infected transition first and then sue susceptible. But you really also want some people to stay infected for a few days, so maybe you might need some kind of state to remember some information. So my question is how easy is it to combine this probability effect with other effects such as state effect or any other kind of effect?
+>> Yeah, good question.
+So it's extensionable. So you can have news or effect, but just have to be handled first before the actual effects of this language are handled. So this is the actual type of a model.
+Which consists of two core effects, and what happens is you will just as a user call the custom handlers and run these two effects afterwards.
+>> So composition of handlers rather than running two at the same time.
+>> Yes.
+>> Thank you.
+>> We have time for one more question if anyone has one.
+Great, let's thank the speaker then.

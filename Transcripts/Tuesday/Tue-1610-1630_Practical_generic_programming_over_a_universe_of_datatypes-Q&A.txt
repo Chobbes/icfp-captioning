@@ -1,0 +1,15 @@
+Thank you for your talk. Let's have some questions. There's a question at the front.
+This is really nice. I really like this. I also want in. Is there anything I can run from this if I want to make this in Cork? Could you conjecture or speculate on that?
+I think the main would be that there isn't any explicit handling of continuous levels in Cork, and so, for example, we had to use [indistinct] to be able to be able to represent [indistinct] in Cork I believe there isn't, around so it might be impossible to represent such a large customer data types. If you restrict yourself to set, it might be possible. I think domination shouldn't be an issue.
+Now we have a feature. Thank you.
+We have another question just down there.
+Hello. Great talk. I have two quick questions. One, I saw that you said you avoid without K when possible. So are you using the K axiom?
+Yes, for decidedable quality.
+I'm not precisely sure why we needed it. I think it had to do with examination somehow, the ... checker interacts with it some weird way, so for the other destruction it can be used with conmm ...
+A lot of what you're doing here looks similar what is done in equation in Cork, and so the no confusion, decidedable equality, der invitation of well-foundedness are similar to you might want to take a look.
+Thank you.
+I think we have time for one more.
+You've shown some examples where there is niece instances that you can derive, like, show decidable quality. What if you tried to derive an instance that it shouldn't be able to derive.
+Does that mean the function, the derive whatever function is a partial function or you can't even do the reflect function that gets the description in the first place?
+Right. One good example is decidable equality. In the general case you cannot derive decidable equality for the types that I've in in the two arguments. So what we do is kind of a trick, but when we applied the extension, it will ask for an instance of some data type and in data type is defined possibly on what a description is and it will enforce that there is no circumstance for the two arguments. When you fry the function, it will say you could not find an argument of not allowed. Maybe the usual experience is not great, but we are able to constrain which kind of descriptions.
+Thank you very much.

@@ -1,0 +1,19 @@
+>> Questions?
+>> So how do you regression models cons if you have to wait for the function to execute if it's used or not.
+>> For example, you mean in the map function.
+>> Yeah, for example, yeah.
+Soo... recursion modular concept means that we can do the recursive call to map, and sort of allocate the cons cell up front, that's the really tricky here, reuse the con ises d up front, and allocating it, and then do the recursive call, so.
+>> Can you go back to the first red black tree slide.
+>> First, sorry.
+>> First slide on the red black trees. Sorry.
+So in the move up function, when you switch from the node R to the node, do you notice that the CLK, V field all right in the right place already, so you don't have to write them to memory. And it's something we an optimization called reuse specialization and that is covered in the previous paper in more detail.
+You showed us a rule for less than add a star that can be replaced with different side conditions, and one of them was all the variables in the context are appearing free and easy to which you said means that they're all actually used, but with conditional logic, how is that the case, they might only be mentioned in some branches of pattern matching, and therefore not necessarily used. That can happen it's only use one branch of pattern match mag.
+>> Got it, So it's an approximation on optimality just like the garbage collector. .
+>> Yes.
+>> More questions. Thanks, a part that was a bit too fast for me. Knowing that something is time limited in this sense.
+What guarantee do you have on the worst case... of the program. Can you... do you have a guarantee in terms of... the maximal amount, if it's going to be constant more than the optimal one.
+>> Sorry, you mean the number of cells extra.
+>> Yes, can you property being limited in terms of size.
+>> So here we... yes, of course each visual only has a constant size, and also know constant amount of variables, that we have in the gamma constant at that moment.
+Is it the case, that you can have total live space of a program. Is it true. Or maybe it's HPS. yeah, I think we can talk about this later. I think that's good.
+>> Thank you, we'll take the rest of the discussion offline, thank you, Anton again [applause]

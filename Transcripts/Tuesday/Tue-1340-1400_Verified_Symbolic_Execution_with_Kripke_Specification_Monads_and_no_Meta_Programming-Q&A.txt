@@ -1,0 +1,10 @@
+>> All right we have time for one quick question from the audience.
+Here. Gabrielet.
+>> Do we have volunteers.
+There.
+>> Okay, so I think in more theoryyetical part of the world one is use Kripke keyword, for secure handing of logic, and one mind blowing trick, and conditions and passing style, and get symbolic executer, it's beautiful and very complex. So my question is can you do without that part, writing symbolic executor, would it work, would it look the same, or do you really need the continuation monad.
+>> You don't need the continuation monad. You need some way to represent control branching, and continuation are in my opinion easiest way to do that.
+>> When we write evaluator, we don't do it in continuation passing style.
+>> Yes, but... I mean, you might locally branch right. But you might still have somebody you called to which you have to return to multiple times.
+So have some form of representing that.
+>> Let's thank our speaker again.

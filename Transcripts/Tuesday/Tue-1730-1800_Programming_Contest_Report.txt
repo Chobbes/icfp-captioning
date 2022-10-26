@@ -1,0 +1,48 @@
+>> Okay, so welcome. I'm a second-year PhD student at University of Marchland, college park, and for this year I was the chair of the programming contest for ICFP 22, and I am here to present you with the programming contest report.
+So let's start with our beloved logo. I like it a lot.
+And then move on to some general information. So some people may be unfamiliar with the ICFP contest. The contest has been running since 1998, so this year was the 25th, and every year a different organiser picks it up, and there are unique questions, unique problems that are in -- like, that are left to that year's organiser.
+So it's a very -- it's very unique in that sense.
+So the -- I would like to thank some people that have helped me throughout this organisation. They are my friends from undergrad. So Emre, Eren and Ozan, and I would like to thank Jesper and Andre for their help throughout the process.
+Let's start talking about the problem, the interesting part.
+The problem had three versions of the specification. The first one is the first 24 hours. The second one is the second, and the third one is the third.
+So in the initial problem, we start with the target painting. You are supposed to somehow do something with it, and you are given an initial canvas, and you are supposed to actually paint the, like, canvas into the target painting. And I will come to that. I will come to how you do that in a sec.
+In the second type, now you don't have an empty canvas anymore. You are given some, like, initially coloured blocks, and you can use these blocks to your advantage, or they can be to your, like, disadvantage if you don't use them.
+And the third version, now you are given another painting as your initial canvas and you can use that to colour your target painting.
+So we are talking about colouring. What is this? How do we do it, right? There are a set of operations and a set of instructions that are provided for the participants. And the first one is the point cut. You pick a point somewhere on the canvas, and you cut it to four, like, rectangles from that point, and the second one is the line cut, which could be either horizontal or vertical. Lake there are small details there, but the block IDs and numbering, but they aren't really important.
+Third one is colouring. You take a block and you colour it with some RGBA, a code that we give. And we have merge where you are able to merge these, like, small blocks into one larger block, and the last one is the swap operation where you can -- if you have two blocks of the same shape, then you can swap them.
+And so you are doing these operations, right? And trying to paint this picture, but we must judge you somehow. So how do we do that? We have some cost function that operates on these -- like, colours and canvases and all that stuff.
+So the first type of cost function is the colour cost. When you have some block -- like, when you have some canvas, let's say this is your initial canvas, right? And your target painting is all grey, then the colour difference is, like, we used this RGBA distance to get the colour distance of these two pixels, and then we aggregate them over the whole painting.
+And if you had something farther away with respect to RGBA space, then you would have a larger cost.
+And the second type of cost is the instruction cost. Instruction has an associated cost with it, and that cost is inverse proportional to the size of the block, so the participants, you will see, yeah, when the block is larger, the cost is lower. So the participants must resist the urge to, like, do exact paintings.
+They must stay at some level of blocking so that the, like, solution doesn't, like, exponentially grow.
+And let's go into our tasks. We have a lot of tasks. We have 40 tasks, each of them, like, have an initial canvas and some painting. And you can see all of them here at the screen. We have the chess board, the Tetris, the view of the Haskell programmer, a bunch of mosaics. They are the initial canvases. We have a bunch of Mona Lisas, the real one, the simple one, the one that my friend draw, yeah.
+[LAUGHTER].
+And let me show you some examples. This is the first question, and I like this a lot because it is what sparked the notion, like the idea. Like this was the first example that I came up with when I was designing the question.
+And this is another one. You can see that the -- you can use the colours on the left to your advantage. Unfortunately almost none of the teams did that. They just merged it and they acted like the initial canvas didn't exist. I was sad about that, but, like, what can you do?
+And yeah . . .
+[LAUGHTER].
+The funny thing is the left one is actually a class project. Like we had a -- in which processing language. One of my friends wrote that by hand. And let's go to the solutions.
+The solutions are, yes. So you can see that some of them are exact, like the chess board, the robot painter. Lambda is similar, but when you come to the girl with the -- or Mona Lisa, you can see that it's a lot, yeah.
+And like you can see the differences. Like these are the best submissions, by the way. This is the highest scoring submission. And this one, yeah. I say I like this one a lot. This is Curves. Godfather, yeah. And this. Inception, like the one thingy, and yeah, I like this one a lot too, yeah.
+So moving on, so what did the participants do, right? Because they had to work a lot during the 72 hours. They had a lot of different approaches. We had a lot of people working on the tasks, but I will give some of them here. We had the greedy approaches. That's like the easiest thing to do.
+A lot of teams did dynamic programming. All of the canvases were 400 to 400, so it was possible to formulate the problem as a dynamic programming problem if you did some optimisations.
+Some team did integer programming, and I like the last two a lot. Because I thought of them, but I don't think anybody would actually write them. So the peephole optimisations. Because you are doing these automated solvers, they are sometimes generating unnecessary instruction sequences. So some teams identified these things and they went a second -- like they did a second pass over the instruction sequence and they deleted those.
+And there is also these target image manipulations. So instead of going from start to the end, like from the initial canvas to the target, they started manipulating the target, and that sometimes made things easier.
+And there are a lot of teams that did manual solving. They wrote, like, cat tools, basically, and they used those to solve the questions.
+And some statistics. We had more than 300 teams registered. More than 150 teams submitted solutions, and almost 100 teams submitted solutions to all 40 questions.
+The entry barrier was relatively low, because even though you could submit an empty query, you would get some result. So I think teams liked that, because they could just start doing something by doing nothing, yeah.
+[LAUGHTER].
+And some impressions we got. Yes, the problem specification was great. It was a really fun contest. It had a number of bugs and glitches. Like, we had three bugs. We had to re-judge everything. It wasn't bad. People didn't complain much. He enjoyed this year's contest.
+While the specification was short and sweet, it did have some frustrating ambiguities. Yeah. And a couple of technical issues. Yes.
+And yeah, what the participants have been waiting for, like, nearly 10 days, the prizes.
+And the first prize is the judge's prize. It is given by the judges -- me -- at our discretion based on some, like, weighed factor, and I have chosen the cat is number 1 team, which is they are an extremely cool bunch of hackers. But I went over all the submitted solutions, and they had great visualisations and they had a great red me, so thank you for that (CORRECTION) read me.
+The second is -- the first 24 hours is it has a special prize because the teams that do something there, they should be pretty fast, and our GBT was pretty fast in that they are -- they had a write-up. It's a great write-up I think and you can see that they applied some local optimisations that they thought -- they start with a simple solution and they did a lot of local optimisations on that, so that made them instead of generating something from start that would be a bit heavyweight, it made them faster.
+So great job, guys. Rust, C plus plus and python are very suitable for rapid prototyping.
+Our third pride goes to Pigimarl. They used C plus plus, rust and python. Those are not too shabby.
+They were at the eighth place when the scoreboard froze two hours before the final, before the contest ended, and they advanced to the third place in that amount of time. Great job.
+Our second prize also goes to the RGB team, yes. What can you say? And our first prize goes to the Unagi team, which they used rust and go and python for all of the utilities, and apparently those languages are the programming tool choice for discriminating hackers.
+And I believe that they were also winners of the last year, so yes.
+[ Applause ].
+I would like to also share with you the standings of the first ten teams, the whole scoreboard is going to be open on the website, pretty soon hopefully.
+And these are the first ten teams, and their costs. As you can see, costs are pretty close. So teams probably are very close to practical limit of what they could have done. So there are three K, and 3K is nothing. It's one instruction. It was a pretty good solution round, I believe.
+Shoot, wrong slide. Yeah. I would like to thank you all for listening to me, yeah. Done.

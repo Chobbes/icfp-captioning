@@ -1,0 +1,25 @@
+>> We have time for questions?
+On the side. The swap example, you have to use C bindings that intuitively make sense
+>> Which version.
+>> The one here.
+>> Intuitively make sense why you need to do that. My question is the type checker, yelling as you if you forget to do that. Or silently disguard the effects.
+>> It's not completely implemented yet. So the thing is, there is similar restriction already in GHC. You put the pattern on, lazily, the constraint it pacts will not be available to you. So to have such a nice syntax, you need some modicum of essential types also coming to JC hopefully.
+Other disease WIES you use -- in which case get that for free.
+Don't tell you strict pattern, tell you don't have read write access on the second get, I think.
+>> Yep, on this side.
+>> Can you tell us a little bit more about the implementation of linear Haskell.
+>> Linear Haskell.
+>> I think I had a slide at the very beginning, you can use it today. More recent there's more pleasant or maybe the less unpleasant, it's going to be, I think so there's not completely polished. There's more coming in the next version,.
+But it exists as library called linear base in which collaborators try to build a standard library forgetting started with linear types.
+Something that is missing today and bit of trap if you type let or where, the variable will be unrestricted. And that's change in the next version of GAC.
+Work being done, so mostly polish.
+>> Can you turn to the slide with the linearly constraint.
+>> Linearly constraint. This one.
+>> So Haskell, obviously uses -- extensively. If you have a multiple argument function, and partially apply it, linear constraints exist at the very front. So, with that, if you were to just partially apply it, and use that once, it would discharge the constraint, if you pa partially apply it.
+>> And the type checker will ask you, please, please.
+>> And/or might happen, consider you use linearly more than once, and tell you, that you used linearly more than once, and not super helpful, that needs to be next frontier for the system.
+>> So in the sense the linearly constraint encodes the idea that there is some Val that needs to be linearly consumed.
+>> And the magic is just in the type inference.
+Because at the end, just creates a function, the way you generate linear constraints, and insert scope, and that limits your usage than normal linear type stuff.
+>> Let's leave it there. And take the rest of the break.
+Let's thank the speaker.

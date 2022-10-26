@@ -1,0 +1,10 @@
+Okay, I'm going to give the first question to Airmeet some discussion during the talk, how is cut different to fail?
+So I think this was around slide 8.
+>> Okay, so here I have a fail inside the computation. The things right of the fail are kept, so here 11, 12, 13, and that's it. Everything to the right of cut is pruned from competition, everything to the right of fail is not. I produce no results. So cut is I want to forget any results that might come afterwards.
+>> All right thank you, any questions from the room. One here in the middle.
+>> What is the purpose of your equations being graded?
+>> What precisely do you mean.
+>> I mean that, yeah, there gamma entails T = U, and seems to be graded or have a type of D. And also seem to be...
+>> The grade here is not so important, it's just the grade of each term in the syntax of this you can only write down equations between terms of the same grade, so the grade of each term, so in sense not so important to write it, just prefer syntactically.
+>> Okay, so other questions?
+All right, no more questions, then let us thank our speaker.

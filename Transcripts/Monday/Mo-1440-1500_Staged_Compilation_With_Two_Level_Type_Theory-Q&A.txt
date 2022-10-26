@@ -1,0 +1,13 @@
+>> Very nice work. I was wondering how difficult was this to implement compared to a normal dependly type language.
+>> Not very difficult. The staging algorithm it is, is even simpler than the normalization by other evaluation that you have to implement for conversion.
+Checking. So, yeah, I mean, if you have dependent types you have to do me a conversion, but staging is simpler..
+>> Follow-up question, how difficult to add to Agda.
+>> Let's discuss many. But the specifics details of... can make it possibly nightmarish.
+[Laughter]
+>> Thank you very much. Great talk. In the middleal. Yep. I had a quick question. So you showed what it's like to write these staged programs. But what happens if I want to prove something about the stage computation, do I have to prove something about generated code, or is there a way to prove stage itself. You can use the full power of the metal paper...metal level type theory to reason about object level programs, but only up to definitional equality. So, like the bat notion of equality is just to for the object, programs, and it is useful for many things, but it's not really semantic notion of program.
+>> So you can observe what the result of the staging will be, but you can't prove by induction that every staged computation is well behaved. You can mov you are on...prove properties about your genetic code inside the system. Thanks very much.
+>> You had function identity function earlier, you identified on tape A universe unwith.
+Anything that limits you from being stage polymorphic saying saying that it works for some universe you such that the A and the A are still at the same universe level. Es, so this is potential future work. And, but in order to make the sound, you probably need another universe.
+E, and then you say that polymorphism over zero and one can be expressed in U2. But this is possible.
+>> Any more questions. It wasn't clear to me if there was additional power in the metalanguage. Do you get typecase for example. Do FRM PL ... this is also part of future work. Depends on the general setup. Question is, it could do... analysis of expressions in general So if you have something with type, lift the then you can get a meta program which like matches on the structure of the expression, and then this does something, and it's a complicated question. It's not yet implemented but it's also discussed in the paper, to some extent.
+>> Okay. Okay, these were all the questions, thank you again.

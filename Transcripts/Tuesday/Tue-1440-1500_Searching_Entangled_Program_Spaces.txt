@@ -1,0 +1,44 @@
+>> Hello everyone I'm Jimmy Koppel, with Zheng Guo, and Edsko de Vries. So, I want to write down 10-100 programs and find the one that satisfies my goals, needle in a hay stack.
+So twist is putting extra constraints on the spaces. So before I show what that means, show what we can do this with.
+2 and a half years ago, authors created... for Haskell. So you give it a type, and says something like: Going to...
+type says somethings like I'm going to take function and argument, and apply N times argument, and gives you the program for that.
+So with S and T encoding with Hoogle. And we create ad better version called hectare. How much better. More in less time, this is comparison how long it takes, and top left, hectare auto new...is very slow. You see it's all very much the left, eight times faster than average, and zoom in a little bit and see Hoogle +, times out... and hectare under 3's.
+And not only does same stuff faster, but does more.
+Several times we're benchmarks in other datasets which has more high order functions, and my favorite comparison. And uses less code. So we have constraints offer. I bring to you ECTAs, equality con trained tree automata. So what are these equality constrained tree automita.
+I have bunch of... things to the left and right, and represents 100 million possible programs, and big circle or, and have one choice, it's a +. And point to PS let's argument from this bubble here. And add new things to that. And Y, and third thing, and now the data structure is representing 9 possible programs, and keep doing this and add more nodes.
+Can be exponentially large number of programs, that's great, amazing stuff with you.
+Now, I'm going to add constraint.
+2 times A, and I want to represent all the programs that match this.
+It's a nonlinear pattern. So we can't use the same rotation.
+And then we have X + Y, I don't want, I want X + F. Ive P.
+And this is not so compact any more.
+In fact one of the first works 20 years ago, on one these kind of spaces, it was very similar.
+Wrote solution of programs, with choice. And today I present the solution.
+So let's go back to the domain of type safe programs. So here we have four programs. And I'm going to introduce you to...
+another way we'll be working on first one tree automana. And at the top we have one choice, application, two choice F and will G, and TT KWARS are transitions. Those are aunts.
+So... what does it represent, accept thing run, made one choice for each of the circles.
+And that's X.
+And now, let's add some constraints. And type everything.
+So add more information here.
+Every single variable here is given a child. And type, and need argument type to lunch the argument. This is constraints.
+You read this, it's a path.
+You see that dollar sign has two children called function arguments, the arguments, the function after I made the choice. They'll have a TR o RG and T So the return type of the function has to match up the type arguments is ...
+>> So create any time, to say the only three types in the universe, I need them to about the same its int not bool.
+And have to line up.
+I want more than 3 types of universe, just add some circles.
+>> And now going to represent the map function And I just use this from here inside the map function.
+Now we have list to B and more constraints... and now I shown can represent the we can divvy ,o back to this invitation earlier of of our tool, all it is it builds ECA he space of things it wants, and kits, giving you the satisfying terms, but doing that, Nachi not so trivial. So See it represents a lot of invalidates on h one H can bookable can apply tax value different constraints, with one each placed xh intent satisfies.
+So this ECTA. Only 20% of runs satisfy constraints, so need a way, to satisfying things very quickly. Because it grows can be very, very few of its athletic constraints. And so, actually I'm going to spend a few minutes explain our enumeration out of them, as it's quite a clever, but also because it's at the heart of how we get such great performance results. So the idea is we're going to resolve constraints lazily. And going to big dollar only choice. And I don't know what types. I'm going to decide later and split into two subproblems. And both sides have title lines up. And choice, function, and can put H.
+And constraints merged with low constraints, and all the program that must be the same.
+And pushed out again, now need to choose what the input is and, gonna defer that because that makes sense or somewhere else, and you make a choice of what the archetype is. I'm gonna defer that. O now I know I'm gonna make the same choice or both sides when I make it go the other side, let's look at x, and long behold tells us that this type. This time, I want to make a choice in all three places has to be ends, and the magic of a common intersection just tells me I found satisfying term without backtracking. Only thing can make at a beach. Go back to the top. She was at this time.
+Once again similarly, we're going to find all use of F. And so this is fast enumeration is a secret, how we get to the great results showed you earlier. And so very littlecode. That's hectare, GHC pluggin, you can download and try thanks to...
+somewhere in the audience.
+So very fancy data structure, and generate housing programs.
+And all they ... more broad domains we're going to apply it.
+>> So something we're excited about e graphs are very bad as sharing text. Somethings that can be... ETAss we have a term, reverse brown notation built in.
+And here we have submission with Matthias, and student from San Diego.
+So this problem with where I give you functions and you want to find laws in the functions use property based testing.
+And previous work, give 3 functions, and we built something, and entire modules, so two domains. Hectare XHAN, and spectacular, and you hit run and solves it way faster than everever, thankfully, they're also more activewords idictionary. So you have such a domain that you think might be amenable, sent We're looking for collaborators and maybe you'll be the person to create nectarine or delectable. But hopefully not rejectable. .
+[Laughter]
+So I'm free to check the paper as a lot of cool stuff in there especially want To beat details about how we make cycles work during testing.
+That's thank you and I'll take questions as little mostly all figures have shown so far has just been drawings and the top right That is actual with an actual ECA. Generated by a tool looks like. Thank you.

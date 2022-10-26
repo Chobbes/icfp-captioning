@@ -1,0 +1,21 @@
+>> Let's see if we have questions from the audience. PL down here.
+>> Thank you for the excellent talk, classical program analysis, such as I'll I can't say analysis for example, often,nential blow up of paths through their flow and Pat sensitivity. And I was wondering if the backward translation say analysis for example, often, rust functions into the pure calculus, also suffers from this performance degradation and if not, how this problem is avoided.
+>> Well, so far we don't have the problem because of the backward translation. And I think the reason is that the backward functions have exactly the same structure.
+So the forward functions and backward functions have exactly the same function as original loss function, so you have same number of paths.
+So there is some... whenever we have branching, we don't have a joint operation, so we duplicate the paths, and currently working on general impression to remove that problem.
+>> Let's see who else. You have a question there.
+>> Interact with unsafe, isn't complete wildwest, and guarantees and nice to use something that things don't blow up when you use unsafe code.
+>> Sorry... I don't get the question.
+>> The question is: Okay, obviously relies on the borrow checker. And unsafe you can circumvent that. Does that break too many guarantees in order to do the transformation?
+>> Well, if you want to...
+unsafe code, have to make sure the unsafe code satisfies the contract given by the signature you put in the function.
+So... and in particular have to make sure that... we connect this to framework, and have to state what it means to have signature, and prove you satisfy the signature. In our particular case, there is actually, actually quite straightforward to state what means for a function to satisfy, because the backward functions are very easily expressible.
+The refinement can be easily expressible.
+And so prove have signature,
+>> All right. Thank you.
+>> Okay, let's take maybe...
+let's see. A quick question.
+You point out competitors or colleagues, And this sounds like actually good idea.
+Verification approach. Macro translation to enhance your tool condition. Have you thought about that.
+>> Because we have these pure translation. You in the theorem you state the preconditions. For instance the case of loops, would generate, we don't have that yet. But the loops would be translated to some recursive functions. So by saying some, you know pre, and postcon. And.
+>> Let's take next questions offline, and thanks our speaker again.

@@ -1,0 +1,23 @@
+>> All right, we have time for questions.
+Yes.
+>> One there and one there.
+>> Thank you for the talk.
+Parts of those calculations you performed seemed like they can be quite mechanical. So how mechanizeded can this get?
+>> PATRICK BAHR: Right in deed so this is all done in... so missing the tools to do mechanically, but in deed most of the steps we seen should be automated. Because it's just mechanically applying the definition. And mechanically applying the monad laws to simplify our expressions and applying induction hypothesis, so should be opportunity for appropriate proof search of this kind. And only small number of steps where you really need some user interaction, where there is truly a choice, where the user or the calculator -- as it were -- has to make a design decision that will influence the resulting compiler, but only few of those.
+>> Thank you.
+>> Other questions?
+>> Go ahead.
+>> I'm kind of curious, so here you have this kind of mixed inductive and coinductive definition, and challenging to have this work well, they're complicated how practical to use these?
+>> PATRICK BAHR: I cheated a bit on the slides so what is happening here on the slides, the bisimilarity relation we have here is defined step indexed. So what we're actually going to do here instead of saying approve this by induction and coinduction, imagine there is an index here I -- and then do induction on both E and step index I, and this gets rid of all the nasty issues how to nest.
+>> So you don't have KOIN coin deduction in there.
+>> There is no coindeduction in there.
+>> In the middle there.
+>> Hi, can you go back to the final slide with the compiler complete with the execution.
+>> PATRICK BAHR: Yeah.
+>> Yeah, that one.
+>> Don't you need some sort of final code, like done to run your program.
+>> PATRICK BAHR: You do. I have a slide for that. Thank you, another slide. This was the original compiler we have here that does not take cocontinuation, and express the property of that compiler, as well, and then can calculate the same way we calculated the more general compiler, and that will indeed introduce this halt instruction, which is the one that halts execution. So I didn't show this part, but, yes.
+>> One more question up front.
+>> So, when I see this something I want to do, tell you about it so you do it. Instead of designing -- opcode pieces of data and exact function at the same time interprets them you can have high order presentation of opcdee is a function with the argument and is has effect on the stack. So you would have like one up code using several cases. And simple executive function and wonder if you thought about that.
+>> PATRICK BAHR: In deed on the original paper of compiler calculation, that was the first approach we went with. The idea that we're not calculating this type of codes but instead we calculate combinations high order come binatrs that manipulate the stack, and apply the functionalization, which then results on this. So what we did instead because it sort several steps we just fuse this together, this, this, this calculation that you propose, and the functionalization, so we get one equation we have to solve only.
+>> Okay, let's thank our speaker and take the rest of the questions offline.

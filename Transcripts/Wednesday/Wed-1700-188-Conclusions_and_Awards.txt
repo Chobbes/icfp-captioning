@@ -1,0 +1,121 @@
+>> Can everybody hear me all right. Okay, good afternoon, everybody.
+>> We'll begin with the student competition awards, and programming language achievement award will be presented with a short talk. And then we'll talk about the... we'll announce the most influential paper award from 10 years ago and end with ACM best paper. And let's start with student competition awards.
+And invite to the stage.
+>> So, hello, everybody, you hear me.
+>> Okay, so as you might have noticed. So first of all, I'm Danel Ahman. And Daniel is the other co-chair, and organize the student research competition, as you might have notice the last few days great student have shown poster and is given presentation, and today honor the best three. In the under grad category and graduate category. And so we're going to start with under graduate category, and want to say in person you get the little gift from the organizers here. And after wards ACM will send you monetary award, medal, and I believe 1 year complimentary membership, and so this is what you get afterwards, so under graduate category, start with third place, 2nd place, 1st place, and if the student is here, come to the stage and give a little gift, reward. So third place in the category goes to Francis Rinaldi. Are you here.
+[APPLAUSE]
+[APPLAUSE]
+Okay, the second place in the under graduate category goes to Hilbert Chen Yanjun Chen and Eric Zhao [APPLAUSE]
+[APPLAUSE]
+>> And the first place in the under graduate category goes to Bernard Boey.
+[APPLAUSE]
+[APPLAUSE]
+>> So now let's continue with the graduate category. So here the third place goes to Denis Carnier.
+[APPLAUSE]
+[APPLAUSE]
+>> Second place goes to Nathan Corbyn.
+[APPLAUSE]
+[APPLAUSE]
+>> And finally the 1st place award goes to Arthur Correnson.
+[APPLAUSE]
+>> So these are all the awards but before I finish I really like to thank all the participants we had. And all the members did very diligent work reviewing the abstracts the student had to submit, and lots of good feedback, and the members from the ICFP audience that helped with judging the poster and presentations, so thanks to all of you.
+[APPLAUSE]
+>> Thanks. So at this time we'll have a visitor I guess from Airmeet land, Jeff Foster to speak to you about SIGPLAN.
+>> Didn't see that.
+[Laughter]
+>> I didn't do that, everyone.
+[Laughter]
+So.
+>> There is Jeff. I can't hear you yet. Let's see if we can get the audio going. You can't hear me.
+>> Oh, we have delay, maybe.
+>> Have delay...
+>> Okay, you are good.
+>> Can you hear me okay.
+>> Yes.
+>> JEFF: All right, good, and can you see me or MOT?
+Can you only hear me or see me as well.
+[Laughter] >> nice shirt Jeff.
+[Laughter]
+>> All right... sorry... okay, I can hear myself in the video, so I'll talk and not worry about sharing my screen, so hi, everyone, I'm Jeff Foster of SIGPLAN, and keep short because of technical glitches.
+So what is SIGPLAN, the special interest group on programme languages, and probably already know that, oversees, ICFP, PLDi... and we are the 4th largest Sig at ECM with under 2,000 members, and the mission is to promote awareness and advancement of research and practice of programming languages and SIGPLAN run entirely by volunteers. So SIGPLAN is us. And we're SIGPLAN, if you are interested in getting involved in SIGPLAN, please don't hesitate, please get in touch, would love to have your help. Would love to give you two high level updates, and one to tell you about our finances, we spend money on student travel, summer school, and conference management, and infrastructure, and SIGPLAN blogs and awards, and so on, and want to let you know we're doing fine, despite the challenges of COVID and all the craziness that happened, our conferences are very well run as ICFP is very well run and comfortable reserves, thanks to many years of good management from prior executive committee so everything is fine in SIGPLAN land. Which is good. As you know in-person conferences are back, because you are there most of you. Sorry I couldn't be there. I love in-person conferences and wish I could have made it. Do expect further experimentation with remote participation. Because we're still figuring out how to get that to work in the best possible way.
+Couple other notes, I just wanted to -- heads up conferences are expensive to run, and inflation is running rampant worldwide and do expect registration rates will tick up in the future to cover that, don't be surprised when that happens. Want to encourage everyone to have your institution join ACM open. ACM open is the new ACM solution to open access publication. And it's the replacement for the digital library subscription.
+So your institution if it joins ACM open will have access to the digital library, and will prepay for open access based on average number of papers the institution publishes.
+So essentially ACM is going open access, this is the way they're going to do it and still exist.
+Because they need to have income to make this work.
+And we have programming languages people at institutions all across the world.
+And so you can go to the folks who subscribe to the ACM digital library in your institution and tell them about ACM open and encourage them to join, and doing a big service to ACM community, and told the... T folks about them and she joined, it's not hard to do. And heads up ACM has new system for keeping track of people that violate ACM policies.
+So there is a data base that ACM has called ACM violations data bait. Don't worry, you're not in it. Don't be panicked.
+The only way people are in it, they will know, because you will get a letter from ACM saying you are there.
+And so if someone violates a policy, and sanction, it will be recorded in data base. And will be checking the data base when we ask for volunteer and is committee members, and so on.
+So hopefully this doesn't affect anyone listening to this.
+I just wanted to make you aware that it is there, and new effort by ACM.
+So, that's it for me. If you have any comments, suggestion, complaints, questions about SIGPLAN, please don't hesitate to get in touch. Love to hear from you. Thanks everyone.
+[APPLAUSE]
+>> So at this time it's my distinct pleasure to unveil the...
+[Laughter] >> the first award, the first award after the SRC, the SIGPLAN programming languages achievement award.
+And the winner is my distinct pleasure to invite to the stage.
+[APPLAUSE]
+[APPLAUSE]
+[APPLAUSE]
+>> Thank you very much. To receive the award. Looking at the list of previous recipients see the founding fathers of Computer Science, and see many of my mentors scientist, and papers and books and electric Lectures and influence in my early years, and means a lot to me to be added to the list.
+Especially happy to receive the awardd ICFP, so many familiar faces and realized that I've always been doing functional programming of one kind or another. I talk about both kinds. Not always dominant kind see at ICFP but never mind. --
+I've always been fascinated by the act of programming since my first encounter with apple 2 computer age of 13. My programmes never worked, I could write a story in broken English, and the computer could understand it, and run it tirelessly, without complaining ever, very quickly, and also fascinated by the languages and what it takes to implement them.
+I had this feeling that implementing even a basic interpreter was instantly harder than a game of pong which was about the extent of my skills at that time.
+So as a hobbyist and later a student learned a few languages.
+And then 1988 I discovered ML.
+One of my professors was working on the first OCaml, .. looking as good as pascal without the stay tuned limitations and really see myself using this language, with everything I was interested in that time, computing, and systems programming also. And so at that time I had heard about pure functional programming. That was late 80's, so Haskell didn't exist.
+So it looked like traditional British education, cold showers, and -- not something that helped me do what I wanted to do. So at that time, late 80's, implementations of ml were actually pretty bad. So, my classmates I mean.
+And so new implementation of Caml, Caml light. And is finishwas highly portable to turn on PCs and Macs of the 90s, which was seriously under power. And so it was disabled in education, and for self discovery and helped a lot I think popularizing functional programming, especially in the French university system. Then it was covered done a couple of times, who a native code compiler, which features and became the basis for OCaml that we have today. And did my HhD postdoc and early career bstract types and presentation independence properties, how to combine data collection with Module systems and then that brought me to language based security, to some extent instance what makes programs more secure, and not just the saferr. I still don't have an answer to this question. And then got interested in java and virtual machine, and byte code verification problem. And .
+And really formal verification proof systems. And... I wanted to verify, and wanted assurance, and then realized from colleagues that it was inductive data type. And there were good facilities to work with that.
+And later I also did mechanization of type systems, mostly for fun. That kind of thing that became popular a few years later. Revelation came 2004. From the work of...
+verifying the... that implements finite sets of AVL-balanced trees.
+So what they did was transcribe the code to Coq, and functional KREKness and balancing properties, and extract back, and it was almost the same. To me it was a discovery you can use Coq as a programming language. And I would say hyper pure functional programming language, as opposed to Haskell-style. Nearly pure, functionall programming, and in -- functional programming --
+so in exchange you get function and objects of the logic, and so you don't even know programme logic. Your code is already part of... and that was an eye-opener to me, and thought about C compiler with this methodology, that we can specify and verify with the old compilers and that was an idea, and by M in 72. One of the first mechanized proofs.
+And then in the 90's, we did verified compilers, to abstract machines, and some of that mechanized in the early 2000s.
+And industry need for verify C compiler as I heard PR it people in the industry.
+And how hard can that be?
+It turned out to be very hard.
+Unfortunately I didn't know about number of side projects attempted to do something before. So it was tough. But in the end it worked. And that gave the concert verified compiler, and you know something can be done, it feels less difficult already. So I think inspired others, with compilers and code generator, and analyzers verification tools, and compiler verification, and... I know I'm getting all the submissions to review [Laughter] >> and back to that methodology of hyper pure programming. Where this plus monad, for all effects including nontermation, it's how you --
+built around this idea.
+And but you can still use...
+logics, and it's a tribute to tremendous power of type theory, we can do all that.
+And I still like effectively programming. And still like to go back to OCaml. And as KC mentioned this morning in his talk, and the EFSHTH effects handler, and even more effects if you want, but principle effects and modular programming as well. And looking forward to the new possibilities this opens. And in closing, thanks to all who worked with me.
+Ph.D. students, OCaml development team, and thanks to if youer listening. And thanks again, to the committee.
+[APPLAUSE]
+[APPLAUSE]
+THAFRJTS to you Xavier.
+Thanks to you Xavier. At this time, we'll be unveiling the most influential paper for ICFP, and to do so we'll be visited by Tony H.
+>> Greetings. I'm coming to you from down under in Australia so about 1:30 in the morning my time. Would have been wonderedful have been with you in Slovenia but unfortunately not to be at this point in time.
+My pleasure to present this award. The award for the most influential paper of ICFP of 10 years hence, so that's from 2012, the important thing to realize about this award it is a SIGPLAN award. Each of the four flag ship conferences of SIGPLAN have most influential paper award. Which is determined by committee comprising the general chairs and programme chairs of the committee from the 10 years previous, and the general chair and programme chairs of the committee from the previous year. So this would have been 2021 for this year. So, the committee comes together and they consider the papers that were presented 10 years previously. And they determine the winner which receive an award of 1,000 dollars to be split among the authors of the winning paper and judgment here is influence of the paper that stood the test of time. So this year's committee ...
+It's my great pleasure to say the winner of the most influential paper award for 10 years ago, 2012 ICFP is...
+addressing Covert termination and timing channels in concurrent information flow systems.
+Deian Stefan Alejandro Russo Pablo Buira is Amit Levys and John Mitchell and David Mazieres. It has received attention in the general security community beyond the usual range of icfp papers.
+There are several follow-up papers that build on the insights, and extend the results to more general settings. It presents a dynamic information control system that eliminates termination and internal timing covert channels, while mitigating external timing or without relying on cooperative scheduling. It achieves this by running potentially sensitive actions in separate threads The system is implemented as a Haskell library using labeled concurrency primitives and demonstrated an example server side web application framework.
+I'm trusted client client applications sharing a persistent key value store showing how the library addresses potential timing and termination leaks. I believe we have one of the authors present at ICFP in person on behalf of the others. And I know some of the others are also watching this presentation now. . I believe Alejandro is going to come up to receive the award.
+[APPLAUSE]
+>> All right, thank you very much everyone, thanks to Tony and speaking on behalf of my coauthors we're all grateful for the recognition, and thanks to the ACM committee for that. Let me tell you something about the paper that perhaps maybe only the coauthors know about this.
+This paper was already special for all of us. And now more special, but let me tell you why. We submit the paper, and it comes rebuttal, there was some things to clarify, and things to argue for. We did it, we thought, we did a pretty good job and send it. And then we were expecting positively either conditional accept or accept.
+Can you guess with a we get?
+None of them. We got conditional reject [Laughter] >> what does that mean, we were all confused. It means like do we need to change it until we're finally rejected?
+[Laughter].
+>> Anyway. So after we figured out what it means, it means the same as condition accept, but in a different way, please dot changes otherwise reject. Which sends a strong message, and motivated right.
+And so by then, we really appreciate the rebuttal face.
+It really helped us out in 2012.
+And now standing here receiving the award and now even more convinced about that.
+[Laughter] >> so on a personal note, I would like to thank all the community because this committee was one of the Mohrs communities in my personal career to become a scientist, when I was back in Argentina with no access to functional programme research, and thank you, to ACM SIGPLAN, and everyone for this recognition, super grateful and honoureded for that. Thank you very much.
+[APPLAUSE]
+[APPLAUSE]
+>> At this time presenting the ACM Europe best paper award aka ICFP distinguished paper awards. So the best paper award is that for outstanding technical contributions to ACM conferences, taking place in Europe.
+Recognition of contribution to the area, and the winners were selected by the conference program committee and the each paper will receive -- each author receive a certificate, and the authors of the paper will receive 1000 euro to be split among the authors.
+>> Okay, so our first award that I'll hand out is for normalization for Fitch-style, authors...
+[APPLAUSE]
+>> Sorry about that.
+[Laughter]
+[APPLAUSE]
+Our second paper is programme adverb B s and Yao Li, and Stephanie [APPLAUSE]
+[APPLAUSE]
+>> Our third ACM Europe best paper award, goes to multitypes and reasonable space by Beniamino Accattoli, Ugo Dal Lago, and Gabriele Vanoni.
+[APPLAUSE]
+[APPLAUSE]
+And last but not least we have to disentangle the awards:
+Entanglement detection with near zero cost: Sam Westrick, Jatin Arora, and Umut Acar.

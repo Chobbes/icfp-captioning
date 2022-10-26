@@ -1,0 +1,25 @@
+>> So we have time for a few questions.
+>> Specifically about the Haskell program generation.
+Over here, sorry.
+I had a question about what kind of language features do you support. For example, if you have some JDT's, can you also generate programs for that?
+>> So we're looking at components built out of functions, not say constructors, I can't think of... we don't have components in the library.
+Standard components.... Big thing with sports... we do have 7 codings to get type glass to work, and same as original Hoogle + paper. Something we don't do is generate programs with ham DAs. Thatgenerate programs with lambdas. And the reason for that is that we used to have a restriction on how many cycles can be in an ECA.
+They can still process and shortly before the paper was submitted and you have to remove that restriction, but we dig around and see you using our new technology to actually implement support lamda.
+>> Thank you.
+>> F he question on the scatter plot, of Hoogle + versus hectare, and few points on far right corner in the bottom, can you tell us more about those.
+>> One of those points is both.
+And the other is the ampersand operator, both these things are operations that need to operate on both components of inheritance input, and hectare is going to be kind of blind in capacity to try and put second and first of something in expression. Hoogle + actually has built in.
+>> Hoogle actually has built in support and need to structure it. And we're not able, we were thinking about this before the ability to support lamdas. And without lam DAS, did not figure out how to embed that with inductive bias in hectare, and yeah, that's why only 8 times faster from what the graph looks like.
+>> Another question from the audience?
+[Off mic]
+>> Yes, um...
+[Laughter]
+>> It's actually... I have a deleted slide in here about an application, someone who joined the paper and then dropped out.
+And that was... application.
+Found... representing the staging constraints, and stage language, and some on runtime.
+So preliminariry result that he implemented. d.... With EPAs, and much more compact than what you can do with E graphs. But then still the work of makic it fast, and programming, extraction based on IOP different sol VER, which we have not done.
+The other thing doing rewrites, it is actually challenging to rewrite, efficiently, you can do the rewrite but will break all the constraints above it.
+Talk more with you about online oall the problems with that.
+And how we think we have solved them, but have not done that in our first paper.
+>> Any more questions from the audience?
+>> All right, let's thank our speaker again.

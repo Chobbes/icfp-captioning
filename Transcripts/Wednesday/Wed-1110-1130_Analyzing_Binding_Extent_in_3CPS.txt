@@ -1,0 +1,136 @@
+Yes. Hello. I'm
+Benjamin Quiring, along with my coauthors, John Reppy is here in the audience, owe Lynn Shivers couldn't
+make it. So 3CPS is a new optimizing compiler project and we have a slogan, which is that we -- really quick,
+here we go. Perhaps not.
+Well.
+>> You need to turn it on.
+>> BENJAMIN QUIRING: Great. We are the anti Milton. So what do we mean by this? Clearly we're
+being, you know, not completely serious, so Milton for those of you who don't know is a whole program
+compiler that produces extremely high performance executability, it's very good. It first performs a higher
+flow order flow analysis on the program, uses the results of that analysis to perform Monday morph and then
+it's able to apply classic data flow analysis, so to us, Milton sort of stands as the best, you know, very high
+performance and we'd like to qualify that by saying so far. But it's so good that we feel the only way to do
+better is to take a radically different approach to compilation.
+So our approach is to maintain a higher-order poll more if I can IR throughout compilation. So that
+allows separate compilation and Monday more advertisable.
+We would also like to stay perform man while we do this and the way we're going to do this is by echt
+myselfing the functional part of the language, lambda and the environments that are unique to the
+higher-order IR VMENT.
+And the way we do this is to try to understand the dynamic lifetime of environment structure. So what
+is environment structure? Well environment structure is not data structure. There's been heaps of work on
+lists and arrays and all of these things, these are data structures.
+Environment structures is the machinery and rakeses associated with implementing binds, scopes
+and lambdas, the operations that glues together the program.
+And so higher-order languages are all about environments so let's target environments. So let me
+describe sort of a simple example here. I've confined this function named add de, which takes perimeter X. It
+defiance a function and takes perimeter Yand then we're going to assume that closure of add de. So if we
+think about what's going on at run time, when we enter the adder function we're going to push a stack frame,
+we're going to take that variable X and make a binding for X on that stack frame.
+Next we're going to go and create the closure and the first step of creating closure is noting that this
+inner function captures X and sort of default of limitation for compilers is to I can take the binding of X and
+copy into the heap. You know, then we'd finish creating the closure by having the closure point to this record
+that's in the heap.
+So the clear opt Ms. Ization is don't copy the things into the heap. Now the problem comes when we
+change adder a little bit. We're going to make a occur reed version of add. Now the problem is after we
+return that closure we have to pop our stack frame. And so the binding of X is now kind of destroyed and this
+closure is, know what is it referring to. In particular what happens in later on in the computation, the close
+are looked up X, well, clearly not the right thing would happen, so the main problem here is that the lifetime
+of the binding for X is longer than the lifetime of the stack frame itself.
+So this brings us to talking about life times or extents. So the big idea is that we define a taxonomy of
+three extents which is where the three in 3CPS comes from in our project name and these extents are going
+to map naturally on to the machine resources used to implement material binds. So the ideas in the
+compiler, we have some analysis that's going to collect a set of facts about each variable, what extents do
+these variables have and then later on in compilation, we can make a decision based on those facts about
+how to implement the binding.
+So our particular taxonomy of extent is heap, stack and rental center and I hope you can see why
+these clearly map on to machine resources. The heap goes to the heap. The stack goes to the stack and
+register, would go either into rental center -- into the rental center set or if you preallocated sort of a static
+block of memory at the beginning of computation.
+So let me go into these in a little bit more detail. Heap extent describes lifetime of any length. There
+are no constraints it places on life times. So heap extent essentially represents a fall back in terms of
+implementing variable binds, since it's the most heavy weight machine resource, we'd like to move things out
+of the heap.
+So a simple ton tactic approximation for when can you use -- when can you implement something on
+the heap is you can always implement things on the heap, but sometimes you have to. So if we consider that
+binding for X earlier to are matter, that binding has a very long lifetime potentially and so we kind of have to,
+you know, put it in the heap.
+Our second extent is staff extent and this describes a lifetime when the binding's lifetime is shorter
+than the lifetime of the stack frame that closes over it and so in other words that binding should not be
+referenceable after we pop the stack frame so the good sin tactic approximation, which is used by --
+[muffled] -- is if a variable X does not have a free reference to it in any lambda, then you can actually
+implement that on the stack.
+So here's, you know a favorite example of compiler writers, we have factorial. It takes up parameter
+and it's going to do a recursive call at some point. After it does that it needs to come back and do a multiply
+so we're not doing any sort of accumulator sort of tricks.
+And so you know, and here is clearly not closed over by any lambdas so it can definitely put on the
+stack, but sometimes we need to put it on the stack, 'cause if we think about it, we have to have multiple
+instances of an alive at any one time.
+Our final extent is called register extent, which describes a lifetime where the binds for some variable
+X does not exceed the creation time of the next binding for X. So in particular that parameter and in fact
+factorial, does not have registered extent because those life times intersect. When we have N equals ten on
+the stack, we also have to have N I equals nine, both of them need to be alive at the same time. In other
+words, register extent says that at most, one live binding for X can be there at any one time so there's once
+again a sin tactic approximation, which modern -- or compilers to date use, which is that you can't have a
+reference to X from any lambda and you can't have any function calls between the definition of the variable
+and all of the uses and this basically means that you can't hve a recursive call that loops around and binds
+the variable when you still need to use it.
+And so the sort of story of this paper is we can do better than these sin tactic approximations. Well I
+would hope so. And it turns out that we can do a whole lot better. So I'm going to show some numbers here,
+don't be too scared. We have this program, nucleic, it's a standard compiler bench mark. The number of
+variables in this program is 7800, that's including, you know, all naming all of the intermediate temporaries in
+the compiler and if we use the sin tactic approximation, 88 of these would be needed to sort of, you know, be
+left on the heap, so as I said a little bit earlier, what the compiler is requesting to do is run our analysis and
+see how many of those it can move off the heap into the stack round of the rental centers and so it turns out
+that our analysis moves 86 how those 88 off the heap and into the stack, 97.76 them. This isn't just a one
+off thing. We have a bunch more benchmarks where we move high 90s or 80 its percent of variables off the
+stack, which is really quite impressive. There are a few standalone examples, for example the CPS
+conversion, that gets a lower ratio and that's mostly because it creates loss of closures, which force -- which
+live for a long time and that really forces a lot of binds to also live for a long time.
+Something I like to note is that this analysis we have is not exponential time or something. It runs
+quite quickly, even though it's a research implementation, it's very scalable.
+So something that I've presented was we were able it remark variables, but how do we know that the
+dynamic behavior actually matches, you know what I'm telling you and I think it's important to note, because
+we don't have a full compiler implementation yet. This is sort of the first technical result of the project and we
+are avenue getting there.
+However, I can tell you that the dynamic numbers do match because what I've done is I've
+programmed an instrument that interpreter that can basically run a concrete version of the analysis and what
+we find is there is a correlation between us promoting things out of the heap and actually moving binds out of
+the heap itself.
+And it's also holds for the stack. There's something else we can do with this instrumented interpreter,
+which is that we can actually show that the analysis is quite precise, despite being something similar to 0
+CFA. So the idea is that I can run the interpreter on a single execution trace and that will collect some facts
+for me, like that X Haas staff extent, Y has rental center extent and Zhas register extent. I can also give an
+analysis which is a subset of those facts, since it's a sound approximation.
+Then we can think of this as squeezing the ground truth, which is sort of the intersection of these facts
+across all traces. It's squeezed between these numbers and what we find is that the single trace and the
+analysis are super close in practice and so, you know, if you wanted to do one CFA, something a lot more
+clever, more precise, it's actually not going to buy you a whole lot and doing this simple easy quick thing is
+giving you almost all of the benefit.
+So how do we do this? We programmed a new higher-order static analysis based on abstract
+interpretation. It's going to model the stacked behavior of the abstract machine and we need to tell if things
+are live and what it does is it gives this little abstract garbage collection and the idea is as you are's stepping
+the program along, we're going to look for events that say this thing cannot have this extent. So there are
+two types events, one for stack and one for register. For stack we're going to inspect every single pop that
+happens in the abstract machine and so if we have some binding X that's still alive but the frame associated
+with X is being popped that means X could not have stack extent.
+For register extent we're going to inspect every single bind that we have for variables, so if we're
+binding a variable X, if there's still a live occurrence of it out there, then X cannot have register extent.
+So unfortunately due to time constraints, I can't actually, you know, show you a bunch of equations
+and I'm not sure you would want to see them any ways, but that's in the paper if you're interested.
+What I also haven't tubed about is the whole CPS so we have this formalism and something called
+factor CPS, like lists and arrayses and continuation things are their own thing an this was originally
+introduced in the orbit compiler.
+We also have a stack protocol for the CPS, an abstract machine that uses that stack to push and pop
+and we have multiple continuation arguments which means we can have long jump returns so if you're
+raising an exception, just pop, you know, some number of stack frames, we don't care how many and this
+somewhat complicates the analysis is a cool result. This was inspired off of Dimitri CFA 2 work. So we are a
+new compiler project, 3CPS, an environment at all approach to compiling functional languages, the new idea
+is to optimize extent and our extents are happy, stack and register. We have a new analysis which is an
+abstract interpretation that identifies binding extent and this is scalable. It's like 0 CFA, it's executable so one
+of our artifacts is the current compiler and limitation and it's correct. I've also introduced mechanized proofs
+which are part of the artifacts.
+Finally we have some supporting numbers, both static an dynamic. So what we show is a significant
+number of variable binds can be moved out of the heap, both just looking at the syntax and looking at the
+dynamic behavior of the program and that it's hard for this analysis to do better. It's really quite precise
+already.
+That's the end of my talk. Any questions? Thank you.

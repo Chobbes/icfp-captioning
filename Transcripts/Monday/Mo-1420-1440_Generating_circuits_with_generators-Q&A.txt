@@ -1,0 +1,24 @@
+>> Questions?
+>> So as I understand it the benefit you gave of the example over here.
+>> When you speak to the mike don't know where it's coming from.
+>> The example that you gave, I think I understand it to benefit from the fact that VHDL and Verilog doesn't have Lambda abstractions.
+So, you know; you use Lambda abstraction to reduce the lines of code. More pertinent to FP understand more merely automata to compose very rich ways. Have you looked at algebra, of automata. I try to think a little about this, but I didn't really something which I I just decided to make the to allow a combining the automata just using clash as as this language for for for expressing connections in them so we can you big problem you want to solve you can you can encode into a series of simpler, smaller automata . Each of those you can you can write using, and then connect them together using crash.
+>> Question over here.
+>> Okay.
+>> Just want to clarify what you meant by multicycle processer. Does that mean multipsychoermultipsychoer that mean it takes multiple cycles per instruction?
+And yes, there's only one going at once. So it's not your classic kind of optimized processor. Is your language going to be useful for say pipelines processors in it useful for pipeline processors .
+>> Because actually pipe pipe and or conflicted quite differently. This language. The whole idea was to implement control flow in some way, right.
+And pipelines are not really about control flow about data floww. So not a language for pipelines.
+>> So should use for relative simple state machines that are in some sense. Simple enough, they don't need all the complexities of VHDL. Is that the right way? To think about itt?
+>> Probably yes.
+>> One of the transformation, you mentioned, was eliminating nontail recursive calls.
+>> Could you expand on are.
+>> Again, which one you call stack? Reification reification.
+So this is one of the most this paper, because what I'm doing there is some kind of combined de functionalisation and continuity ... I couldn't use normal ways to do it. With template Haskell. And they get passed. Over. Which is typed.
+Have a different continuation for every type. Had to use another apreach. Use Some approach I taken was that I use control flow information to generate many different data types for each, for each strongly connected component .
+>> One more question. So on the driver example, you said that it's 270VHDL. Versus 150 lines, versus clash. How does it compare with just clash.
+Using clashes tooling of abstraction to their fullest.
+>> I will answer this question, traditional implementation is in clash.
+>> That can mean many different things, wiring together, and you are using like custom data types to manage your state etc So, is this comparing like high level clash or low level crash.
+I tried to be somewhere the in the middle. Too involved in this amount of but, still don't want it to look like for workingg. So this is the.
+>> Thank you, let's take the rest of the discussion offline, thank you, again [applause]
