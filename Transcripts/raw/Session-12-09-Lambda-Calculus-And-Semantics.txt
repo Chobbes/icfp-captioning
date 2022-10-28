@@ -1,364 +1,364 @@
-03:32:26 The first talk of today's session will be presented by Beniamino Accattoli. And it's on the theory... thank you, Sylvia. I have an announcement, if someone needs captions, there is a link on the web page, in accessibility. 
-03:32:53 >> I hope you can hear me. 
-03:32:59 So this talk as you know is a very minimalist setting, to fix notation. Only 3 constructers and obstructions and applications and only one computational rule, reduction. 
-03:33:18 And it ... the rule can be applied even in abstraction.... 
-03:33:30 And now, as you probably know, it's minimalist setting, there are no... turring complete, as you probably know. What you may not know. Is there is not even a notion of result. And this talk is more about that. 
-03:34:03 And so... if you take a term of the Lambda calculus T, and functional programming. And take it as function applied to arguments. And what is the result of T? 
-03:34:25 Intuitive idea is that it's the beta normal formula of T, and when you reduce it everywhere you get the result. 
-03:34:35 And so since, you know Turing complete, you represent recursive functions, and notion of undefined, function, that gives result of... on the function. And in this view "undefined" means diverge. And would be very nice, but in Lambda calculus this symlistic view don't work. It doesn't. 
-03:35:14 So why doesn't. To formalize the idea, and why it doesn't work, one talk about the question of theory. Theory that includes beta conversion, and take rule, and closed by all context. And this view essentially is telling you all the divergent terms are all representation undefined, so they must be all equated or all collapsed in the question of theory, and if you do that, and call this T of F. And what does it mean inconsistent, all terms get equated. Very easy to see that. 
-03:36:04 Now take these two terms. This is coding of pair, of given term T, and have the looping term, and this is another pair, the pair S, the pair containing the term S and Omega. And these arbitrary. And so in this theory equated. And once you done that, T" because of the property, crucial properties of equational theories you can prove T = S, why. Because T by beta reduction, or expansion let's say, equal to that pair applied to the first projection. 
-03:36:55 Okay, this is Lambda term that takes two arguments and gives UT first one, which, since diverging subterm is equivalent in this theory, to the other term, applied to the first projection, equivalent to S, so any terms equivalent to this theory, reduction must be included in the equational theory. 
-03:37:25 Now this thing not said in most basic courses of Lambda calculus, was by Wadsworth and Barendregt in the 70's, and proposed refine approach identifying. Terms can computing result with solvable terms. Undefined terms are terms that are not solvable, and so called "unsolvable terms ". 
-03:38:03 What does this mean in so define solvable term, define context. 
-03:38:12 So this is slightly different than ones in textbook but are equivalent, so the context, put the whole everywhere, but right subterm of application. So whole can be just self or abstraction, or left of applications. 
-03:38:36 Official definition is term is solvable if there is head context, if you plug that term inside the context, then reduced to identity. Together, when you plug... get identity. I'll explain a bit what does mean. 
-03:38:58 But essentially the context can interact with T and fully exhausted solve it somehow. 
-03:39:04 And produce what? 
-03:39:06 Produce the most basic term, identity. Which is closed. One would say, a variable, but a variable would be open, so identity. And important point collapsing alunsolvable terms, terms that do not satisfy this definition, and represent undefined, is consistent, so doesn't equate all terms. 
-03:39:35 Now if you reconsider the terms I given in the previous example, they are solvable. How can you say that? 
-03:39:44 Just take these head context which is there. And instead of taking the first projection, you take a term that takes two arguments and gives you identity. And throws away the arguments, and so if you put the first term there, into that head context, you get this, this term here. 
-03:40:04 And by reduction, the argument becomes... two arguments, and throw the first one away, and second one, you get identity out of the box. 
-03:40:20 And this means that these two terms in this other approach, define meaningful. Using this word, in the literature. 
-03:40:32 So what happened here, solvable approach is more meaningful because we have enlarged the set of meaningful terms, not that forms a -- meaningless. Two forms are meaningful, are not the only meaningful terms, there's more. These two terms are not, cannot be normalized, because they have a divergence term and still they are meaningful. In this approach. 
-03:41:05 Now, so the point is not where the term is convergent, on contains divergent subterms, solvable terms divergent is present, but removable. Key point, net context. Net context, is the property that you can interact with putting in the whole. But it can not just throw it away. Okay, because the thing you put in the whole can not be an argument, can not be thrown away without interaction. 
-03:41:41 Now you may wonder what are unsolvable terms, what do they look like. Typically omega, is unsolvable, because you can give arguments, and it will keep diverging. 
-03:41:59 It's divergence is not removable by interaction with the context. 
-03:42:10 Okay. And solvability -- you might like or not. That definition of solvability, but many equivalent definition of solvability, and can be characterized in many ways. 
-03:42:24 Typically the most famous CHASHG ryization is operational. Where head reDUSHGS means... so never inside the right subterm of application, is this is due to Wadsworth in the 70's, and also many semantical characterization. But most notable one is that a term is solvable if is only if it has nontrivial interpretation in Scott's pragmatic infinite notational model. First model of Lambda calculus, and happens in many other models. 
-03:43:15 And it's also true T is solvable if and only if, if it's typeable with intersection types, or with refinement that I like to call multitypes. It's a variant of intersection types, and you will hear more about this in later talks. And actually there is some nice interplay between characterizations shown here by de-Carvalho. With the multitypes you can read the number of head steps, with the reduction, the one that CHASHG rises solvable terms operationally, and read from the multitype derivation, and particularly, closes to the picture, Dal Lago, and myself, is also reasonable time costs model and you'll hear more about in the session. So Barendregt's book in the 80's, solvability notion. Whole book written on this notion. Later on more things relaxed. In sense that people realized you can find other meaning predicates not just solvability. For meaning predicate I mean you have identified terms computing result with terms satisfying predicate P, and undefined terms that don't satisfied. And you have the collapsing all -- all the terms that don't satisfy the predicate give you consistent eq theory. Okay, this is the background, and let's talk about Call-by-Value. 
-03:45:26 Plot kins CbV value, better than Church-Scott-Barendregt, strong call by name, today call strong call by name calculus. 
-03:45:41 And plot kin setting based on concept of value. And variables. And B-reduction, restricted by value. What does it mean, the argument can only be value. So trigger beta reduction, if the argument is a value. So we call beta-V step. 
-03:46:06 Okay. 
-03:46:07 Now turns out denotational semanticses and meaning for CbV is less understood than traditional Lambda calculus. 
-03:46:18 And first explored by Paolini Ronchi della Rocca in the 90's, and found, that solvability Cbv does not have the same status than in CbN. The key, one of the stumbling point in Plotkin calculus, no operational charac. 
-03:47:02 No operational characterization of high value solvability means that there's no strategy that tells you that term is solvable, if and only if that strategy terminates called by name, this role as I said before, it's played by head reduction, and as proof by Wadsworth. And this is due to the fact that Plotkin's evaluation, does not work with open terms. But open terms are essential for the denot of semantics and solvability. If you can't deal with open terms, you can't real deal with modelling compositionality, and substitution. The typical problem is exemplified by this term, which is a variation over delta delta where essentially the interaction between the two delta says blocked by what. 
-03:47:53 Here not by value. Because the argument is given by some open subterm, it's not value, never will become one. 
-03:48:01 And so in general, this should be -- this argument should be erased, because X does not occur here, but can not be raced because it's not a value and will not become one. So it's unsolvable, contextually equivalent to omega, and it should diverge, and. 
-03:48:32 As I told you solvability is about erasing diverge sequence, but Call-by-Value you can not erase whatever you want. Like this term, is solvable in CbN. 
-03:48:48 And erases omega and puts identity as we saw before, but not solvable by Call-by-Value. 
-03:48:54 Because in Call-by-Value, it's application, and... will never become a value when argument, and can not be erased. 
-03:49:08 So these are the reasons by, reasons complex Call-by-Value. 
-03:49:17 So introduce variation, called value substitution calculus, and respect to open terms, and admits operational characterization of CbV solvability. And also number of steps is reasonable time cost model. 
-03:49:41 And now, lots of things are not understand about Call-by-Value solvability. In particularly there are characterizations built on intersection types, but they all contain mistakes, and all wrong results in the literature, and it's not clear Call-by-Value solvability is a meaning predicate, and it's also not clear what solvability in the value substitution coincides. And so, in the paper, we develop a theory or answer all these questions. The main result is characterization. 
-03:50:29 We are multi types and quantitative these we ... and prove also that Call-by-Value solvability in Plotkin calculus, same as VSC, and one of the most important things is not result of ours, that we stress Call-by-Value solvability is not a meaning predicate, not surprisingly, collapsing all the Call-by-Value unsolvable terms induces inconsistent theory. 
-03:50:59 This follows from result inside the literature, but nobody ever pointed it out. 
-03:51:05 And we also stressed, results already in the literature. And predicate that we called scrutability that was called potential... actually a meaning predicate in Call-by-Value. 
-03:51:21 So in this work you get what? 
-03:51:24 There is an alternative to Plotkin calculus, value proposition calculus. 
-03:51:33 And Call-by-Value solvability in this framework comparable to Call-by-Value call by name vulnerability, that didn't seem to about the case before, but also the two notion, don't play the same role, one meaning predicate and the other one is not, there is typo there. And also semantics, is actually fine, because solvability fails to be predicate, shows that you need final notion, scrutability, so fact actually semantics is more interesting. And this was never pointed out before, that's it. Thank you.
+The first talk of today's session will be presented by Beniamino Accattoli. And it's on the theory... thank you, Sylvia. I have an announcement, if someone needs captions, there is a link on the web page, in accessibility. 
+>> I hope you can hear me. 
+So this talk as you know is a very minimalist setting, to fix notation. Only 3 constructers and obstructions and applications and only one computational rule, reduction. 
+And it ... the rule can be applied even in abstraction.... 
+And now, as you probably know, it's minimalist setting, there are no... turring complete, as you probably know. What you may not know. Is there is not even a notion of result. And this talk is more about that. 
+And so... if you take a term of the Lambda calculus T, and functional programming. And take it as function applied to arguments. And what is the result of T? 
+Intuitive idea is that it's the beta normal formula of T, and when you reduce it everywhere you get the result. 
+And so since, you know Turing complete, you represent recursive functions, and notion of undefined, function, that gives result of... on the function. And in this view "undefined" means diverge. And would be very nice, but in Lambda calculus this symlistic view don't work. It doesn't. 
+So why doesn't. To formalize the idea, and why it doesn't work, one talk about the question of theory. Theory that includes beta conversion, and take rule, and closed by all context. And this view essentially is telling you all the divergent terms are all representation undefined, so they must be all equated or all collapsed in the question of theory, and if you do that, and call this T of F. And what does it mean inconsistent, all terms get equated. Very easy to see that. 
+Now take these two terms. This is coding of pair, of given term T, and have the looping term, and this is another pair, the pair S, the pair containing the term S and Omega. And these arbitrary. And so in this theory equated. And once you done that, T" because of the property, crucial properties of equational theories you can prove T = S, why. Because T by beta reduction, or expansion let's say, equal to that pair applied to the first projection. 
+Okay, this is Lambda term that takes two arguments and gives UT first one, which, since diverging subterm is equivalent in this theory, to the other term, applied to the first projection, equivalent to S, so any terms equivalent to this theory, reduction must be included in the equational theory. 
+Now this thing not said in most basic courses of Lambda calculus, was by Wadsworth and Barendregt in the 70's, and proposed refine approach identifying. Terms can computing result with solvable terms. Undefined terms are terms that are not solvable, and so called "unsolvable terms ". 
+What does this mean in so define solvable term, define context. 
+So this is slightly different than ones in textbook but are equivalent, so the context, put the whole everywhere, but right subterm of application. So whole can be just self or abstraction, or left of applications. 
+Official definition is term is solvable if there is head context, if you plug that term inside the context, then reduced to identity. Together, when you plug... get identity. I'll explain a bit what does mean. 
+But essentially the context can interact with T and fully exhausted solve it somehow. 
+And produce what? 
+Produce the most basic term, identity. Which is closed. One would say, a variable, but a variable would be open, so identity. And important point collapsing alunsolvable terms, terms that do not satisfy this definition, and represent undefined, is consistent, so doesn't equate all terms. 
+Now if you reconsider the terms I given in the previous example, they are solvable. How can you say that? 
+Just take these head context which is there. And instead of taking the first projection, you take a term that takes two arguments and gives you identity. And throws away the arguments, and so if you put the first term there, into that head context, you get this, this term here. 
+And by reduction, the argument becomes... two arguments, and throw the first one away, and second one, you get identity out of the box. 
+And this means that these two terms in this other approach, define meaningful. Using this word, in the literature. 
+So what happened here, solvable approach is more meaningful because we have enlarged the set of meaningful terms, not that forms a -- meaningless. Two forms are meaningful, are not the only meaningful terms, there's more. These two terms are not, cannot be normalized, because they have a divergence term and still they are meaningful. In this approach. 
+Now, so the point is not where the term is convergent, on contains divergent subterms, solvable terms divergent is present, but removable. Key point, net context. Net context, is the property that you can interact with putting in the whole. But it can not just throw it away. Okay, because the thing you put in the whole can not be an argument, can not be thrown away without interaction. 
+Now you may wonder what are unsolvable terms, what do they look like. Typically omega, is unsolvable, because you can give arguments, and it will keep diverging. 
+It's divergence is not removable by interaction with the context. 
+Okay. And solvability -- you might like or not. That definition of solvability, but many equivalent definition of solvability, and can be characterized in many ways. 
+Typically the most famous CHASHG ryization is operational. Where head reDUSHGS means... so never inside the right subterm of application, is this is due to Wadsworth in the 70's, and also many semantical characterization. But most notable one is that a term is solvable if is only if it has nontrivial interpretation in Scott's pragmatic infinite notational model. First model of Lambda calculus, and happens in many other models. 
+And it's also true T is solvable if and only if, if it's typeable with intersection types, or with refinement that I like to call multitypes. It's a variant of intersection types, and you will hear more about this in later talks. And actually there is some nice interplay between characterizations shown here by de-Carvalho. With the multitypes you can read the number of head steps, with the reduction, the one that CHASHG rises solvable terms operationally, and read from the multitype derivation, and particularly, closes to the picture, Dal Lago, and myself, is also reasonable time costs model and you'll hear more about in the session. So Barendregt's book in the 80's, solvability notion. Whole book written on this notion. Later on more things relaxed. In sense that people realized you can find other meaning predicates not just solvability. For meaning predicate I mean you have identified terms computing result with terms satisfying predicate P, and undefined terms that don't satisfied. And you have the collapsing all -- all the terms that don't satisfy the predicate give you consistent eq theory. Okay, this is the background, and let's talk about Call-by-Value. 
+Plot kins CbV value, better than Church-Scott-Barendregt, strong call by name, today call strong call by name calculus. 
+And plot kin setting based on concept of value. And variables. And B-reduction, restricted by value. What does it mean, the argument can only be value. So trigger beta reduction, if the argument is a value. So we call beta-V step. 
+Okay. 
+Now turns out denotational semanticses and meaning for CbV is less understood than traditional Lambda calculus. 
+And first explored by Paolini Ronchi della Rocca in the 90's, and found, that solvability Cbv does not have the same status than in CbN. The key, one of the stumbling point in Plotkin calculus, no operational charac. 
+No operational characterization of high value solvability means that there's no strategy that tells you that term is solvable, if and only if that strategy terminates called by name, this role as I said before, it's played by head reduction, and as proof by Wadsworth. And this is due to the fact that Plotkin's evaluation, does not work with open terms. But open terms are essential for the denot of semantics and solvability. If you can't deal with open terms, you can't real deal with modelling compositionality, and substitution. The typical problem is exemplified by this term, which is a variation over delta delta where essentially the interaction between the two delta says blocked by what. 
+Here not by value. Because the argument is given by some open subterm, it's not value, never will become one. 
+And so in general, this should be -- this argument should be erased, because X does not occur here, but can not be raced because it's not a value and will not become one. So it's unsolvable, contextually equivalent to omega, and it should diverge, and. 
+As I told you solvability is about erasing diverge sequence, but Call-by-Value you can not erase whatever you want. Like this term, is solvable in CbN. 
+And erases omega and puts identity as we saw before, but not solvable by Call-by-Value. 
+Because in Call-by-Value, it's application, and... will never become a value when argument, and can not be erased. 
+So these are the reasons by, reasons complex Call-by-Value. 
+So introduce variation, called value substitution calculus, and respect to open terms, and admits operational characterization of CbV solvability. And also number of steps is reasonable time cost model. 
+And now, lots of things are not understand about Call-by-Value solvability. In particularly there are characterizations built on intersection types, but they all contain mistakes, and all wrong results in the literature, and it's not clear Call-by-Value solvability is a meaning predicate, and it's also not clear what solvability in the value substitution coincides. And so, in the paper, we develop a theory or answer all these questions. The main result is characterization. 
+We are multi types and quantitative these we ... and prove also that Call-by-Value solvability in Plotkin calculus, same as VSC, and one of the most important things is not result of ours, that we stress Call-by-Value solvability is not a meaning predicate, not surprisingly, collapsing all the Call-by-Value unsolvable terms induces inconsistent theory. 
+This follows from result inside the literature, but nobody ever pointed it out. 
+And we also stressed, results already in the literature. And predicate that we called scrutability that was called potential... actually a meaning predicate in Call-by-Value. 
+So in this work you get what? 
+There is an alternative to Plotkin calculus, value proposition calculus. 
+And Call-by-Value solvability in this framework comparable to Call-by-Value call by name vulnerability, that didn't seem to about the case before, but also the two notion, don't play the same role, one meaning predicate and the other one is not, there is typo there. And also semantics, is actually fine, because solvability fails to be predicate, shows that you need final notion, scrutability, so fact actually semantics is more interesting. And this was never pointed out before, that's it. Thank you.
 
 ---
 
-03:52:18 [Applause] 
-03:52:21 
-03:52:21 
-03:52:23 
-03:52:23 
-03:52:26 >> We have time for several questions. 
-03:52:42 Gabriel. 
-03:52:45 >> Yes, the mic is coming. >> Thank you for the nice talk... 
-03:53:00 >> Yeah, the slide of course. 
-03:53:04 [Laughter] scrutabilty. When you put in the that context reduce value. Net contest can put everything under abstraction, so can always give you a value, putting under abstraction. So we have to slightly tweak the definition, and if you put abstraction, you put an argument so you don't cheat. And solvability, you don't have to reduce to identity, which is specific value. But only asked to reduce to value in this notion of context. If you collapse all Call-by-Value in scrutable terms, theories consistent, and main difference in solvable theory in this terms, point applied to K, infinite sequence of abstraction, this inscrutable theory is... so this treats it as meaningless. 
-03:54:26 >> Okay. Thank you. There is another question. 
-03:54:34 >> Do we know status of scrutability? 
-03:54:45 Call by name, 
-03:54:46 >> It gives meaning predicate also in call by name. 
-03:54:50 >> I would be very interested in the type system, but maybe we can take that offline, and we will take other questions offline for Beniamino's talk. 
-03:55:04 Thanks again. 
-03:55:05 >> Thank you very much! 
-03:55:07 [Applause]
+[Applause] 
+
+
+
+
+>> We have time for several questions. 
+Gabriel. 
+>> Yes, the mic is coming. >> Thank you for the nice talk... 
+>> Yeah, the slide of course. 
+[Laughter] scrutabilty. When you put in the that context reduce value. Net contest can put everything under abstraction, so can always give you a value, putting under abstraction. So we have to slightly tweak the definition, and if you put abstraction, you put an argument so you don't cheat. And solvability, you don't have to reduce to identity, which is specific value. But only asked to reduce to value in this notion of context. If you collapse all Call-by-Value in scrutable terms, theories consistent, and main difference in solvable theory in this terms, point applied to K, infinite sequence of abstraction, this inscrutable theory is... so this treats it as meaningless. 
+>> Okay. Thank you. There is another question. 
+>> Do we know status of scrutability? 
+Call by name, 
+>> It gives meaning predicate also in call by name. 
+>> I would be very interested in the type system, but maybe we can take that offline, and we will take other questions offline for Beniamino's talk. 
+Thanks again. 
+>> Thank you very much! 
+[Applause]
 
 ---
 
-03:55:11 >> The next speaker is Thomas Drab, and will present his work, and simple and efficient implementation call by need by abstract machine. When I come here, means you all have one or two minutes. 
-03:55:39 >> Thank you, hello my name is Tomasz Drab. And about simple efficient implementation by strong call by need. 
-03:55:56 As usually, I will start with motivating and explaining parts of the title. So first why call by need? 
-03:56:05 So as we have seen already, we have two well known approaches in programming languages, evaluation orders call by name and Call-by-Value. And both have some advantages. 
-03:56:19 One of the advantages call by name, it doesn't evaluate unneeded arguments. While Call-by-Value gives us evaluation all arguments at most once. And we can join these two properties in call by need to evaluate only needed arguments, and at most once. 
-03:56:47 Okay. So now, let's proceed with "strong" why we are interested in strong reduction. 
-03:56:57 As an example let's consider church numerals, which is function, that applieses given function twice. And in arithmetic can implementment multiplication as function composition. And now let's try to compute 2 times 2. 
-03:57:21 In so called weak reduction, we can substitutes two 2's. And is it an answer? 
-03:57:32 Is it a result? 
-03:57:34 Because in weak reduction we can not go further. 
-03:57:42 Because what we call weak reduction, we don't reduce on the Lambdas and of course can do same for strong reduction, but strong reduction can go under Lambda. And in some extra steps under the Lambda F, we can normalize the whole term, and obtain a result that is equal to church numeral 4. Which is nice, I like it. But most importantly, full reduction is applied in type checking in proof assistance. 
-03:58:20 So now the question why efficient? 
-03:58:23 Is quite obvious question, we can focus on in what sense? 
-03:58:27 Efficient. 
-03:58:28 And we are interested in time complexity. Which depends on two parameters. The first one is: Size of initial term, and we should somehow depend on it, because we have to read the whole term if we want to formally normalize it. And second one is number of beta reductions we simulate number of beta reductions. 
-03:59:02 The term can even diverge, and it's hard to pay the whole cost of the computation with the size of initial term, and take the number of beta reductions into account. 
-03:59:16 And technically speaking, it was proposed to call efficient implementations, that are linear in both of the parameters. 
-03:59:33 Linear complexity quite good. 
-03:59:36 And would be efficient if linear in both of them. 
-03:59:40 And abstract machines are quite good tools to navigate the cost models complexity. 
-03:59:54 So if we take a look at abstract machines for strong call by need, we can find a description of full reducing strong call by need normalization in research report of Danvy, and then doctoral students and they describe how to derive such a machine and how it would work. And another one, abstract machine by... and demonstrated ICFP5 years ago. 
-04:00:41 But, both abstract machines I'm aware of suffer from exponential overhead in the complexity. 
-04:00:51 So would like to improve on that matter. So further plan of the presentation will be to show how to derive an efficient machine for strong call by need. 
-04:01:06 Technically speaking with the technical notion of efficiency, it's quazi efficient, because it's quasi linear in the size of initial term, but, still efficient, then we'll talk about correctness of this machine, and how we can say that it is strong call by need, and it's complexity analysis. And then I would like to remark on interesting, I think, aspects of our work. It is empirical approach. And employed in our analysis. 
-04:01:58 It is already my third talk, conference talk functional correspondence is a crucial tool to obtain, the result. 
-04:02:10 So we already put an online video of example of functional correspondence on the web, so I will just describe more or less how it works. 
-04:02:25 We can to define a language, for example, call by need evaluator, we can just write a program that executes this language. 
-04:02:38 But... then, some aspects of this defined language are hidden in the metalevel. It depends on meta-language, how it, for example, what is the evaluation order? 
-04:02:57 So to make it explicit we can do CPS translation of definitional interpreter, and then more visible to read. And then the same may not be obvious how we evaluate high order functions, so we can functionalize such an interpreter of defined language, and that was known, and that was described by John C. Reynolds in the 70's. And the next century, same team of Danvy elaborated on the process. And described it's a way to obtain an abstract machine from a functional code. 
-04:03:52 And we can also reverse the process, and construct and abstract machine, and change something in the code, and obtain other abstract machines. 
-04:04:03 And... more recently, Buska and Biernacki reached our linguistic technology with autoMIEization of process of machine construction. And so derivation of implement occasion of abstract machine worked. And implement... normal order strong call by name strategy, of Lambda calculus. 
-04:04:46 And we used the construction of the machine to functional code. 
-04:04:51 So we can take in our case rocket, and change something in that code to be more call by need. 
-04:05:02 So with added standard memoization technique and is added them on two levels. On the weak level of evaluation, and strong level of normal iSDATHS. 
-04:05:16 And applied other changes also, for example, getting -- brown indices and automatic construction we obtained the arcaarcangel abstraction machine. 
-04:05:45 And look at consist of 11 transition rules and it works on standard Lambda terms, and environment based. And sometimes environment passed by the machine. And also stuck to the evaluation con TESHGS, that will be more important later, and explicit store to deal with the memoization. 
-04:06:18 So in this form the interpreter is store passing intermenter. 
-04:06:24 So having abstract machine we can experiment with it, and observe it's computational steps empirically. And it gives us natural... one transition is a unit of complexity. But coming back to this picture now we can wonder what is this creature that it implementments. What is the strategy, we know we can do something arbitrarily stupid with the code. Or do something wiser, change strategy call by name to Call-by-Value. So what is it that RKNL implements. 
-04:07:19 I think the easier part is to observe that what we obtained conseratively extends already known abstract machine, which is weak but call by need abstract machine. 
-04:07:36 So we're happy with this by need component. 
-04:07:40 And now we could like to connect it with string strong. 
-04:07:45 So we have strong call by need. 
-04:07:48 And because then... we can have, we have strong call by need. And we have, if it's really implement, normal order. 
-04:08:03 And preserve that property. And to prove that, we used another abstract machine, which is of more theoretical than practical flavour. It's more explicit and has more invariance explicit for example the not just list of term. 
-04:08:29 But grammar used nonterminals. 
-04:08:35 And this provides every reduction step is done in left most outermost context that characterizes normal or the reduction. 
-04:08:52 And abstraction machines that traces our A-machine would have additional cost between neutral terms, and normal terms. And didn't want in practical machine, and store split into two stores, one with each memoization we added. 
-04:09:24 And let's summarize that thanks to this analysis of stack shapes, shape of evaluation context we knee this abstract machine implement also normal order strategy. 
-04:09:41 And the second part is complexity analysis. 
-04:09:45 That is done with potential function, inspired by Chris Okazaki and potential also persistent data structure, and designed to decrease with every step of computation. So these components connected with application decrease the number of steps to do by one. 
-04:10:19 And if we take a look at it again, and apply potential function, it decreases as we wanted on every transition rule, but one. 
-04:10:32 And the one remaining rule is this rule, responsible for beta reduction. 
-04:10:42 And it is a rule where potential increases, but we can balance the inequality with the potential of the initial term. 
-04:10:57 So... by these two properties of decrease and increase, we have the following theorem that the length of execution can be bounded by such a product. And we can also note that this bound is with respect to normal order reductions, so it also improves state of the art with normal order from quadratic to quasi by licenselicenselinear number of steps. 
-04:11:43 And implementation, we can count thethe itegers steps done, it is really reproducible in on other computers, and we can make some hypothesis, how many steps it takes, it is and can prove formulas. And other note size exSPLEGS problem named by Accattoli, and Dal Lago. And the this exponential overhead in abstract machines often comes from the fact that in n reductions. We can add term that is exponentially big in N, and our machine deals with it by mplicitly sharing references to the reused sub terms. So in the end, we have such a presentation, implicitly sharing potentially exponentially big terms. 
-04:12:51 So to summarize we have implemented abstract machine that provably efficiently implements strong call by need. 
-04:13:04 Strategy, and it was done thanks to the functional programming. 
-04:13:09 Thank you for your attention. 
-04:13:11 And curious for your questions and comments.
+>> The next speaker is Thomas Drab, and will present his work, and simple and efficient implementation call by need by abstract machine. When I come here, means you all have one or two minutes. 
+>> Thank you, hello my name is Tomasz Drab. And about simple efficient implementation by strong call by need. 
+As usually, I will start with motivating and explaining parts of the title. So first why call by need? 
+So as we have seen already, we have two well known approaches in programming languages, evaluation orders call by name and Call-by-Value. And both have some advantages. 
+One of the advantages call by name, it doesn't evaluate unneeded arguments. While Call-by-Value gives us evaluation all arguments at most once. And we can join these two properties in call by need to evaluate only needed arguments, and at most once. 
+Okay. So now, let's proceed with "strong" why we are interested in strong reduction. 
+As an example let's consider church numerals, which is function, that applieses given function twice. And in arithmetic can implementment multiplication as function composition. And now let's try to compute 2 times 2. 
+In so called weak reduction, we can substitutes two 2's. And is it an answer? 
+Is it a result? 
+Because in weak reduction we can not go further. 
+Because what we call weak reduction, we don't reduce on the Lambdas and of course can do same for strong reduction, but strong reduction can go under Lambda. And in some extra steps under the Lambda F, we can normalize the whole term, and obtain a result that is equal to church numeral 4. Which is nice, I like it. But most importantly, full reduction is applied in type checking in proof assistance. 
+So now the question why efficient? 
+Is quite obvious question, we can focus on in what sense? 
+Efficient. 
+And we are interested in time complexity. Which depends on two parameters. The first one is: Size of initial term, and we should somehow depend on it, because we have to read the whole term if we want to formally normalize it. And second one is number of beta reductions we simulate number of beta reductions. 
+The term can even diverge, and it's hard to pay the whole cost of the computation with the size of initial term, and take the number of beta reductions into account. 
+And technically speaking, it was proposed to call efficient implementations, that are linear in both of the parameters. 
+Linear complexity quite good. 
+And would be efficient if linear in both of them. 
+And abstract machines are quite good tools to navigate the cost models complexity. 
+So if we take a look at abstract machines for strong call by need, we can find a description of full reducing strong call by need normalization in research report of Danvy, and then doctoral students and they describe how to derive such a machine and how it would work. And another one, abstract machine by... and demonstrated ICFP5 years ago. 
+But, both abstract machines I'm aware of suffer from exponential overhead in the complexity. 
+So would like to improve on that matter. So further plan of the presentation will be to show how to derive an efficient machine for strong call by need. 
+Technically speaking with the technical notion of efficiency, it's quazi efficient, because it's quasi linear in the size of initial term, but, still efficient, then we'll talk about correctness of this machine, and how we can say that it is strong call by need, and it's complexity analysis. And then I would like to remark on interesting, I think, aspects of our work. It is empirical approach. And employed in our analysis. 
+It is already my third talk, conference talk functional correspondence is a crucial tool to obtain, the result. 
+So we already put an online video of example of functional correspondence on the web, so I will just describe more or less how it works. 
+We can to define a language, for example, call by need evaluator, we can just write a program that executes this language. 
+But... then, some aspects of this defined language are hidden in the metalevel. It depends on meta-language, how it, for example, what is the evaluation order? 
+So to make it explicit we can do CPS translation of definitional interpreter, and then more visible to read. And then the same may not be obvious how we evaluate high order functions, so we can functionalize such an interpreter of defined language, and that was known, and that was described by John C. Reynolds in the 70's. And the next century, same team of Danvy elaborated on the process. And described it's a way to obtain an abstract machine from a functional code. 
+And we can also reverse the process, and construct and abstract machine, and change something in the code, and obtain other abstract machines. 
+And... more recently, Buska and Biernacki reached our linguistic technology with autoMIEization of process of machine construction. And so derivation of implement occasion of abstract machine worked. And implement... normal order strong call by name strategy, of Lambda calculus. 
+And we used the construction of the machine to functional code. 
+So we can take in our case rocket, and change something in that code to be more call by need. 
+So with added standard memoization technique and is added them on two levels. On the weak level of evaluation, and strong level of normal iSDATHS. 
+And applied other changes also, for example, getting -- brown indices and automatic construction we obtained the arcaarcangel abstraction machine. 
+And look at consist of 11 transition rules and it works on standard Lambda terms, and environment based. And sometimes environment passed by the machine. And also stuck to the evaluation con TESHGS, that will be more important later, and explicit store to deal with the memoization. 
+So in this form the interpreter is store passing intermenter. 
+So having abstract machine we can experiment with it, and observe it's computational steps empirically. And it gives us natural... one transition is a unit of complexity. But coming back to this picture now we can wonder what is this creature that it implementments. What is the strategy, we know we can do something arbitrarily stupid with the code. Or do something wiser, change strategy call by name to Call-by-Value. So what is it that RKNL implements. 
+I think the easier part is to observe that what we obtained conseratively extends already known abstract machine, which is weak but call by need abstract machine. 
+So we're happy with this by need component. 
+And now we could like to connect it with string strong. 
+So we have strong call by need. 
+And because then... we can have, we have strong call by need. And we have, if it's really implement, normal order. 
+And preserve that property. And to prove that, we used another abstract machine, which is of more theoretical than practical flavour. It's more explicit and has more invariance explicit for example the not just list of term. 
+But grammar used nonterminals. 
+And this provides every reduction step is done in left most outermost context that characterizes normal or the reduction. 
+And abstraction machines that traces our A-machine would have additional cost between neutral terms, and normal terms. And didn't want in practical machine, and store split into two stores, one with each memoization we added. 
+And let's summarize that thanks to this analysis of stack shapes, shape of evaluation context we knee this abstract machine implement also normal order strategy. 
+And the second part is complexity analysis. 
+That is done with potential function, inspired by Chris Okazaki and potential also persistent data structure, and designed to decrease with every step of computation. So these components connected with application decrease the number of steps to do by one. 
+And if we take a look at it again, and apply potential function, it decreases as we wanted on every transition rule, but one. 
+And the one remaining rule is this rule, responsible for beta reduction. 
+And it is a rule where potential increases, but we can balance the inequality with the potential of the initial term. 
+So... by these two properties of decrease and increase, we have the following theorem that the length of execution can be bounded by such a product. And we can also note that this bound is with respect to normal order reductions, so it also improves state of the art with normal order from quadratic to quasi by licenselicenselinear number of steps. 
+And implementation, we can count thethe itegers steps done, it is really reproducible in on other computers, and we can make some hypothesis, how many steps it takes, it is and can prove formulas. And other note size exSPLEGS problem named by Accattoli, and Dal Lago. And the this exponential overhead in abstract machines often comes from the fact that in n reductions. We can add term that is exponentially big in N, and our machine deals with it by mplicitly sharing references to the reused sub terms. So in the end, we have such a presentation, implicitly sharing potentially exponentially big terms. 
+So to summarize we have implemented abstract machine that provably efficiently implements strong call by need. 
+Strategy, and it was done thanks to the functional programming. 
+Thank you for your attention. 
+And curious for your questions and comments.
 
 ---
 
-04:13:14 [Applause] 
-04:13:23 >> Thank you, Thomasz. We have already a question. 
-04:13:35 >> Very nice work. 
-04:13:37 I'm particularly intrigued by the last slide about implicit sharing. 
-04:13:43 Do you know if your machine is fully lazy. 
-04:13:49 >> If is does only work that should be done? 
-04:13:58 Yes? 
-04:14:01 ... I don't know technically what do you mean by fully lazy. 
-04:14:08 >> By full laziness, it's, you know... there is more sharing than what you would normally find in straightforward call by need machine. 
-04:14:22 >> So, so. 
-04:14:24 >> There is additional layer of sharing that this abstract machine for call by need suffered from exponential overhead, because some work was unshared. And we shared also this work, and it seems that we shared everything that could be shared. But I don't have more formal or technical guarantee that everything is shared. 
-04:14:57 >> Maybe we can talk more later. 
-04:15:01 >> Okay. 
-04:15:01 >> Hello, you have lower bound relating to number of steps of beta reduction and potential. 
-04:15:09 Is there similar upper bound for that potential. And if not, would you suspect a similar range. 
-04:15:21 >> I understand this function as upper bound for complexity. 
-04:15:30 The potential is always bigger than number of steps. 
-04:15:35 But it, I would say... have terms need to discharge potential by stepping. 
-04:15:58 >> Thank you very much. I think that we can take offline the other questions. Which we surely have. Thanks Thomas again. The next speaker, she will present the work on failure continuity and Full Abstraction on behalf of her coauthors. 
-04:16:34 >> Thanks, do you hear me. 
-04:16:35 >> Thanks. 
-04:16:38 
+[Applause] 
+>> Thank you, Thomasz. We have already a question. 
+>> Very nice work. 
+I'm particularly intrigued by the last slide about implicit sharing. 
+Do you know if your machine is fully lazy. 
+>> If is does only work that should be done? 
+Yes? 
+... I don't know technically what do you mean by fully lazy. 
+>> By full laziness, it's, you know... there is more sharing than what you would normally find in straightforward call by need machine. 
+>> So, so. 
+>> There is additional layer of sharing that this abstract machine for call by need suffered from exponential overhead, because some work was unshared. And we shared also this work, and it seems that we shared everything that could be shared. But I don't have more formal or technical guarantee that everything is shared. 
+>> Maybe we can talk more later. 
+>> Okay. 
+>> Hello, you have lower bound relating to number of steps of beta reduction and potential. 
+Is there similar upper bound for that potential. And if not, would you suspect a similar range. 
+>> I understand this function as upper bound for complexity. 
+The potential is always bigger than number of steps. 
+But it, I would say... have terms need to discharge potential by stepping. 
+>> Thank you very much. I think that we can take offline the other questions. Which we surely have. Thanks Thomas again. The next speaker, she will present the work on failure continuity and Full Abstraction on behalf of her coauthors. 
+>> Thanks, do you hear me. 
+>> Thanks. 
+
 04:16:38
 
 ---
 
-04:16:44 Okay, so it is joint work with Gilles and Ugo Dal Lago. 
-04:17:01 So what do we mean by programming with probable listies. And first thing, discrete PRABing. It's a program or system that at some point execution can make probable listic choice. So here for example. : 
-04:17:31 So it is discrete PRAB listic programming, continuous PRAB listic programming and in the talk... continuous PRAB listic programming. 
-04:17:48 So more concretely. The program is able to sample from continuous distribution. 
-04:17:59 And then, primitive function... 
-04:18:09 So why do we want to do that. 
-04:18:11 It tells you to describe the behavior system, and those inherently uncertain, or are not able to describe them in enough details. 
-04:18:29 And so we has been a trend, in continuous programming, and... 
-04:18:43 which have been developed. And so interest in foundational side of continuous programming. 
-04:18:52 So concretely, if we look a little more formally, it means you take from the calculus, and if you want to add discrete, you have this here, this program is going to behave... and we want to do continuous you are going to add primitive sample, that will produce sampling, typically in uniform solution. 
-04:19:31 And. 
-04:19:31 Then function that dishly need to be measured. 
-04:19:37 And so the first program is how to define semantics. I hope you are still on me because I don't... okay, thanks. 
-04:19:50 So first, means if you have... 
-04:19:58 and then you have programs. 
-04:20:01 This here, and are going could converge to these programs. So from there, you have the continuous subprobability structure. It allows you to talk about distribution on your set of problems. And so now operational semantics it's distribution. 
-04:20:26 So essentially, in this tallic I'm going to consider weak semantics, and Call-by-Value. 
-04:20:36 And normal form functions... in the system. 
-04:20:41 And so what does it do? 
-04:20:43 It is going to sample, distribution. And obtains result. And here, using the functions. And then, this example here is interesting because it shows you that this program is going to transform the uniform solution here. And distribution which is essentially exponential distribution, and translated. 
-04:21:12 And so equation, and how starting from one continuous solution, and you can read all sorts from the solution. 
-04:21:23 And so now what do we do with the programs, we want to compare them. The idea is check with the two programs, are going to be the same no the maker...ish and here we can see... context equivalence, and see it's going to be program language. The definition, when for every context, the distribution you obtain when you plug them is the same. 
-04:21:56 And here, in the V context, C returns ground type. 
-04:22:04 And two examples, here: 
-04:22:10 So here explains symmetry. 
-04:22:16 Because you obtain the same, if you sample in the solution, or... so these terms will be equivalent, and here two nonequivalent programs. Because what you obtain here, is that you are going to first evaluate... when you are going to address the programs, you obtain solution, and to normal form. And here, you going going to obtain the solution. And if you... able to distinguish... 
-04:23:02 inside or outside. 
-04:23:05 So, the program... the definition, where accepts, program practice N when V context, and here it is proof these are... here, it is very... 
-04:23:26 So what we do is look at applicative buy similarity Abramsky. Express the semantics higher order programs and so how do we do that. 
-04:23:50 Two kind of states, programs, and normal forms, and two kind of action. And family of application action. For every abstraction and possible argument, do the substitution. 
-04:24:12 And you are going to say that binary relation R on programs is a bisimulation. And there and there, and two states. And so we take notion of equivalence. 
-04:24:37 And so this notion gave us notion equivalence and programs, and so now what do we know the relation between the equivalence, they just produced, and context. And the two coenside. 
-04:25:03 And you can do binary choice. 
-04:25:16 In call by name. You have one inclusion, but you don't have... 
-04:25:23 While... fully abstracting, Call-by-Value. 
-04:25:36 Another notion of equivalence. 
-04:25:39 So what that means, means the formula here, there it is formula that means...... 
-04:26:04 So two programs will be equivalent,. The interesting thing is that here you have equivalence LTS,. 
-04:26:25 So we use that... to show that you have this. 
-04:26:36 So first investigation, to show thatthat... and it's included... and then, question are we able to show the... natural way to do that... would be to be able to show that also equivalence, and bysimilarity side. 
-04:27:14 So, let's become a little bit more formal. 
-04:27:17 And so with the system with continued states. 
-04:27:21 So labelled Markov process. 
-04:27:31 And set of action, and for each action, the function is going to become probable listic of course, so that means for each action you are going to say, from each state, and for each measurable subset of the state, going to say what is probability when I start from the state to iarrive here. So an example is maybe more clear. So here is evaluation action for the program, so this program is going to give all this there. 
-04:28:10 And built uniformly distributed. 
-04:28:12 And how do we formalize that. 
-04:28:16 And so... there is no...... if I look, at the interval. Then I can express the probability here. 
-04:28:47 So can we look at this kind of system, and, see them coenside. 
-04:28:58 And the picture is little more complicated. If... with discrete probable listic, the state is discrete, and so... in this case, of course we have... 
-04:29:35 And now the problem is here the state is still analytical. 
-04:29:48 And now we have noncountable action space, because the value can be passed as argument. 
-04:29:55 And so on contains all values thus of the R. 
-04:30:02 And so not necessarily the case that they coenside. So what we would like to do is define class of LMP with uncountable action, and such that bi simulation, and able to put on particularly system there. And so A natural candidate, Panangaden et al. 
-04:30:38 Able to with labelwise continuous transition function, for every action, for every set of target states T the function. 
-04:30:49 And how able to do that. 
-04:30:51 And say, I can define a function from a noncould you tellable into another. Saying each state S, I'm going to fix an action, and set of arrest get states. So here function state to 0, 1. And continuous. For us doesn't work at all. And the system is not in this... the problem... is that, some action are going to be deterministic, you have already in normal form, and. 
-04:31:43 Preponderance probability to go from my state to T, 1. 
-04:31:48 If I change my parameter... to 0. And deterministic. 
-04:32:01 So what we do is we're going to keep the additional constraint here. 
-04:32:07 And going to push it a little with the idea we're going to... 
-04:32:12 on the solutions directly. 
-04:32:16 And so it is feller LMP. The function, state and action. And now, tells distribution. And standard notion of the structure. And can ask this function itself to be continuous. And if you look at thethe, we see that here it works. 
-04:32:46 ... 
-04:32:46 
-04:32:46 
-04:32:50 So you see that in deed Feller continuous. And so the results like that. First, Feller continuous LMP, the state bisimulation, and logical equiver lens coincide. And the theorem, when we enforce continuity, and to close the loop in the sense, since, here we obtain equivalent of feller LMP. And. 
-04:33:37 Now, this was positive result. 
-04:33:45 ... negative result if you want. What happens with possibly noncon tin nows primitive functions. And what we obtain is that they didn't cocoincide. 
-04:34:10 And in a sense... while those things happen. And... the thing is that becomes unmeasurable relation. And... normal programs becomes nonmeasurable, and then you have all sorts of problems, and not able to show that... computed locally, that we can not even say, because the parameters LMPs, and etcetera. 
-04:34:50 And we're not even to say, okay, I'm going to consider a program that is not very deep, and I'm going to take a self contained fragment that contains is and compute simulation, and even that not of use. So here becomes very complicated. So to conclude. Contribution of this work, Full Abstraction result for applicative buy simulation, on higher order language with continuous probabilities, and new class of LMP where similarity, and equivalence coincid. And so... in future work. When seeing what's interesting. A little bit quick in the beginning when I talked about Bayesian language, and people want Bayesian knowledge, and I have knowledge, and I'm going to... we would like to extend that. And like also to do reasoning, and talk about applicative disstanceses. 
-04:36:16 And would like to have more knowledge on arbitrary primitive functions. 
+Okay, so it is joint work with Gilles and Ugo Dal Lago. 
+So what do we mean by programming with probable listies. And first thing, discrete PRABing. It's a program or system that at some point execution can make probable listic choice. So here for example. : 
+So it is discrete PRAB listic programming, continuous PRAB listic programming and in the talk... continuous PRAB listic programming. 
+So more concretely. The program is able to sample from continuous distribution. 
+And then, primitive function... 
+So why do we want to do that. 
+It tells you to describe the behavior system, and those inherently uncertain, or are not able to describe them in enough details. 
+And so we has been a trend, in continuous programming, and... 
+which have been developed. And so interest in foundational side of continuous programming. 
+So concretely, if we look a little more formally, it means you take from the calculus, and if you want to add discrete, you have this here, this program is going to behave... and we want to do continuous you are going to add primitive sample, that will produce sampling, typically in uniform solution. 
+And. 
+Then function that dishly need to be measured. 
+And so the first program is how to define semantics. I hope you are still on me because I don't... okay, thanks. 
+So first, means if you have... 
+and then you have programs. 
+This here, and are going could converge to these programs. So from there, you have the continuous subprobability structure. It allows you to talk about distribution on your set of problems. And so now operational semantics it's distribution. 
+So essentially, in this tallic I'm going to consider weak semantics, and Call-by-Value. 
+And normal form functions... in the system. 
+And so what does it do? 
+It is going to sample, distribution. And obtains result. And here, using the functions. And then, this example here is interesting because it shows you that this program is going to transform the uniform solution here. And distribution which is essentially exponential distribution, and translated. 
+And so equation, and how starting from one continuous solution, and you can read all sorts from the solution. 
+And so now what do we do with the programs, we want to compare them. The idea is check with the two programs, are going to be the same no the maker...ish and here we can see... context equivalence, and see it's going to be program language. The definition, when for every context, the distribution you obtain when you plug them is the same. 
+And here, in the V context, C returns ground type. 
+And two examples, here: 
+So here explains symmetry. 
+Because you obtain the same, if you sample in the solution, or... so these terms will be equivalent, and here two nonequivalent programs. Because what you obtain here, is that you are going to first evaluate... when you are going to address the programs, you obtain solution, and to normal form. And here, you going going to obtain the solution. And if you... able to distinguish... 
+inside or outside. 
+So, the program... the definition, where accepts, program practice N when V context, and here it is proof these are... here, it is very... 
+So what we do is look at applicative buy similarity Abramsky. Express the semantics higher order programs and so how do we do that. 
+Two kind of states, programs, and normal forms, and two kind of action. And family of application action. For every abstraction and possible argument, do the substitution. 
+And you are going to say that binary relation R on programs is a bisimulation. And there and there, and two states. And so we take notion of equivalence. 
+And so this notion gave us notion equivalence and programs, and so now what do we know the relation between the equivalence, they just produced, and context. And the two coenside. 
+And you can do binary choice. 
+In call by name. You have one inclusion, but you don't have... 
+While... fully abstracting, Call-by-Value. 
+Another notion of equivalence. 
+So what that means, means the formula here, there it is formula that means...... 
+So two programs will be equivalent,. The interesting thing is that here you have equivalence LTS,. 
+So we use that... to show that you have this. 
+So first investigation, to show thatthat... and it's included... and then, question are we able to show the... natural way to do that... would be to be able to show that also equivalence, and bysimilarity side. 
+So, let's become a little bit more formal. 
+And so with the system with continued states. 
+So labelled Markov process. 
+And set of action, and for each action, the function is going to become probable listic of course, so that means for each action you are going to say, from each state, and for each measurable subset of the state, going to say what is probability when I start from the state to iarrive here. So an example is maybe more clear. So here is evaluation action for the program, so this program is going to give all this there. 
+And built uniformly distributed. 
+And how do we formalize that. 
+And so... there is no...... if I look, at the interval. Then I can express the probability here. 
+So can we look at this kind of system, and, see them coenside. 
+And the picture is little more complicated. If... with discrete probable listic, the state is discrete, and so... in this case, of course we have... 
+And now the problem is here the state is still analytical. 
+And now we have noncountable action space, because the value can be passed as argument. 
+And so on contains all values thus of the R. 
+And so not necessarily the case that they coenside. So what we would like to do is define class of LMP with uncountable action, and such that bi simulation, and able to put on particularly system there. And so A natural candidate, Panangaden et al. 
+Able to with labelwise continuous transition function, for every action, for every set of target states T the function. 
+And how able to do that. 
+And say, I can define a function from a noncould you tellable into another. Saying each state S, I'm going to fix an action, and set of arrest get states. So here function state to 0, 1. And continuous. For us doesn't work at all. And the system is not in this... the problem... is that, some action are going to be deterministic, you have already in normal form, and. 
+Preponderance probability to go from my state to T, 1. 
+If I change my parameter... to 0. And deterministic. 
+So what we do is we're going to keep the additional constraint here. 
+And going to push it a little with the idea we're going to... 
+on the solutions directly. 
+And so it is feller LMP. The function, state and action. And now, tells distribution. And standard notion of the structure. And can ask this function itself to be continuous. And if you look at thethe, we see that here it works. 
+... 
+
+
+So you see that in deed Feller continuous. And so the results like that. First, Feller continuous LMP, the state bisimulation, and logical equiver lens coincide. And the theorem, when we enforce continuity, and to close the loop in the sense, since, here we obtain equivalent of feller LMP. And. 
+Now, this was positive result. 
+... negative result if you want. What happens with possibly noncon tin nows primitive functions. And what we obtain is that they didn't cocoincide. 
+And in a sense... while those things happen. And... the thing is that becomes unmeasurable relation. And... normal programs becomes nonmeasurable, and then you have all sorts of problems, and not able to show that... computed locally, that we can not even say, because the parameters LMPs, and etcetera. 
+And we're not even to say, okay, I'm going to consider a program that is not very deep, and I'm going to take a self contained fragment that contains is and compute simulation, and even that not of use. So here becomes very complicated. So to conclude. Contribution of this work, Full Abstraction result for applicative buy simulation, on higher order language with continuous probabilities, and new class of LMP where similarity, and equivalence coincid. And so... in future work. When seeing what's interesting. A little bit quick in the beginning when I talked about Bayesian language, and people want Bayesian knowledge, and I have knowledge, and I'm going to... we would like to extend that. And like also to do reasoning, and talk about applicative disstanceses. 
+And would like to have more knowledge on arbitrary primitive functions. 
 
 ---
 
-04:36:27 [Applause] 
-04:36:42 Maybe I can ask you as far as I can see the language is untyped. 
-04:36:50 >> No it's not untyped. 
-04:37:03 >> We have... 
-04:37:09 >> M-hm. 
-04:37:11 And is there a correspondence? 
-04:37:16 >> I don't know. I'm not sure... on the logical side, I'm not sure it's very of use what kind of logical connector, logical meaning it has. 
-04:37:32 ... 
-04:37:32 >> In the logical community there is huge variety of different probabletic logic. 
-04:37:43 >> It doesn't give you... we don't really know what it is. 
-04:37:51 We don't know, it's really interesting question. 
-04:37:53 >> We have another question. 
-04:38:12 >> This is a bad question, because it's not really related to contribution of your talk. 
-04:38:19 But do we really care about the noncontinuous... 
-04:38:23 >> Depends. If you don't want to have noncon tin yous primitive you can not have. 
-04:38:34 >> It's exactly what we say, it's not that important, because you can do approximation of all primitive function, and then you are more less happy. But none the less, with the execution flow, the fact of not being able to have anything else, you can not say, you can do one thing. 
-04:39:00 You can do calculus the way you want, but not bunching in the flow. 
-04:39:09 >> I would think of punching... 
-04:39:11 if you are close to the order, a bit nondeterministic. 
-04:39:20 >> But if you have nondeterministic, everything is worse than before. 
-04:39:26 So fuzzy bunching, with abilities. So working very, very preliminary way. 
-04:39:40 >> Thank you very much. Let's thank again. 
-04:39:44 [APPLAUSE]
+[Applause] 
+Maybe I can ask you as far as I can see the language is untyped. 
+>> No it's not untyped. 
+>> We have... 
+>> M-hm. 
+And is there a correspondence? 
+>> I don't know. I'm not sure... on the logical side, I'm not sure it's very of use what kind of logical connector, logical meaning it has. 
+... 
+>> In the logical community there is huge variety of different probabletic logic. 
+>> It doesn't give you... we don't really know what it is. 
+We don't know, it's really interesting question. 
+>> We have another question. 
+>> This is a bad question, because it's not really related to contribution of your talk. 
+But do we really care about the noncontinuous... 
+>> Depends. If you don't want to have noncon tin yous primitive you can not have. 
+>> It's exactly what we say, it's not that important, because you can do approximation of all primitive function, and then you are more less happy. But none the less, with the execution flow, the fact of not being able to have anything else, you can not say, you can do one thing. 
+You can do calculus the way you want, but not bunching in the flow. 
+>> I would think of punching... 
+if you are close to the order, a bit nondeterministic. 
+>> But if you have nondeterministic, everything is worse than before. 
+So fuzzy bunching, with abilities. So working very, very preliminary way. 
+>> Thank you very much. Let's thank again. 
+[APPLAUSE]
 
 ---
 
-04:39:50 >> The following speak R Ugo Dal Lago. 
-04:40:12 >> This is a join work with Beniamino, and Gabriele Vanoni. 
-04:40:18 And let's start talking about reasonable computational models. 
-04:40:26 Computational model, is if you like way of computing functions, so any input X, you represent the input X as state of automaton and little elementary step go to the toward the final state which you can extract the result, namely the value of the function on X. 
-04:40:53 And you would like this automaton such that each transition is elementary enough, that it's not only effective but implemented in constant time or very low time complexity. And if you do that, you can arguably say the model induces notion of time, and notion of space. 
-04:41:20 So the time is model number of transition, and space is modeled maximum size of configurations you encounter along your computation. So many computational models. So there are many computational models as we all know, for example Turing machines are arguably the standard reference computational model, and you know the, in this case, the fact that each step is Elementary is of course very easy to realize. And also have different computational models, and random access machines and reference model for concrete complexity of algorithmsnobody study the complexity of algorithms directly at the level of Turing machines. On the other hand, Turing machines and random access machines are, in a sense equivalent as we all know, and that's what we mean by reasonablereasonable. Simulate each other. And polynomial in time, and linear overhead in space. 
-04:42:26 So for example, we can a problem to be polynomial time, computable languages, either by looking at turring machines and random access machines without any ambiguity. And same thing can be said about algorithmic space, and computable problems, question is what happens with functional programs, can we give functional programs the same state we give Turing machines our random access machines, this is problem we have been working on, researchers have been working on for years now, and this paper and this talk will be in particularly about aspects related to space. 
-04:43:16 But, let's take a look at what happens in time first, let's do that by looking at Krivineen many, Thomasz talked about a much more sophisticated machine. 
-04:43:33 The Krivine machine is arguably the simplest machine, Lambda calculus evaluation, and based on environment closure and stackses. And compared to the machines we saw in the previous talk by Thomasz extremely simple in the sense it has just 3 rules, configuration, three polls and term and environment and stack, and just need one rule for each operator in the Lambda calculus, one for application, and obstruction, and variables, and couple things want to observe about this machine, the first one is that in the first rule you see environments duplicated, copied, and typically, implement this copy by sharing, as we already seen. 
-04:44:26 And this of course, is done for the sake of being efficient in terms of time. 
-04:44:35 On the other hand, you have crucial environment that is following one. Every reachable configuration is such that all terms appearing in the configuration have subterms of initial term, which is very good, which means you don't create new terms, just navigate the initial term as far as the first component is concerned, of course, and the theorem, which has already been mentioned the number of reduction steps in the Krivine abstract machine. 
-04:45:07 Reasonable time, and model Beniamino said in the first talk, and derive, result, telling you the number of beta steps is invariant... reasonable time cost model. Very good, so by the way, let me stress by reasonable, what we mean is polynomial overheads between Lambda calculus on one end, and turing machines on the other side. So let's look at types, would like to reflect the time behavior of terms. 
-04:45:48 Compositionally, in a type system. 
-04:45:50 So has to be able to reason about it. Not just by operation of semantics by the machine by way of types, inherently compositional. So suppose you have computation starting from the initial term of configuration from T, and since U is subterm of T, you know that in any type derivation for T simple types for example, U is there. Because it's a subterm of the initial term. The point is that this correspondence between configuration, and subderivations is not UB JEKTive at all. The same subterm can be encountered in many difference places along with the computation, so the size of... 
-04:46:46 tells you nothing about the complexity of reduction, situation changes dramatically if you switch to multi types, which, as Beniamino said the important intersection types in knowledge reporting T intersection types actually you, you are not so far conceptually from simple types, what you have on the left side of the arrow, not just one time but multiset of types, and you type variables typing judgments with multi sets and you treat that these environments. Much in the same style as with you treat environment in linear type systems. So the multisets, added up for for example when you type applications. So you do that rather than simple types, you still have this picture, and correspondence between configuration and subtype derivations. The point is that this is now an injection. So, every configuration. . 
-04:48:00 These correspond to SDIFRNT subdare variations that means the This means that the size of type derivation tells you a lot about the time complexity of a term. And indeed, you can even go beyond that and say you label your typing judge NLTs with actually a weight. That tells you better... how many rulings instance you find in the type derivation. And you can prove -- Carvalho 2006. Multi types are a sound and complete methodology for deriving the time behavior of terms in the machine. So closed term, reduces in W steps, and on the type star, because star is the type of result in multitypes. 
-04:49:01 Very good, so now, let's take a look at space. Because we could like to do more or less the same thing but with space. Point is that if you just take a look at one computation in the machine, and focus on your beloved intermediate configuration you would like to say how big it is. 
-04:49:28 You want to use sharing because this way you are efficient as far as time is concerned, point is if you use sharing space becomes essentially unaccountable. When are you doing garbage collection, are you using reference counting. 
-04:49:43 What's the cost of it? 
-04:49:45 What is the space cost of it. 
-04:49:48 Sharing makes space a little bit more difficult to be dealt with, and must be done with great care, and on the other hand, closure, become unnecessarily too deep, and easily made on change of variables, and of course this is not good for point of view of space, but most fundamentally the main problem I would say, where is the input? 
-04:50:13 When you want to evaluation space consumption of algorithms, he input is outside of the picture, you don't want to counter the the size of the input in your space consumption, because you want to deal with things like sub linear space algorithms. Where is the input here. Intuitively it's T, but T it's everywhere in U, E, pi. 
-04:50:41 And must be dealt with. This is what we did this year actually by introducing what we call the space KAM machine. And so, in which space is dealt with with great care. 
-04:50:56 So we have 5 rules instead of 3. We have 2 rules for applications, and the first one is implementment standard technique to deal with the chain of assignments, of chain of variables, which is called, which is called unchaining, in deed when the variable, you can shortcut everything, and this is quite convenient. And second rule, copying is indeed performed but only when necessary, this, on top of that, share something by design limited to terms. 
-04:51:40 We don't share at all environment, we don't share at all closures, we only share the initial term. This is implicitty a way to account for the decide of input. Only the terms are shared. Finally the third rule tells you we do garbage collection, but in very simple trivial way, but in a meager form, namely, whenever we realize the variable simply does not occur free in the body, we can again shortcut the whole thing, and do some kind of garbage collection. And this year, we proved the size configurations measure this way. 
-04:52:33 O excluding pointers to the initial term is indeed reasonable space cost more than for the space Comm, and by that we mean that there is a linear override between a Turing machines and random attacks machines on one Kenned, and Space KAM, I wrote KAM, but we're working with the space KAM. In this work, what we did was reflect the space behavior of the space KAM which is reasonable, so from the point of view of complexity is makes sense in two types. So we still have the pictures if you work with multitypes, and correspondence is still injection. On the other hand, immediately realized that what we want to measure is namely the size of closures, because ultimately, environments and stack are made of closures and place no role at all in multitypes. Multitypes do not keep track of size of closures at all. A closure, which will be substituted for any of the variable, it can be anything, can be very deep, you can not see anything about it by looking at ordinary multitypes, and then our idea was to enrich multitypes, but by some information related to the closure, the size of closures. 
-04:53:53 Actually, this turns out to be quite simple, and we just needed to have a system of labels, so every multitype becomes now closure type, namely multiset labeled with a natural number. 
-04:54:10 This natural number is simply meant to capture size of all closures. And which substituted for the variable, in deed in typing judgments, variables are typed with closure types, so you also need this label. 
-04:54:31 Actually, let's take a look at couple of rules just to see what happens at the typing rules. Of course the type system is not as simple as the usual one, the usual multitype system. 
-04:54:48 You need a little bit more rules, arguably you need new rules because the underlying machine has changed, but example of rule variables it's at usual one, don't need anything special, except the fact you need to take into account whenever the variable, in the interneediate configuration, it's size morallly should take into account the underlying closure, which is K, and also of the stack. And that's why we have to take the size of A into account. The size of types, just measure the size of underlying stack. When you do for example, when you type applications, well, you do it more or less as in ordinary intersection types, but the key here is the following, you have to take the max rather than the sum, because space dealt with not summing up the weights, but by taking the max, when you type a value, as a final result, should take into account the final result can be a closure. 
-04:56:07 So the size of free variables. 
-04:56:10 Should be taken into account. 
-04:56:12 So the theorem am, the main result, the closure type sound and complete methodology for evaluating the space. And namely every close term receive subtype, weight W, even though if the space consumption is precisely that weight. So contributions has shown that reasonable cost model, for the Lambda calculus can be reflected in two types, so that we give a compositional flavour to it. 
-04:56:50 The same thing can be said about the time cost of the space com which must be defined as low level time cost. Because, of course sometimes you have to copy environments, and from the point of view time can be problematic, and future and on going work is about first of all, the generalization of all data by Call-by-Value machines, and space time generalized by ready to provide value. And working on generalization closure types, and more interestingly, we are looking at type systems in which the idea of measuring the size of closures becomes a way to do complexity analysis. 
-04:57:40 And now of course you can't say that. Because, multitypes are not at all a way to do verification programs, because by design undecidable problem. 
-04:57:55 Thank you, very much.
+>> The following speak R Ugo Dal Lago. 
+>> This is a join work with Beniamino, and Gabriele Vanoni. 
+And let's start talking about reasonable computational models. 
+Computational model, is if you like way of computing functions, so any input X, you represent the input X as state of automaton and little elementary step go to the toward the final state which you can extract the result, namely the value of the function on X. 
+And you would like this automaton such that each transition is elementary enough, that it's not only effective but implemented in constant time or very low time complexity. And if you do that, you can arguably say the model induces notion of time, and notion of space. 
+So the time is model number of transition, and space is modeled maximum size of configurations you encounter along your computation. So many computational models. So there are many computational models as we all know, for example Turing machines are arguably the standard reference computational model, and you know the, in this case, the fact that each step is Elementary is of course very easy to realize. And also have different computational models, and random access machines and reference model for concrete complexity of algorithmsnobody study the complexity of algorithms directly at the level of Turing machines. On the other hand, Turing machines and random access machines are, in a sense equivalent as we all know, and that's what we mean by reasonablereasonable. Simulate each other. And polynomial in time, and linear overhead in space. 
+So for example, we can a problem to be polynomial time, computable languages, either by looking at turring machines and random access machines without any ambiguity. And same thing can be said about algorithmic space, and computable problems, question is what happens with functional programs, can we give functional programs the same state we give Turing machines our random access machines, this is problem we have been working on, researchers have been working on for years now, and this paper and this talk will be in particularly about aspects related to space. 
+But, let's take a look at what happens in time first, let's do that by looking at Krivineen many, Thomasz talked about a much more sophisticated machine. 
+The Krivine machine is arguably the simplest machine, Lambda calculus evaluation, and based on environment closure and stackses. And compared to the machines we saw in the previous talk by Thomasz extremely simple in the sense it has just 3 rules, configuration, three polls and term and environment and stack, and just need one rule for each operator in the Lambda calculus, one for application, and obstruction, and variables, and couple things want to observe about this machine, the first one is that in the first rule you see environments duplicated, copied, and typically, implement this copy by sharing, as we already seen. 
+And this of course, is done for the sake of being efficient in terms of time. 
+On the other hand, you have crucial environment that is following one. Every reachable configuration is such that all terms appearing in the configuration have subterms of initial term, which is very good, which means you don't create new terms, just navigate the initial term as far as the first component is concerned, of course, and the theorem, which has already been mentioned the number of reduction steps in the Krivine abstract machine. 
+Reasonable time, and model Beniamino said in the first talk, and derive, result, telling you the number of beta steps is invariant... reasonable time cost model. Very good, so by the way, let me stress by reasonable, what we mean is polynomial overheads between Lambda calculus on one end, and turing machines on the other side. So let's look at types, would like to reflect the time behavior of terms. 
+Compositionally, in a type system. 
+So has to be able to reason about it. Not just by operation of semantics by the machine by way of types, inherently compositional. So suppose you have computation starting from the initial term of configuration from T, and since U is subterm of T, you know that in any type derivation for T simple types for example, U is there. Because it's a subterm of the initial term. The point is that this correspondence between configuration, and subderivations is not UB JEKTive at all. The same subterm can be encountered in many difference places along with the computation, so the size of... 
+tells you nothing about the complexity of reduction, situation changes dramatically if you switch to multi types, which, as Beniamino said the important intersection types in knowledge reporting T intersection types actually you, you are not so far conceptually from simple types, what you have on the left side of the arrow, not just one time but multiset of types, and you type variables typing judgments with multi sets and you treat that these environments. Much in the same style as with you treat environment in linear type systems. So the multisets, added up for for example when you type applications. So you do that rather than simple types, you still have this picture, and correspondence between configuration and subtype derivations. The point is that this is now an injection. So, every configuration. . 
+These correspond to SDIFRNT subdare variations that means the This means that the size of type derivation tells you a lot about the time complexity of a term. And indeed, you can even go beyond that and say you label your typing judge NLTs with actually a weight. That tells you better... how many rulings instance you find in the type derivation. And you can prove -- Carvalho 2006. Multi types are a sound and complete methodology for deriving the time behavior of terms in the machine. So closed term, reduces in W steps, and on the type star, because star is the type of result in multitypes. 
+Very good, so now, let's take a look at space. Because we could like to do more or less the same thing but with space. Point is that if you just take a look at one computation in the machine, and focus on your beloved intermediate configuration you would like to say how big it is. 
+You want to use sharing because this way you are efficient as far as time is concerned, point is if you use sharing space becomes essentially unaccountable. When are you doing garbage collection, are you using reference counting. 
+What's the cost of it? 
+What is the space cost of it. 
+Sharing makes space a little bit more difficult to be dealt with, and must be done with great care, and on the other hand, closure, become unnecessarily too deep, and easily made on change of variables, and of course this is not good for point of view of space, but most fundamentally the main problem I would say, where is the input? 
+When you want to evaluation space consumption of algorithms, he input is outside of the picture, you don't want to counter the the size of the input in your space consumption, because you want to deal with things like sub linear space algorithms. Where is the input here. Intuitively it's T, but T it's everywhere in U, E, pi. 
+And must be dealt with. This is what we did this year actually by introducing what we call the space KAM machine. And so, in which space is dealt with with great care. 
+So we have 5 rules instead of 3. We have 2 rules for applications, and the first one is implementment standard technique to deal with the chain of assignments, of chain of variables, which is called, which is called unchaining, in deed when the variable, you can shortcut everything, and this is quite convenient. And second rule, copying is indeed performed but only when necessary, this, on top of that, share something by design limited to terms. 
+We don't share at all environment, we don't share at all closures, we only share the initial term. This is implicitty a way to account for the decide of input. Only the terms are shared. Finally the third rule tells you we do garbage collection, but in very simple trivial way, but in a meager form, namely, whenever we realize the variable simply does not occur free in the body, we can again shortcut the whole thing, and do some kind of garbage collection. And this year, we proved the size configurations measure this way. 
+O excluding pointers to the initial term is indeed reasonable space cost more than for the space Comm, and by that we mean that there is a linear override between a Turing machines and random attacks machines on one Kenned, and Space KAM, I wrote KAM, but we're working with the space KAM. In this work, what we did was reflect the space behavior of the space KAM which is reasonable, so from the point of view of complexity is makes sense in two types. So we still have the pictures if you work with multitypes, and correspondence is still injection. On the other hand, immediately realized that what we want to measure is namely the size of closures, because ultimately, environments and stack are made of closures and place no role at all in multitypes. Multitypes do not keep track of size of closures at all. A closure, which will be substituted for any of the variable, it can be anything, can be very deep, you can not see anything about it by looking at ordinary multitypes, and then our idea was to enrich multitypes, but by some information related to the closure, the size of closures. 
+Actually, this turns out to be quite simple, and we just needed to have a system of labels, so every multitype becomes now closure type, namely multiset labeled with a natural number. 
+This natural number is simply meant to capture size of all closures. And which substituted for the variable, in deed in typing judgments, variables are typed with closure types, so you also need this label. 
+Actually, let's take a look at couple of rules just to see what happens at the typing rules. Of course the type system is not as simple as the usual one, the usual multitype system. 
+You need a little bit more rules, arguably you need new rules because the underlying machine has changed, but example of rule variables it's at usual one, don't need anything special, except the fact you need to take into account whenever the variable, in the interneediate configuration, it's size morallly should take into account the underlying closure, which is K, and also of the stack. And that's why we have to take the size of A into account. The size of types, just measure the size of underlying stack. When you do for example, when you type applications, well, you do it more or less as in ordinary intersection types, but the key here is the following, you have to take the max rather than the sum, because space dealt with not summing up the weights, but by taking the max, when you type a value, as a final result, should take into account the final result can be a closure. 
+So the size of free variables. 
+Should be taken into account. 
+So the theorem am, the main result, the closure type sound and complete methodology for evaluating the space. And namely every close term receive subtype, weight W, even though if the space consumption is precisely that weight. So contributions has shown that reasonable cost model, for the Lambda calculus can be reflected in two types, so that we give a compositional flavour to it. 
+The same thing can be said about the time cost of the space com which must be defined as low level time cost. Because, of course sometimes you have to copy environments, and from the point of view time can be problematic, and future and on going work is about first of all, the generalization of all data by Call-by-Value machines, and space time generalized by ready to provide value. And working on generalization closure types, and more interestingly, we are looking at type systems in which the idea of measuring the size of closures becomes a way to do complexity analysis. 
+And now of course you can't say that. Because, multitypes are not at all a way to do verification programs, because by design undecidable problem. 
+Thank you, very much.
 
 ---
 
-04:58:06 >> Thank you, we have time. 
-04:58:09 Can you please bring. 
-04:58:12 ... 
-04:58:19 >> Thanks for the talk. I had a question. So for the garbage collection you did, you are checkingchecking whether the variable is free, and significant overhead to check every time, could catch the information, but is there space cost, wondering how you do that. 
-04:58:44 >> Checking the variable, does or does not occur free in the term, of course it takes a little bit of time, but you do that only on the subterm of the initial term. 
-04:58:56 So the term on which you do that is a subterm of the initial term, there is nothing like size explosion problem here. Yes, a little bit of a cost. But arguably can be taken into account. One thing I want to say, I didn't mention that, being reasonable does not mean to be extremely efficient. 
-04:59:19 Being reasonable means to be accountable to be close enough, turing machine and random access machines, to say something like I'm linear where you can't be linear. So polynomial overhead, so I think it's fine. 
-04:59:37 >> Thanks. 
-04:59:37 >> Thank you. 
-04:59:42 >> Have more questions. 
-05:00:09 >> This kind of analysis comparing call by name and Call-by-Value, is there... which is more primitive, paralyzed calculus, so you get results both structures at the same time. 
-05:00:26 >> Very nice question. 
-05:00:27 Actually... it would be nice to redo all this work, in for example, call by push value, so you can get the call by name and call bial value, in logic that would be very nice. 
-05:00:41 I'm not sure so much has been done in this sense? 
-05:00:48 But, maybe Beniamino can say something? 
-05:00:51 I'm not sure actually, people have studied... yeah. That. 
-05:00:56 Let me give the microphone. 
-05:00:59 >> Thank you. 
-05:01:01 >> BENIAMINO ACCATTOLI: Time and space, very dual properties. 
-05:01:06 And why for time really depends on the valuation strategy, space is essentially independent. 
-05:01:13 So in fact, in the paper, LICS where we prove this base gives cost model for space, for call by name, essentially, in the same paper we also prove it gives it Call-by-Value, because the representation of turing machine is done in CPS fragment so the valuation strategy doesn't matter. For time, it's the opposite. The strategies change a lot of things. 
-05:01:46 Yeah, maybe could be done call by... 
-05:01:50 >> Okay. 
-05:01:54 >> Thank you. 
-05:01:58 >> Let's thanks again. 
-05:02:02 [Applause] 
-05:02:04 So for all questions, of course, coffee breaks, lunch breaks are a good opportunity.
+>> Thank you, we have time. 
+Can you please bring. 
+... 
+>> Thanks for the talk. I had a question. So for the garbage collection you did, you are checkingchecking whether the variable is free, and significant overhead to check every time, could catch the information, but is there space cost, wondering how you do that. 
+>> Checking the variable, does or does not occur free in the term, of course it takes a little bit of time, but you do that only on the subterm of the initial term. 
+So the term on which you do that is a subterm of the initial term, there is nothing like size explosion problem here. Yes, a little bit of a cost. But arguably can be taken into account. One thing I want to say, I didn't mention that, being reasonable does not mean to be extremely efficient. 
+Being reasonable means to be accountable to be close enough, turing machine and random access machines, to say something like I'm linear where you can't be linear. So polynomial overhead, so I think it's fine. 
+>> Thanks. 
+>> Thank you. 
+>> Have more questions. 
+>> This kind of analysis comparing call by name and Call-by-Value, is there... which is more primitive, paralyzed calculus, so you get results both structures at the same time. 
+>> Very nice question. 
+Actually... it would be nice to redo all this work, in for example, call by push value, so you can get the call by name and call bial value, in logic that would be very nice. 
+I'm not sure so much has been done in this sense? 
+But, maybe Beniamino can say something? 
+I'm not sure actually, people have studied... yeah. That. 
+Let me give the microphone. 
+>> Thank you. 
+>> BENIAMINO ACCATTOLI: Time and space, very dual properties. 
+And why for time really depends on the valuation strategy, space is essentially independent. 
+So in fact, in the paper, LICS where we prove this base gives cost model for space, for call by name, essentially, in the same paper we also prove it gives it Call-by-Value, because the representation of turing machine is done in CPS fragment so the valuation strategy doesn't matter. For time, it's the opposite. The strategies change a lot of things. 
+Yeah, maybe could be done call by... 
+>> Okay. 
+>> Thank you. 
+>> Let's thanks again. 
+[Applause] 
+So for all questions, of course, coffee breaks, lunch breaks are a good opportunity.
 
 ---
 
-05:02:13 The closing talk of this session is by Norman Danner. 
-05:02:28 Speak about denotational semanticses as foundation for cost recurrence extraction for functional language. His is a GFP, presentation, it is accepted from a published paper in Journal of functional programming. The floor is yours. 
-05:02:49 >> NORMAN DANNER: So the primary goal of this particular paper is to look at sort of the informal way that we analyze algorithms, or given some sort of functional program, tend to, especially teaching say undergraduates, right, we look at the algorithm would basically write down a function on the board that looks a lot like the algorithm more or less, right, it's supposed to represent the cost in terms of the size of the input. And that's what we'll call cost recurrence, we write that down and then we go ahead and we solve it or come up with some sort of a closed form cetera. 
-05:03:19 And so the that I want to talk about is to try to use denotational semantics give a formal account of that sort of informal process of coming up with that cost recurrence. Not focusing on solving it directly, but coming up with the recurrence, where does it actually come from. Just to be clear, to set a line on that, not so much focusing on effectively building a better mousetrap and not trying to come up with techniques for more PL-based approaches to cost analysis, like ARA and other approaches, really just want to focus on giving a formal account of that informal process. So the big picture here starting off with some sort of source language, which for right now Call-by-Value version of ML which is data types and followed, and handle general recursion in other papers but the basic source language we're working with. And syntactic part, we do sort of a GIST translation into the writer monad to get what we call a syntactic recurrence and that's basically now call by name predicate of polymorphism I should have said when I think of call by name ml or call by value ml. Polymorphism. So extract that into form some form of a predicate of polymorphic lambda calculus and then hit with a model, interpret the recurrence in some sort of a denotational semantics, that's where we give this notion of size for he arguments of the original source program, and it's at that point we should start seeing the recurrences we should expect to see showing up. So example here right, let's say typical program for binary search tree membership testing, which is basically a tree fold as shown here. And let's focus on on counting say the number of recursive calls induced by that followed, the program we're starting with the goal to come up with the recurrence you would expect to see doing cost analysis for this. So first step translation into the writer monad that then translates a program type sigma into new program of type that I'll call cost and proterrible of sigma. 
-05:05:44 And type C there is cost type, which in the syntax is basically a type, and generally interpreted by numbers or something like that. And potential sigma is the other part there. And that's what we think of as type of potentials or sizes of usage cost of value type sigma in the original source language, so size is the right way to think about it, potential is the term that coauthor Jim L and I adopted a long time ago, and possibly poorly. So just to clarify does not directly have anything to do with potentials in amortized analysis, now we're really thinking about as potentialcosts of evaluating how might get used and contribute to cost. So in this case, since cost really explicit in the syntax here, we call that pair a complexity. But in the notation, I'll do E withcost being the pair, because it's easier to read. And basically what you expect as cost the translation you get from the binary search tree membership program, that is again a tree fold. And in this case, say you have a node, what are you going to do right, compared the two values again, and say the comparison comes out less than: 
-05:07:10 the cost, the as a result is basically, potential of the left hand recursive, that are 0. And recursive call there. And P is subscripts basically the projections on the pair, and cost of recursive function, and cost of comparison, and along with the cost for actually this particular unfolding of the fold. 
-05:07:36 So where this gets interesting is then when we interpret that syntactic recurrence there a model. So the goal in this case to analyze the binary search tree membership function in terms of height of argument in the first place, and want to model essentially interpreting by height. And interpret the empty constructor by 0, the node constructor as just adding one to the maximum of the interpretations of the subtrees right and that gives us an interpretation of feces. 
-05:08:10 Wherever tree is now interpreted by height. So doing that we still have to interpret fold as well in this model. And in this case, essentially interpreting fold over a height now. Because the tree argument is now just a number. So interpreting over the height is maximum over the branches and have to take the maximum, for the node branch, right, over in some sense all the possible heights one might encounter for the subtrees of a tree of height H, nd hence that's where that age zero Max H one is less than h coming through for that for that overall maximum. Also what do we do about that label. If we're talking relevant notion ofsize, the height of tree the LANLs are irrelevant right and so in fact it ends up working towards antics where we basically say well let's set that label value to essentially an infinite value. That infinity comes out of the fact that when you sort of dig into the details of defining these models, It's actually very convenient for to interpret all the types as complete lattices.o there is a top element and infinite infinity. And so in this case we're basically saying, I don't care about the size of the labels, r more accurately, I do this interpretation, when the label has size Atmos infinitely large, which can be anything. 
-05:09:32 So when we do that the interpretation of the original recurrence back here. Get exactly the recurrence you expect to get looking at original source program and stairing, and what we will get as recurrence, to describe the cost of program in terms of height of tree. And have to more or less maximize overall possible subtrees that have height smaller than H, that exactly what that recurrence is there. And this is giving the idea of flavour of what we expect to be coming out of this sort of program. 
-05:10:08 And so that's the basic structure. 
-05:10:09 And so... for all this to fly, we need to theorem that ties all this together and what does that boil down to. And we start doing syntactic translation, the vertical bars and bound on the denotation of the syntactic extraction of the original program, someone has to be a bound on the original cost of the program, E. Breaking that down into two steps, ne involving a logical relation that relates programs in the source language to syntactic recurrences in the in the syntactic recurrence language, right, and that particular relation then, proved the fundamental theorem and its consequences the definition of that logic tells you that the cost component of the extracted syntactic recurrence is in fact a bound on the operational costs from the source programming language. And then also bound related to the result you get. 
-05:11:09 That bound then is... defined in terms of a notion of a size order in the recurrence language itself. And then you prove you actually have a model of the recurrence language. And those two together then glue together to tell you semantic recurrence you extract it looks like what we normally see on the board actually gives about the original program the as it turns the cost of the original program as well as it turns out, the size of the result. That size order what we use to acclimatize that recurrence language rather than equations, by a size ordering. He axioms on that size order tend to come to the come in a couple of flavors, some of them had to do with how the introductory and elimination forms for each type interact with each other. And others with the monotonicity of the size. And so its first kinds that are actually three a little bit interesting, that's where you say you actually start seeing things look a lot like Galois connections coming up there. And so, they basically end up playing the role of saying that the introduction form for a type operate for any given type essentially looks a lot like the abstraction function you would see in Galois onnection, whereas the elimination form ends up looking a lot like the concretization function, and that sort of makes sense when you think about it, because the whole point here is that you're really sort of trying to abstract away information about the original values in terms of the size sizes are sort of abstract descriptions of your original values. So the thing I want to talk a little bit about various various kind of models. Each data type counting up the number of main constructors in a value of that type. 
-05:12:55 And so how you count those up, maybe count up total numbers. 
-05:13:01 And maximum depth of constructors, and so that's one where you interpret... natural number with top, so you infinity element to take the maximums that show up in the definitions. 
-05:13:19 That's all well and fine. 
-05:13:20 But you if are say have in front of you a function that takes nat label tree, and adds up all the nat on the labels you are going to run into the trouble in the model. Not trouble it's going to give UT wrong result, it's perfectly fine model. If it's model of recurrence language, and re-Manitobaic recurrence in the solution is going to be abound by definition. The problem is with the setting you get bound of infinity for the cost. Yes, your program runs and its cost is utmost infinite and the result as it turns out will also have a balance of infinity. Yes, you do get a result of the size is utmost infinite, which is true, not necessarily most useful information might want. 
-05:14:14 Right, but you can define more complex models, where for example, you can count all of the constructors of all of them individually right so you interpret really every single datatype. As a function that maps all data types numbers with the intent being that INTERPS stay value of nat tree maps nat to say nat inductive type to maximum label size, and the number of nat trees itself to the number of nodes, tree nodes. 
-05:14:45 When you do that, and pain comes in. Fold has fairly similar looking interpretation, the big maximum we seen previously for heights here, now becomes being a big maximum and the values pointwise counters for all possible data types, and end up maximizing pointwise smaller things, so little paintful, and so if you are looking at summing up the labels on nat tree, you end up getting the same recurrence when you write these down informally. On the other hand, that's a bit of annoyance having that additional complexity if you do actually want to analyze functions that don't depend on the labels right because now you're sort of having to worry and especially in terms of the computation, you have to worry about all that information where the followed is defined. That comes up in particular, with polymorphic functions. Right where in fact you're your typical polymorphic function I'm going to switch to list instead of trees now. And should not depend on the label as all. And so what's going on there right in the model, both the two previous models I talked abouts about the interpretation of universal quantifiers for different product overall the all of the unquantified types, so there's there's no real problem doing that. Right. But then if you're looking at that all constructor model. When you want toreason about polymorphic function you said have to at least have to instantiate a person to tight to reason about the corresponding recurrence of that type, and is you're computing fold now over the complex pointwise descriptions of how many constructors you have of every single data type. 
-05:16:46 And what we'd really like is what we do informally when we say analyze a polymorphic LIS function we say we're just gonna analyze this in terms of the length away right if she'd be a function from numbers to numbers, even though we know we might have complex element types in particular and I'll point out that LMN there, looks very similar. It's not quite but it's very close to the standard interpretation of the quantifier, the universal quantifier you would get from that main constructor counting model there'd be an extra if dexing over all the small types but in every for every single type since you're just counting the number of main constructors, you would get numbers to numbers as the actual type. Can do that right, another model. In this case, model are you with merge them, and Galois connection, between the non quantified types of the main constructor and the constructor models right again you can think of just counting the number of main constraints are basically being essentially an abstract form of counting more abstract presentation then counting all the constructors, we can leverage that to get a non standard interpretation of universal constructor. In which case that we get now is that the small types are all interpreted with his very fine grained information that describes all the possible type, all the possible use of constructors and quantified types, interpreted using main constructors what ends up happening now. Really only have to consider examining folds at... we're now going to essentially say the value if interpreting analyzing function of alpha list, and interpreting value of type in this the model. 
-05:18:21 Type nat. And concretize that, and point WIES, counting everything again. And then, FASHTHs everything mapped to infinity, anything else showing up in the list. S have you as having a trivial bound on the size, why is that well it's because it was a polymorphic function in the first place. 
-05:18:50 And so we do that, then, for example, if we say take reverse like linear time.high ordered reverse function. What you end up with exactly the recurrences you expect when you're analyzing that informal way just by presupposing that it only depend on the length of the list. So let's go to basic stuff there's other stuff in the paper. And continuing to do on going work, and bit of bee in my bonnet right now, taking the same approach to understanding algorithms we reason a lot more abstracting, and analyzing happysort and going to sort a list assuming I have longtime happy implementation, And then I can analyze the sorting algorithm based on that, without thinking about the heap implementation. At the same time I didn't have to go off and analyze some heap implementation and reason about that separately. Alright, but that's real self and I'd be happy to take questions. .
+The closing talk of this session is by Norman Danner. 
+Speak about denotational semanticses as foundation for cost recurrence extraction for functional language. His is a GFP, presentation, it is accepted from a published paper in Journal of functional programming. The floor is yours. 
+>> NORMAN DANNER: So the primary goal of this particular paper is to look at sort of the informal way that we analyze algorithms, or given some sort of functional program, tend to, especially teaching say undergraduates, right, we look at the algorithm would basically write down a function on the board that looks a lot like the algorithm more or less, right, it's supposed to represent the cost in terms of the size of the input. And that's what we'll call cost recurrence, we write that down and then we go ahead and we solve it or come up with some sort of a closed form cetera. 
+And so the that I want to talk about is to try to use denotational semantics give a formal account of that sort of informal process of coming up with that cost recurrence. Not focusing on solving it directly, but coming up with the recurrence, where does it actually come from. Just to be clear, to set a line on that, not so much focusing on effectively building a better mousetrap and not trying to come up with techniques for more PL-based approaches to cost analysis, like ARA and other approaches, really just want to focus on giving a formal account of that informal process. So the big picture here starting off with some sort of source language, which for right now Call-by-Value version of ML which is data types and followed, and handle general recursion in other papers but the basic source language we're working with. And syntactic part, we do sort of a GIST translation into the writer monad to get what we call a syntactic recurrence and that's basically now call by name predicate of polymorphism I should have said when I think of call by name ml or call by value ml. Polymorphism. So extract that into form some form of a predicate of polymorphic lambda calculus and then hit with a model, interpret the recurrence in some sort of a denotational semantics, that's where we give this notion of size for he arguments of the original source program, and it's at that point we should start seeing the recurrences we should expect to see showing up. So example here right, let's say typical program for binary search tree membership testing, which is basically a tree fold as shown here. And let's focus on on counting say the number of recursive calls induced by that followed, the program we're starting with the goal to come up with the recurrence you would expect to see doing cost analysis for this. So first step translation into the writer monad that then translates a program type sigma into new program of type that I'll call cost and proterrible of sigma. 
+And type C there is cost type, which in the syntax is basically a type, and generally interpreted by numbers or something like that. And potential sigma is the other part there. And that's what we think of as type of potentials or sizes of usage cost of value type sigma in the original source language, so size is the right way to think about it, potential is the term that coauthor Jim L and I adopted a long time ago, and possibly poorly. So just to clarify does not directly have anything to do with potentials in amortized analysis, now we're really thinking about as potentialcosts of evaluating how might get used and contribute to cost. So in this case, since cost really explicit in the syntax here, we call that pair a complexity. But in the notation, I'll do E withcost being the pair, because it's easier to read. And basically what you expect as cost the translation you get from the binary search tree membership program, that is again a tree fold. And in this case, say you have a node, what are you going to do right, compared the two values again, and say the comparison comes out less than: 
+the cost, the as a result is basically, potential of the left hand recursive, that are 0. And recursive call there. And P is subscripts basically the projections on the pair, and cost of recursive function, and cost of comparison, and along with the cost for actually this particular unfolding of the fold. 
+So where this gets interesting is then when we interpret that syntactic recurrence there a model. So the goal in this case to analyze the binary search tree membership function in terms of height of argument in the first place, and want to model essentially interpreting by height. And interpret the empty constructor by 0, the node constructor as just adding one to the maximum of the interpretations of the subtrees right and that gives us an interpretation of feces. 
+Wherever tree is now interpreted by height. So doing that we still have to interpret fold as well in this model. And in this case, essentially interpreting fold over a height now. Because the tree argument is now just a number. So interpreting over the height is maximum over the branches and have to take the maximum, for the node branch, right, over in some sense all the possible heights one might encounter for the subtrees of a tree of height H, nd hence that's where that age zero Max H one is less than h coming through for that for that overall maximum. Also what do we do about that label. If we're talking relevant notion ofsize, the height of tree the LANLs are irrelevant right and so in fact it ends up working towards antics where we basically say well let's set that label value to essentially an infinite value. That infinity comes out of the fact that when you sort of dig into the details of defining these models, It's actually very convenient for to interpret all the types as complete lattices.o there is a top element and infinite infinity. And so in this case we're basically saying, I don't care about the size of the labels, r more accurately, I do this interpretation, when the label has size Atmos infinitely large, which can be anything. 
+So when we do that the interpretation of the original recurrence back here. Get exactly the recurrence you expect to get looking at original source program and stairing, and what we will get as recurrence, to describe the cost of program in terms of height of tree. And have to more or less maximize overall possible subtrees that have height smaller than H, that exactly what that recurrence is there. And this is giving the idea of flavour of what we expect to be coming out of this sort of program. 
+And so that's the basic structure. 
+And so... for all this to fly, we need to theorem that ties all this together and what does that boil down to. And we start doing syntactic translation, the vertical bars and bound on the denotation of the syntactic extraction of the original program, someone has to be a bound on the original cost of the program, E. Breaking that down into two steps, ne involving a logical relation that relates programs in the source language to syntactic recurrences in the in the syntactic recurrence language, right, and that particular relation then, proved the fundamental theorem and its consequences the definition of that logic tells you that the cost component of the extracted syntactic recurrence is in fact a bound on the operational costs from the source programming language. And then also bound related to the result you get. 
+That bound then is... defined in terms of a notion of a size order in the recurrence language itself. And then you prove you actually have a model of the recurrence language. And those two together then glue together to tell you semantic recurrence you extract it looks like what we normally see on the board actually gives about the original program the as it turns the cost of the original program as well as it turns out, the size of the result. That size order what we use to acclimatize that recurrence language rather than equations, by a size ordering. He axioms on that size order tend to come to the come in a couple of flavors, some of them had to do with how the introductory and elimination forms for each type interact with each other. And others with the monotonicity of the size. And so its first kinds that are actually three a little bit interesting, that's where you say you actually start seeing things look a lot like Galois connections coming up there. And so, they basically end up playing the role of saying that the introduction form for a type operate for any given type essentially looks a lot like the abstraction function you would see in Galois onnection, whereas the elimination form ends up looking a lot like the concretization function, and that sort of makes sense when you think about it, because the whole point here is that you're really sort of trying to abstract away information about the original values in terms of the size sizes are sort of abstract descriptions of your original values. So the thing I want to talk a little bit about various various kind of models. Each data type counting up the number of main constructors in a value of that type. 
+And so how you count those up, maybe count up total numbers. 
+And maximum depth of constructors, and so that's one where you interpret... natural number with top, so you infinity element to take the maximums that show up in the definitions. 
+That's all well and fine. 
+But you if are say have in front of you a function that takes nat label tree, and adds up all the nat on the labels you are going to run into the trouble in the model. Not trouble it's going to give UT wrong result, it's perfectly fine model. If it's model of recurrence language, and re-Manitobaic recurrence in the solution is going to be abound by definition. The problem is with the setting you get bound of infinity for the cost. Yes, your program runs and its cost is utmost infinite and the result as it turns out will also have a balance of infinity. Yes, you do get a result of the size is utmost infinite, which is true, not necessarily most useful information might want. 
+Right, but you can define more complex models, where for example, you can count all of the constructors of all of them individually right so you interpret really every single datatype. As a function that maps all data types numbers with the intent being that INTERPS stay value of nat tree maps nat to say nat inductive type to maximum label size, and the number of nat trees itself to the number of nodes, tree nodes. 
+When you do that, and pain comes in. Fold has fairly similar looking interpretation, the big maximum we seen previously for heights here, now becomes being a big maximum and the values pointwise counters for all possible data types, and end up maximizing pointwise smaller things, so little paintful, and so if you are looking at summing up the labels on nat tree, you end up getting the same recurrence when you write these down informally. On the other hand, that's a bit of annoyance having that additional complexity if you do actually want to analyze functions that don't depend on the labels right because now you're sort of having to worry and especially in terms of the computation, you have to worry about all that information where the followed is defined. That comes up in particular, with polymorphic functions. Right where in fact you're your typical polymorphic function I'm going to switch to list instead of trees now. And should not depend on the label as all. And so what's going on there right in the model, both the two previous models I talked abouts about the interpretation of universal quantifiers for different product overall the all of the unquantified types, so there's there's no real problem doing that. Right. But then if you're looking at that all constructor model. When you want toreason about polymorphic function you said have to at least have to instantiate a person to tight to reason about the corresponding recurrence of that type, and is you're computing fold now over the complex pointwise descriptions of how many constructors you have of every single data type. 
+And what we'd really like is what we do informally when we say analyze a polymorphic LIS function we say we're just gonna analyze this in terms of the length away right if she'd be a function from numbers to numbers, even though we know we might have complex element types in particular and I'll point out that LMN there, looks very similar. It's not quite but it's very close to the standard interpretation of the quantifier, the universal quantifier you would get from that main constructor counting model there'd be an extra if dexing over all the small types but in every for every single type since you're just counting the number of main constructors, you would get numbers to numbers as the actual type. Can do that right, another model. In this case, model are you with merge them, and Galois connection, between the non quantified types of the main constructor and the constructor models right again you can think of just counting the number of main constraints are basically being essentially an abstract form of counting more abstract presentation then counting all the constructors, we can leverage that to get a non standard interpretation of universal constructor. In which case that we get now is that the small types are all interpreted with his very fine grained information that describes all the possible type, all the possible use of constructors and quantified types, interpreted using main constructors what ends up happening now. Really only have to consider examining folds at... we're now going to essentially say the value if interpreting analyzing function of alpha list, and interpreting value of type in this the model. 
+Type nat. And concretize that, and point WIES, counting everything again. And then, FASHTHs everything mapped to infinity, anything else showing up in the list. S have you as having a trivial bound on the size, why is that well it's because it was a polymorphic function in the first place. 
+And so we do that, then, for example, if we say take reverse like linear time.high ordered reverse function. What you end up with exactly the recurrences you expect when you're analyzing that informal way just by presupposing that it only depend on the length of the list. So let's go to basic stuff there's other stuff in the paper. And continuing to do on going work, and bit of bee in my bonnet right now, taking the same approach to understanding algorithms we reason a lot more abstracting, and analyzing happysort and going to sort a list assuming I have longtime happy implementation, And then I can analyze the sorting algorithm based on that, without thinking about the heap implementation. At the same time I didn't have to go off and analyze some heap implementation and reason about that separately. Alright, but that's real self and I'd be happy to take questions. .
 
 ---
 
-05:19:38 [Applause] 
-05:19:52 >> Do we have short question before lunch, because the lunch is already served probably? 
-05:20:00 >> Yeah, I wanted to actually... discuss about logical relation stuff. But we can do that... 
-05:20:09 >> Okay. 
-05:20:09 >> Yes. 
-05:20:12 >> Okay, thank Norman again. 
-05:20:15 >> Let's have lunch. 
-05:20:17 >> Thank you. 
-05:20:18 [APPLAUSE] 
-05:20:23 >> And resume after lunch. 
+[Applause] 
+>> Do we have short question before lunch, because the lunch is already served probably? 
+>> Yeah, I wanted to actually... discuss about logical relation stuff. But we can do that... 
+>> Okay. 
+>> Yes. 
+>> Okay, thank Norman again. 
+>> Let's have lunch. 
+>> Thank you. 
+[APPLAUSE] 
+>> And resume after lunch. 
