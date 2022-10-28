@@ -46,7 +46,10 @@
 03:51:05 And we also stressed, results already in the literature. And predicate that we called scrutability that was called potential... actually a meaning predicate in Call-by-Value. 
 03:51:21 So in this work you get what? 
 03:51:24 There is an alternative to Plotkin calculus, value proposition calculus. 
-03:51:33 And Call-by-Value solvability in this framework comparable to Call-by-Value call by name vulnerability, that didn't seem to about the case before, but also the two notion, don't play the same role, one meaning predicate and the other one is not, there is typo there. And also semantics, is actually fine, because solvability fails to be predicate, shows that you need final notion, scrutability, so fact actually semantics is more interesting. And this was never pointed out before, that's it. Thank you. 
+03:51:33 And Call-by-Value solvability in this framework comparable to Call-by-Value call by name vulnerability, that didn't seem to about the case before, but also the two notion, don't play the same role, one meaning predicate and the other one is not, there is typo there. And also semantics, is actually fine, because solvability fails to be predicate, shows that you need final notion, scrutability, so fact actually semantics is more interesting. And this was never pointed out before, that's it. Thank you.
+
+---
+
 03:52:18 [Applause] 
 03:52:21 
 03:52:21 
@@ -64,7 +67,10 @@
 03:54:50 >> I would be very interested in the type system, but maybe we can take that offline, and we will take other questions offline for Beniamino's talk. 
 03:55:04 Thanks again. 
 03:55:05 >> Thank you very much! 
-03:55:07 [Applause] 
+03:55:07 [Applause]
+
+---
+
 03:55:11 >> The next speaker is Thomas Drab, and will present his work, and simple and efficient implementation call by need by abstract machine. When I come here, means you all have one or two minutes. 
 03:55:39 >> Thank you, hello my name is Tomasz Drab. And about simple efficient implementation by strong call by need. 
 03:55:56 As usually, I will start with motivating and explaining parts of the title. So first why call by need? 
@@ -123,7 +129,10 @@
 04:12:51 So to summarize we have implemented abstract machine that provably efficiently implements strong call by need. 
 04:13:04 Strategy, and it was done thanks to the functional programming. 
 04:13:09 Thank you for your attention. 
-04:13:11 And curious for your questions and comments. 
+04:13:11 And curious for your questions and comments.
+
+---
+
 04:13:14 [Applause] 
 04:13:23 >> Thank you, Thomasz. We have already a question. 
 04:13:35 >> Very nice work. 
@@ -146,7 +155,10 @@
 04:16:34 >> Thanks, do you hear me. 
 04:16:35 >> Thanks. 
 04:16:38 
-04:16:38 
+04:16:38
+
+---
+
 04:16:44 Okay, so it is joint work with Gilles and Ugo Dal Lago. 
 04:17:01 So what do we mean by programming with probable listies. And first thing, discrete PRABing. It's a program or system that at some point execution can make probable listic choice. So here for example. : 
 04:17:31 So it is discrete PRAB listic programming, continuous PRAB listic programming and in the talk... continuous PRAB listic programming. 
@@ -218,6 +230,9 @@
 04:34:10 And in a sense... while those things happen. And... the thing is that becomes unmeasurable relation. And... normal programs becomes nonmeasurable, and then you have all sorts of problems, and not able to show that... computed locally, that we can not even say, because the parameters LMPs, and etcetera. 
 04:34:50 And we're not even to say, okay, I'm going to consider a program that is not very deep, and I'm going to take a self contained fragment that contains is and compute simulation, and even that not of use. So here becomes very complicated. So to conclude. Contribution of this work, Full Abstraction result for applicative buy simulation, on higher order language with continuous probabilities, and new class of LMP where similarity, and equivalence coincid. And so... in future work. When seeing what's interesting. A little bit quick in the beginning when I talked about Bayesian language, and people want Bayesian knowledge, and I have knowledge, and I'm going to... we would like to extend that. And like also to do reasoning, and talk about applicative disstanceses. 
 04:36:16 And would like to have more knowledge on arbitrary primitive functions. 
+
+---
+
 04:36:27 [Applause] 
 04:36:42 Maybe I can ask you as far as I can see the language is untyped. 
 04:36:50 >> No it's not untyped. 
@@ -240,7 +255,10 @@
 04:39:20 >> But if you have nondeterministic, everything is worse than before. 
 04:39:26 So fuzzy bunching, with abilities. So working very, very preliminary way. 
 04:39:40 >> Thank you very much. Let's thank again. 
-04:39:44 [APPLAUSE] 
+04:39:44 [APPLAUSE]
+
+---
+
 04:39:50 >> The following speak R Ugo Dal Lago. 
 04:40:12 >> This is a join work with Beniamino, and Gabriele Vanoni. 
 04:40:18 And let's start talking about reasonable computational models. 
@@ -276,7 +294,10 @@
 04:56:12 So the theorem am, the main result, the closure type sound and complete methodology for evaluating the space. And namely every close term receive subtype, weight W, even though if the space consumption is precisely that weight. So contributions has shown that reasonable cost model, for the Lambda calculus can be reflected in two types, so that we give a compositional flavour to it. 
 04:56:50 The same thing can be said about the time cost of the space com which must be defined as low level time cost. Because, of course sometimes you have to copy environments, and from the point of view time can be problematic, and future and on going work is about first of all, the generalization of all data by Call-by-Value machines, and space time generalized by ready to provide value. And working on generalization closure types, and more interestingly, we are looking at type systems in which the idea of measuring the size of closures becomes a way to do complexity analysis. 
 04:57:40 And now of course you can't say that. Because, multitypes are not at all a way to do verification programs, because by design undecidable problem. 
-04:57:55 Thank you, very much. 
+04:57:55 Thank you, very much.
+
+---
+
 04:58:06 >> Thank you, we have time. 
 04:58:09 Can you please bring. 
 04:58:12 ... 
@@ -303,7 +324,10 @@
 05:01:54 >> Thank you. 
 05:01:58 >> Let's thanks again. 
 05:02:02 [Applause] 
-05:02:04 So for all questions, of course, coffee breaks, lunch breaks are a good opportunity. 
+05:02:04 So for all questions, of course, coffee breaks, lunch breaks are a good opportunity.
+
+---
+
 05:02:13 The closing talk of this session is by Norman Danner. 
 05:02:28 Speak about denotational semanticses as foundation for cost recurrence extraction for functional language. His is a GFP, presentation, it is accepted from a published paper in Journal of functional programming. The floor is yours. 
 05:02:49 >> NORMAN DANNER: So the primary goal of this particular paper is to look at sort of the informal way that we analyze algorithms, or given some sort of functional program, tend to, especially teaching say undergraduates, right, we look at the algorithm would basically write down a function on the board that looks a lot like the algorithm more or less, right, it's supposed to represent the cost in terms of the size of the input. And that's what we'll call cost recurrence, we write that down and then we go ahead and we solve it or come up with some sort of a closed form cetera. 
@@ -324,7 +348,10 @@
 05:14:45 When you do that, and pain comes in. Fold has fairly similar looking interpretation, the big maximum we seen previously for heights here, now becomes being a big maximum and the values pointwise counters for all possible data types, and end up maximizing pointwise smaller things, so little paintful, and so if you are looking at summing up the labels on nat tree, you end up getting the same recurrence when you write these down informally. On the other hand, that's a bit of annoyance having that additional complexity if you do actually want to analyze functions that don't depend on the labels right because now you're sort of having to worry and especially in terms of the computation, you have to worry about all that information where the followed is defined. That comes up in particular, with polymorphic functions. Right where in fact you're your typical polymorphic function I'm going to switch to list instead of trees now. And should not depend on the label as all. And so what's going on there right in the model, both the two previous models I talked abouts about the interpretation of universal quantifiers for different product overall the all of the unquantified types, so there's there's no real problem doing that. Right. But then if you're looking at that all constructor model. When you want toreason about polymorphic function you said have to at least have to instantiate a person to tight to reason about the corresponding recurrence of that type, and is you're computing fold now over the complex pointwise descriptions of how many constructors you have of every single data type. 
 05:16:46 And what we'd really like is what we do informally when we say analyze a polymorphic LIS function we say we're just gonna analyze this in terms of the length away right if she'd be a function from numbers to numbers, even though we know we might have complex element types in particular and I'll point out that LMN there, looks very similar. It's not quite but it's very close to the standard interpretation of the quantifier, the universal quantifier you would get from that main constructor counting model there'd be an extra if dexing over all the small types but in every for every single type since you're just counting the number of main constructors, you would get numbers to numbers as the actual type. Can do that right, another model. In this case, model are you with merge them, and Galois connection, between the non quantified types of the main constructor and the constructor models right again you can think of just counting the number of main constraints are basically being essentially an abstract form of counting more abstract presentation then counting all the constructors, we can leverage that to get a non standard interpretation of universal constructor. In which case that we get now is that the small types are all interpreted with his very fine grained information that describes all the possible type, all the possible use of constructors and quantified types, interpreted using main constructors what ends up happening now. Really only have to consider examining folds at... we're now going to essentially say the value if interpreting analyzing function of alpha list, and interpreting value of type in this the model. 
 05:18:21 Type nat. And concretize that, and point WIES, counting everything again. And then, FASHTHs everything mapped to infinity, anything else showing up in the list. S have you as having a trivial bound on the size, why is that well it's because it was a polymorphic function in the first place. 
-05:18:50 And so we do that, then, for example, if we say take reverse like linear time.high ordered reverse function. What you end up with exactly the recurrences you expect when you're analyzing that informal way just by presupposing that it only depend on the length of the list. So let's go to basic stuff there's other stuff in the paper. And continuing to do on going work, and bit of bee in my bonnet right now, taking the same approach to understanding algorithms we reason a lot more abstracting, and analyzing happysort and going to sort a list assuming I have longtime happy implementation, And then I can analyze the sorting algorithm based on that, without thinking about the heap implementation. At the same time I didn't have to go off and analyze some heap implementation and reason about that separately. Alright, but that's real self and I'd be happy to take questions. . 
+05:18:50 And so we do that, then, for example, if we say take reverse like linear time.high ordered reverse function. What you end up with exactly the recurrences you expect when you're analyzing that informal way just by presupposing that it only depend on the length of the list. So let's go to basic stuff there's other stuff in the paper. And continuing to do on going work, and bit of bee in my bonnet right now, taking the same approach to understanding algorithms we reason a lot more abstracting, and analyzing happysort and going to sort a list assuming I have longtime happy implementation, And then I can analyze the sorting algorithm based on that, without thinking about the heap implementation. At the same time I didn't have to go off and analyze some heap implementation and reason about that separately. Alright, but that's real self and I'd be happy to take questions. .
+
+---
+
 05:19:38 [Applause] 
 05:19:52 >> Do we have short question before lunch, because the lunch is already served probably? 
 05:20:00 >> Yeah, I wanted to actually... discuss about logical relation stuff. But we can do that... 
