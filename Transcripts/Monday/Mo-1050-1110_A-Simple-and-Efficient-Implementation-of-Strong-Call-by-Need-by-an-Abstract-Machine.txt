@@ -1,0 +1,58 @@
+Hello my name is Tomasz Drab. And about simple efficient implementation by strong call by need. 
+As usually, I will start with motivating and explaining parts of the title. So first why call by need? 
+So as we have seen already, we have two well known approaches in programming languages, evaluation orders call by name and Call-by-Value. And both have some advantages. 
+One of the advantages call by name, it doesn't evaluate unneeded arguments. While Call-by-Value gives us evaluation all arguments at most once. And we can join these two properties in call by need to evaluate only needed arguments, and at most once. 
+Okay. So now, let's proceed with "strong" why we are interested in strong reduction. 
+As an example let's consider church numerals, which is function, that applieses given function twice. And in arithmetic can implementment multiplication as function composition. And now let's try to compute 2 times 2. 
+In so called weak reduction, we can substitutes two 2's. And is it an answer? 
+Is it a result? 
+Because in weak reduction we can not go further. 
+Because what we call weak reduction, we don't reduce on the Lambdas and of course can do same for strong reduction, but strong reduction can go under Lambda. And in some extra steps under the Lambda F, we can normalize the whole term, and obtain a result that is equal to church numeral 4. Which is nice, I like it. But most importantly, full reduction is applied in type checking in proof assistance. 
+So now the question why efficient? 
+Is quite obvious question, we can focus on in what sense? 
+Efficient. 
+And we are interested in time complexity. Which depends on two parameters. The first one is: Size of initial term, and we should somehow depend on it, because we have to read the whole term if we want to formally normalize it. And second one is number of beta reductions we simulate number of beta reductions. 
+The term can even diverge, and it's hard to pay the whole cost of the computation with the size of initial term, and take the number of beta reductions into account. 
+And technically speaking, it was proposed to call efficient implementations, that are linear in both of the parameters. 
+Linear complexity quite good. 
+And would be efficient if linear in both of them. 
+And abstract machines are quite good tools to navigate the cost models complexity. 
+So if we take a look at abstract machines for strong call by need, we can find a description of full reducing strong call by need normalization in research report of Danvy, and then doctoral students and they describe how to derive such a machine and how it would work. And another one, abstract machine by... and demonstrated ICFP5 years ago. 
+But, both abstract machines I'm aware of suffer from exponential overhead in the complexity. 
+So would like to improve on that matter. So further plan of the presentation will be to show how to derive an efficient machine for strong call by need. 
+Technically speaking with the technical notion of efficiency, it's quazi efficient, because it's quasi linear in the size of initial term, but, still efficient, then we'll talk about correctness of this machine, and how we can say that it is strong call by need, and it's complexity analysis. And then I would like to remark on interesting, I think, aspects of our work. It is empirical approach. And employed in our analysis. 
+It is already my third talk, conference talk functional correspondence is a crucial tool to obtain, the result. 
+So we already put an online video of example of functional correspondence on the web, so I will just describe more or less how it works. 
+We can to define a language, for example, call by need evaluator, we can just write a program that executes this language. 
+But... then, some aspects of this defined language are hidden in the metalevel. It depends on meta-language, how it, for example, what is the evaluation order? 
+So to make it explicit we can do CPS translation of definitional interpreter, and then more visible to read. And then the same may not be obvious how we evaluate high order functions, so we can functionalize such an interpreter of defined language, and that was known, and that was described by John C. Reynolds in the 70's. And the next century, same team of Danvy elaborated on the process. And described it's a way to obtain an abstract machine from a functional code. 
+And we can also reverse the process, and construct and abstract machine, and change something in the code, and obtain other abstract machines. 
+And... more recently, Buska and Biernacki reached our linguistic technology with autoMIEization of process of machine construction. And so derivation of implement occasion of abstract machine worked. And implement... normal order strong call by name strategy, of Lambda calculus. 
+And we used the construction of the machine to functional code. 
+So we can take in our case rocket, and change something in that code to be more call by need. 
+So with added standard memoization technique and is added them on two levels. On the weak level of evaluation, and strong level of normal iSDATHS. 
+And applied other changes also, for example, getting -- brown indices and automatic construction we obtained the arcaarcangel abstraction machine. 
+And look at consist of 11 transition rules and it works on standard Lambda terms, and environment based. And sometimes environment passed by the machine. And also stuck to the evaluation con TESHGS, that will be more important later, and explicit store to deal with the memoization. 
+So in this form the interpreter is store passing intermenter. 
+So having abstract machine we can experiment with it, and observe it's computational steps empirically. And it gives us natural... one transition is a unit of complexity. But coming back to this picture now we can wonder what is this creature that it implementments. What is the strategy, we know we can do something arbitrarily stupid with the code. Or do something wiser, change strategy call by name to Call-by-Value. So what is it that RKNL implements. 
+I think the easier part is to observe that what we obtained conseratively extends already known abstract machine, which is weak but call by need abstract machine. 
+So we're happy with this by need component. 
+And now we could like to connect it with string strong. 
+So we have strong call by need. 
+And because then... we can have, we have strong call by need. And we have, if it's really implement, normal order. 
+And preserve that property. And to prove that, we used another abstract machine, which is of more theoretical than practical flavour. It's more explicit and has more invariance explicit for example the not just list of term. 
+But grammar used nonterminals. 
+And this provides every reduction step is done in left most outermost context that characterizes normal or the reduction. 
+And abstraction machines that traces our A-machine would have additional cost between neutral terms, and normal terms. And didn't want in practical machine, and store split into two stores, one with each memoization we added. 
+And let's summarize that thanks to this analysis of stack shapes, shape of evaluation context we knee this abstract machine implement also normal order strategy. 
+And the second part is complexity analysis. 
+That is done with potential function, inspired by Chris Okazaki and potential also persistent data structure, and designed to decrease with every step of computation. So these components connected with application decrease the number of steps to do by one. 
+And if we take a look at it again, and apply potential function, it decreases as we wanted on every transition rule, but one. 
+And the one remaining rule is this rule, responsible for beta reduction. 
+And it is a rule where potential increases, but we can balance the inequality with the potential of the initial term. 
+So... by these two properties of decrease and increase, we have the following theorem that the length of execution can be bounded by such a product. And we can also note that this bound is with respect to normal order reductions, so it also improves state of the art with normal order from quadratic to quasi by licenselicenselinear number of steps. 
+And implementation, we can count thethe itegers steps done, it is really reproducible in on other computers, and we can make some hypothesis, how many steps it takes, it is and can prove formulas. And other note size exSPLEGS problem named by Accattoli, and Dal Lago. And the this exponential overhead in abstract machines often comes from the fact that in n reductions. We can add term that is exponentially big in N, and our machine deals with it by mplicitly sharing references to the reused sub terms. So in the end, we have such a presentation, implicitly sharing potentially exponentially big terms. 
+So to summarize we have implemented abstract machine that provably efficiently implements strong call by need. 
+Strategy, and it was done thanks to the functional programming. 
+Thank you for your attention. 
+And curious for your questions and comments.
