@@ -1,0 +1,71 @@
+it is joint work with Gilles and Ugo Dal Lago. 
+So what do we mean by programming with probable listies. And first thing, discrete PRABing. It's a program or system that at some point execution can make probable listic choice. So here for example. : 
+So it is discrete PRAB listic programming, continuous PRAB listic programming and in the talk... continuous PRAB listic programming. 
+So more concretely. The program is able to sample from continuous distribution. 
+And then, primitive function... 
+So why do we want to do that. 
+It tells you to describe the behavior system, and those inherently uncertain, or are not able to describe them in enough details. 
+And so we has been a trend, in continuous programming, and... 
+which have been developed. And so interest in foundational side of continuous programming. 
+So concretely, if we look a little more formally, it means you take from the calculus, and if you want to add discrete, you have this here, this program is going to behave... and we want to do continuous you are going to add primitive sample, that will produce sampling, typically in uniform solution. 
+And. 
+Then function that dishly need to be measured. 
+And so the first program is how to define semantics. I hope you are still on me because I don't... okay, thanks. 
+So first, means if you have... 
+and then you have programs. 
+This here, and are going could converge to these programs. So from there, you have the continuous subprobability structure. It allows you to talk about distribution on your set of problems. And so now operational semantics it's distribution. 
+So essentially, in this tallic I'm going to consider weak semantics, and Call-by-Value. 
+And normal form functions... in the system. 
+And so what does it do? 
+It is going to sample, distribution. And obtains result. And here, using the functions. And then, this example here is interesting because it shows you that this program is going to transform the uniform solution here. And distribution which is essentially exponential distribution, and translated. 
+And so equation, and how starting from one continuous solution, and you can read all sorts from the solution. 
+And so now what do we do with the programs, we want to compare them. The idea is check with the two programs, are going to be the same no the maker...ish and here we can see... context equivalence, and see it's going to be program language. The definition, when for every context, the distribution you obtain when you plug them is the same. 
+And here, in the V context, C returns ground type. 
+And two examples, here: 
+So here explains symmetry. 
+Because you obtain the same, if you sample in the solution, or... so these terms will be equivalent, and here two nonequivalent programs. Because what you obtain here, is that you are going to first evaluate... when you are going to address the programs, you obtain solution, and to normal form. And here, you going going to obtain the solution. And if you... able to distinguish... 
+inside or outside. 
+So, the program... the definition, where accepts, program practice N when V context, and here it is proof these are... here, it is very... 
+So what we do is look at applicative buy similarity Abramsky. Express the semantics higher order programs and so how do we do that. 
+Two kind of states, programs, and normal forms, and two kind of action. And family of application action. For every abstraction and possible argument, do the substitution. 
+And you are going to say that binary relation R on programs is a bisimulation. And there and there, and two states. And so we take notion of equivalence. 
+And so this notion gave us notion equivalence and programs, and so now what do we know the relation between the equivalence, they just produced, and context. And the two coenside. 
+And you can do binary choice. 
+In call by name. You have one inclusion, but you don't have... 
+While... fully abstracting, Call-by-Value. 
+Another notion of equivalence. 
+So what that means, means the formula here, there it is formula that means...... 
+So two programs will be equivalent,. The interesting thing is that here you have equivalence LTS,. 
+So we use that... to show that you have this. 
+So first investigation, to show thatthat... and it's included... and then, question are we able to show the... natural way to do that... would be to be able to show that also equivalence, and bysimilarity side. 
+So, let's become a little bit more formal. 
+And so with the system with continued states. 
+So labelled Markov process. 
+And set of action, and for each action, the function is going to become probable listic of course, so that means for each action you are going to say, from each state, and for each measurable subset of the state, going to say what is probability when I start from the state to iarrive here. So an example is maybe more clear. So here is evaluation action for the program, so this program is going to give all this there. 
+And built uniformly distributed. 
+And how do we formalize that. 
+And so... there is no...... if I look, at the interval. Then I can express the probability here. 
+So can we look at this kind of system, and, see them coenside. 
+And the picture is little more complicated. If... with discrete probable listic, the state is discrete, and so... in this case, of course we have... 
+And now the problem is here the state is still analytical. 
+And now we have noncountable action space, because the value can be passed as argument. 
+And so on contains all values thus of the R. 
+And so not necessarily the case that they coenside. So what we would like to do is define class of LMP with uncountable action, and such that bi simulation, and able to put on particularly system there. And so A natural candidate, Panangaden et al. 
+Able to with labelwise continuous transition function, for every action, for every set of target states T the function. 
+And how able to do that. 
+And say, I can define a function from a noncould you tellable into another. Saying each state S, I'm going to fix an action, and set of arrest get states. So here function state to 0, 1. And continuous. For us doesn't work at all. And the system is not in this... the problem... is that, some action are going to be deterministic, you have already in normal form, and. 
+Preponderance probability to go from my state to T, 1. 
+If I change my parameter... to 0. And deterministic. 
+So what we do is we're going to keep the additional constraint here. 
+And going to push it a little with the idea we're going to... 
+on the solutions directly. 
+And so it is feller LMP. The function, state and action. And now, tells distribution. And standard notion of the structure. And can ask this function itself to be continuous. And if you look at thethe, we see that here it works. 
+... 
+
+
+So you see that in deed Feller continuous. And so the results like that. First, Feller continuous LMP, the state bisimulation, and logical equiver lens coincide. And the theorem, when we enforce continuity, and to close the loop in the sense, since, here we obtain equivalent of feller LMP. And. 
+Now, this was positive result. 
+... negative result if you want. What happens with possibly noncon tin nows primitive functions. And what we obtain is that they didn't cocoincide. 
+And in a sense... while those things happen. And... the thing is that becomes unmeasurable relation. And... normal programs becomes nonmeasurable, and then you have all sorts of problems, and not able to show that... computed locally, that we can not even say, because the parameters LMPs, and etcetera. 
+And we're not even to say, okay, I'm going to consider a program that is not very deep, and I'm going to take a self contained fragment that contains is and compute simulation, and even that not of use. So here becomes very complicated. So to conclude. Contribution of this work, Full Abstraction result for applicative buy simulation, on higher order language with continuous probabilities, and new class of LMP where similarity, and equivalence coincid. And so... in future work. When seeing what's interesting. A little bit quick in the beginning when I talked about Bayesian language, and people want Bayesian knowledge, and I have knowledge, and I'm going to... we would like to extend that. And like also to do reasoning, and talk about applicative disstanceses. 
+And would like to have more knowledge on arbitrary primitive functions. 
