@@ -1,0 +1,51 @@
+>> Thank you very much for a wonderful talk KC. A huge amount of work you put into this.
+Questions?
+>> Ron, well, whoever you get... you need an mic.
+>> Is it on?
+>> So you mentioned that one of the advantages you have is adding parallelism to a world that doesn't already have it and doesn't have a lot of expectation and make trade offs performance in exchange for safety, I'm curious what would be your best argument for going the other way, what are things we give up for having extra safety, and what is the rough size we're paying to get the extra safety.
+>> KC SIVARAMAKRISHNAN: I think safety is good. Don't want to compromise on safety ever.
+So that's been our theme.
+We could possibly have gone for memory model that is more lee laxed and makes it more complicated to reason about programs and data bases but we didn't, one nice aspect of OCaml is that it's so simple. So I think there is no argument of giving up on simple for performance.
+>> I guess to ask the question a different way, say you have eager C++ programmer in the organization, and following thing you want to do. What are the giving up in performance terms,terms, not questioning whether it's a good choice, more want to know what is the nature and size of the trade off.
+>> KC SIVARAMAKRISHNAN: Currently I think the big trade-off is uniform representation and overheads it brings in. Have to go through GC for reasonable code and I think people at Jane street working toward eliminating that. And once we have that and write code that have compact control over when things are allocated at that point don't think you will be giving up anything.
+>> So when I was first learning functioning programming, there was a standard contraryian view this was domain specific paradigm building compilerers and theorem provers and actually become more sympathetic to that view myself over time, your benchmark suite is dominated by those kinds of systems. What do you feel about the, the applicability of your abstraction outside of that domain, and what work have you done to support that kind of workload versus the broader interest or common kinds oprogramers that vast majority of programmers are write.
+>> KC SIVARAMAKRISHNAN: I think it's true we have benchmarking exist programs and looking at HTTP server, and large scale organization might care about.
+Large network service, microservices here we see very competitive against say Go or even Rust. We are getting there. Never wanted to focus on... it's always been Mirage set the trend for writing efficient services and do care about Mirage APS, part of the Mirage project, and uses components. So my answer would be we are thinking about those programs as well.
+But I don't know what...
+programs look like, so can't really answer.
+>> Do you feel it's clear HTTP server written with multicore OCaml looks nicer than HTTP server written in Go.
+>> Definitely compared to Rust.
+Go -- I think the difference is some abstraction of writing concurrent programs, rust you have separation between async and sync, and go through hoops, rust doesn't. And same thing with OCaml.
+>> Thanks.
+>> Hello. So you talking about the 7 years of maintaining separate branch that it took you. Anything that could have been done differently to get to OCaml faster maybe on your side, or on the side of the community?
+And for instance, could we look at what other communities are doing, like Haskell in terms of development what are your thoughts on that
+>> It's a good question. I think frankly we didn't know what we were doing.
+[Laughter] so I don't think we could have gotten faster, because we had built something and said, hey, backwards compatibility and had to reengineer this. I don't know if we would have gotten faster there. But if we had had more on going communication with say the upstream developers maybe could have agreed on something where the upstream smaller features. The trouble with doing that you would have say the overhead of this feature landing some time in the future, on a sequential runtime that doesn't offer the advantages of the feature. So now you don't have that, and so both the pro's and con's of doing that.
+... library that is there that doesn't live within the compiler. Hi, thanks for the great talk. Key step in the design is the observation that there aren't current parallel programs in OCaml, had to come up with design backwards compatibility with other existing programs. And what do you think is the biggest sacrifice made in that direction. We're going to have parallelism in 10 years and looking back we needed that for backwards compatibility at the time. But really annoying.
+Anything comes to mind.
+>> Really refreshing. Um...
+>> I think there is particularly HKS language features we could do without, things like lazy Val Tannen
+clear vaule, and expect lazy values, and have to raise the values being forced. I want one of them to pause and another one to just continue working and then make it up. It doesn't happen that way, when you have concurrent data forces it just says, I'm going to give up now.
+This is terrible, right when you have lazy values you want to optimize for that. There are possibly more examples like this, which would have just broken, and finalizer ephemerals. Yeah, so those are ephemeral, are terrible, right so if everyone's really useful.
+They are a wonderful mechanism for implementing exactly one thing, the fact that ephemerons mechanism CHIS in the language, we have to think about has to have multiple a synchronous faces. And we covered in ICFP 2020 paper. If we had the chance would thrown out ephemerons we hash tables as a primitive and the language, which is what we are going to do. But in order to get to that point, we had to have backwards compatibility. So a number of features I can rant about.
+>> You have mentioned that OCaml 5 will be okay for application that can tolerate about 10 milliseconds of laylaytenc, and how do you compare so milliseconds with Haskell, assuming everything else is roughly the same.
+>> I think Haskell has done the right thing now, and concurrent GC as well. If latency is what you care about. Haskell has two modes, GC, and I think it would be on par wouldn't be too far off in terms of if you want to tolerate 10 millisecond latency go for either one.
+>> Pass the microphone along to Simon.
+>> Thanks, and not just to tell the rest of the world, and expect been very clarifying for you and colleagues. And think, now we understand what we're trying to do. Big thumbs up for that. Just want to ask, you said doing parallel garbage collector you decided to stop the world for the minor collections you could bring threads to a stop very quickly if you did that. But messing with the allocation counter, and something that happens in GC, next bit trickier as some loops don't allocate at all. So, let's make sure that everything allocate and there's these some overhead associated with that.
+Isn't there.
+>> You can get around that.
+There it pull points in annotated groups, There is a very nice algorithm that was published in a paper back in the 90s, I think called balance pulling, you insert points on those points you don't have allocations. And implying that took multi-iterations for us, can talk offline, you have insertion points in nonallocating loops.
+>> That implies, extra complexity, and runtime overhead.
+>> Small overhead, and I would be very happy to talk to you.
+>> Everyone should read the paper including me.
+>> There is no paper for this one. There is PR I can point you at.
+[Laughter]
+>> A question... across there.
+>> KC congratulations on the very impressive piece of work the amount of projects that come together is staggering. My question is which part of the whole ecosystem are you most worried about when it comes to correctness. Coq, I think. Coq is a complicated implementation.
+And eventually what I want to do is make all of your Coq proofs go faster. I think there is a lot of magic in Coq, in terms of Coq does horrible things assuming how the heap is laid out and directly accessing things using unsafe mechanism and so on. So I think that's what I'm most worried about, but I think we'll get there.
+I think Coq developers really want to use this to speedup their proofs and have to work with them to get there.
+>> Very interesting. Thank you.
+A question toward the front here.
+>> KC fantastic talk. The OCaml memory model is probably one of the nicest memory models nowadays, for high level languages, I'm wonder what you think is the future.
+... right, everything can be mutated. Have to insert some additional fence. But in functional programming language you know which are mutable and which aren't, so only pay the cost for mutable location, yes, OCaml is wonderful but also need to be functional, and so should, immutability puts that into other languages, and say hey you have other benefits. Along with just being able to reason about your potential. .
+>> Okay heading to the coffee break now. Before thanking KC, like to point out he's also going to be expanding on this on the OCaml workshop on Friday morning, so if you want to hear more about the details of OCaml 5 go there. And yeah, let's thank KC again. [Applause]
